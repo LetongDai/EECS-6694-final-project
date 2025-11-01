@@ -34,7 +34,7 @@ class Agent:
 
       # Target actions and Q-values
       target_q = self.target_critic(torch.cat(next_obs, dim=1), torch.cat(next_acts, dim=1))
-      y = rewards + self.gamma * target_q.detach()
+      y = rewards + self.gamma * (1 - dones) * target_q.detach()
 
       # Critic update
       current_q = self.critic(torch.cat(obs, dim=1), torch.cat(acts, dim=1))
