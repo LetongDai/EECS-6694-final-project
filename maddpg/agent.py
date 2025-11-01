@@ -19,9 +19,9 @@ class Agent:
         self.critic_optimizer = torch.optim.Adam(self.critic.parameters(), lr=critic_lr)
 
         # initialization
-        self.update_targets(tau=tau)
-        self.gamma = 0.95
-        self.tau=0.05
+        self.polyak_avg()
+        self.gamma = gamma
+        self.tau = tau
 
     def polyak_avg(self):
         for target_param, param in zip(self.target_actor.parameters(), self.actor.parameters()):
