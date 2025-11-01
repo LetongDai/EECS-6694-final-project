@@ -6,7 +6,7 @@ import torch
 
 class ReplayBuffer:
     def __init__(self, capacity):
-        self.buffer = deque(maxlen=capacity)
+        self.buffer = deque(maxlen=int(capacity))
 
     def add(self, transition):
         self.buffer.append(transition)
@@ -14,7 +14,7 @@ class ReplayBuffer:
     def sample(self, batch_size):
         batch = random.sample(self.buffer, batch_size)
         sample = map(np.array, zip(*batch))
-        return map(torch.FloatTensor, sample)
+        return tuple(map(torch.FloatTensor, sample))
 
     def __len__(self):
         return len(self.buffer)
