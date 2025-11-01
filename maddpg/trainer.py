@@ -19,9 +19,9 @@ class Trainer:
 
   @torch.no_grad()
   def rollout(self, max_steps):
-    obs = envs.reset()
+    obs = self.envs.reset()
     for _ in range(max_steps):
-      acts = acts=np.array([agent(obs[:, i]) for i, agent in enumerate(self.agents)])
+      acts = np.array([agent.predict(obs[:, i]) for i, agent in enumerate(self.agents)])
       next_obs, rewards, dones = self.envs.step(acts)
       self.replay_buffer.add((obs, acts, rewards, next_obs, dones))
       obs = next_obs
@@ -29,7 +29,7 @@ class Trainer:
   def train_agents(self, rollout_steps, batch_size):
     self.rollout(rollout_steps)
     obs, acts, rewards, next_obs, dones = self.replay_buffer.sample(batch_size)
-    next_acts = torch.FloatTensor([agent(next_obs[:, i]) for i, agent in enumerate(self.agents)])
+    next_acts = torch.stack([agent.target_actor(next_obs[:, i]).detach() for i, agent in enumerate(self.agents)])
     sample = (obs, acts, rewards, next_obs, dones, next_acts)
     for i, agent in enumerate(self.agents):
       agent.train_on(sample, i)
