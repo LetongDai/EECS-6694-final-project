@@ -306,10 +306,16 @@ class MicrogridEnv:
     
     def _calculate_rewards(self, env_idx: int, auction_results: Dict, env_data: Dict) -> np.ndarray:
         """
-        Calculate rewards for all agents based on auction results
+        Calculate rewards for all agents with renewable energy incentives
+        
+        新能源激励设计：
+        - Wind/Solar: 基础利润 + 环保补贴 (RENEWABLE_SUBSIDY)
+        - Diesel: 基础利润 - 运营成本 - 碳税 (CARBON_TAX)
+        - Battery: 储能套利
+        - Customer: 总成本 - 绿色电力折扣 (GREEN_DISCOUNT)
         
         Returns:
-            rewards: [num_agents] numpy array
+            rewards: [num_agents] numpy array (normalized)
         """
         mg = self.microgrids[env_idx]
         clearing_price = auction_results['clearing_price']
@@ -317,57 +323,116 @@ class MicrogridEnv:
         
         rewards = np.zeros(self.num_agents)
         
-        # 1. Wind agent - profit from selling
+        # ========== 政策参数 ==========
+        # 可以调整这些参数来控制新能源激励强度
+        
+        RENEWABLE_SUBSIDY = 2.0      # 新能源补贴 (cents/kWh)
+                                    # 建议范围: 1.5-3.0
+                                    # 越高越鼓励新能源
+        
+        CARBON_TAX = 1.5             # 碳税/污染税 (cents/kWh)
+                                    # 建议范围: 1.0-2.5
+                                    # 越高越抑制传统能源
+        
+        GREEN_DISCOUNT = 0.3         # 绿色电力折扣系数
+                                    # 建议范围: 0.2-0.5
+                                    # Customer使用绿电的折扣率
+        
+        # ================================
+        
+        # 1. Wind agent - 清洁能源，获得利润 + 环保补贴
         wind_power = allocated.get('wind', 0)
         if wind_power > 0:
-            rewards[0] = wind_power * (clearing_price - 0) / 100.0  # Normalize
+            base_profit = wind_power * clearing_price
+            green_subsidy = wind_power * RENEWABLE_SUBSIDY  # 🌱 环保补贴
+            rewards[0] = (base_profit + green_subsidy) / 100.0
         
-        # 2. Solar agent - profit from selling
+        # 2. Solar agent - 清洁能源，获得利润 + 环保补贴
         solar_power = allocated.get('solar', 0)
         if solar_power > 0:
-            rewards[1] = solar_power * (clearing_price - 0) / 100.0
+            base_profit = solar_power * clearing_price
+            green_subsidy = solar_power * RENEWABLE_SUBSIDY  # 🌱 环保补贴
+            rewards[1] = (base_profit + green_subsidy) / 100.0
         
-        # 3. Diesel agent - profit minus cost
+        # 3. Diesel agent - 传统能源，利润 - 运营成本 - 碳税
         diesel_power = allocated.get('diesel', 0)
         if diesel_power > 0:
-            diesel_cost = 0.08  # cents/kWh
-            rewards[2] = diesel_power * (clearing_price - diesel_cost) / 100.0
+            base_profit = diesel_power * clearing_price
+            operation_cost = diesel_power * 0.08           # 运营成本
+            carbon_penalty = diesel_power * CARBON_TAX     # 🏭 碳税惩罚
+            rewards[2] = (base_profit - operation_cost - carbon_penalty) / 100.0
         
-        # 4. Battery agent - trading profit/cost
+        # 4. Battery agent - 储能套利，鼓励储存绿电
         battery_power = allocated.get('battery', 0)
         if battery_power > 0:  # Discharging (selling)
             discharge_cost = 0.15
             rewards[3] = battery_power * (clearing_price - discharge_cost) / 100.0
         elif battery_power < 0:  # Charging (buying)
             charge_cost = 0.05
-            rewards[3] = battery_power * (clearing_price + charge_cost) / 100.0  # Negative reward
+            rewards[3] = battery_power * (clearing_price + charge_cost) / 100.0
         
-        # 5. Customer agent - minimize cost and discomfort
+        # 5. Customer agent - 成本优化 + 使用绿色电力有折扣
         actual_demand = auction_results['actual_demand']
         curtailed = auction_results['curtailed_load']
-        electricity_cost = actual_demand * clearing_price / 100.0
-        discomfort_penalty = curtailed * 10.0 / 100.0  # Penalty for curtailment
-        rewards[4] = -(electricity_cost + discomfort_penalty)
-        if self.normalize_rewards:
-        # 更新统计信息
-            for i in range(self.num_agents):
-                self.reward_history[i].append(rewards[i])
-                # 保持最近1000个奖励的统计
-                if len(self.reward_history[i]) > 1000:
-                    self.reward_history[i].pop(0)
         
-        # 计算均值和标准差（避免除零）
-        if len(self.reward_history[0]) > 10:  # 至少10个样本
-            for i in range(self.num_agents):
-                self.reward_mean[i] = np.mean(self.reward_history[i])
-                self.reward_std[i] = np.std(self.reward_history[i]) + 1e-8
+        # 计算当前电力供应中的绿色能源比例
+        total_supply = wind_power + solar_power + diesel_power + max(0, battery_power)
+        green_ratio = (wind_power + solar_power) / max(total_supply, 1.0)
         
-        # 标准化：(r - mean) / std
-        rewards = (rewards - self.reward_mean) / self.reward_std
+        # 基础电费
+        base_cost = actual_demand * clearing_price
         
-        # 可选：裁剪到合理范围
-        rewards = np.clip(rewards, -10, 10)
+        # 🌱 绿色电力折扣：使用绿电越多，成本越低
+        green_discount = base_cost * green_ratio * GREEN_DISCOUNT
+        
+        # 缺电惩罚（需求未满足）
+        discomfort_penalty = curtailed * 10.0
+        
+        # Customer总成本（负值，越接近0越好）
+        total_cost = base_cost - green_discount + discomfort_penalty
+        rewards[4] = -total_cost / 100.0
+        
+        # ========== 奖励归一化 ==========
+        # 将Customer奖励缩小10倍，使其与其他agents量级相近
+        rewards[4] *= 0.1
+        
         return rewards
+
+
+# ============================================================================
+# 可选：添加绿色能源统计
+# ============================================================================
+
+    def _get_green_energy_stats(self, auction_results: Dict) -> Dict:
+        """
+        计算绿色能源统计指标
+        
+        Returns:
+            stats: {
+                'green_ratio': 绿色能源比例 (0-1),
+                'carbon_emissions': 碳排放量,
+                'renewable_power': 可再生能源总发电量
+            }
+        """
+        allocated = auction_results['allocated_power']
+        
+        wind_power = allocated.get('wind', 0)
+        solar_power = allocated.get('solar', 0)
+        diesel_power = allocated.get('diesel', 0)
+        battery_power = max(0, allocated.get('battery', 0))
+        
+        total_supply = wind_power + solar_power + diesel_power + battery_power
+        renewable_power = wind_power + solar_power
+        
+        green_ratio = renewable_power / max(total_supply, 1.0)
+        carbon_emissions = diesel_power * 0.5  # kg CO2 per kWh (假设)
+        
+        return {
+            'green_ratio': green_ratio,
+            'carbon_emissions': carbon_emissions,
+            'renewable_power': renewable_power,
+            'total_supply': total_supply,
+        }
     
     def _get_observation(self, env_idx: int, env_data: Dict, auction_results: Dict = None) -> np.ndarray:
         """
