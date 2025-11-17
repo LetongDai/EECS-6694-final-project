@@ -12,4 +12,4 @@ batch_size = 16
 if __name__ == "__main__":
   trainer = Trainer(envs, agents, obs_size, act_size)
   for i in range(epochs):
-    trainer.train_agents(self, rollout_steps, batch_size)
+    trainer.train_agents( rollout_steps, batch_size)
