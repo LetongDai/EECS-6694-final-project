@@ -1,0 +1,18 @@
+{
+  "timestamp": "2025-11-24T10:43:30.521505",
+  "model_info": {
+    "episode": 200,
+    "eval_reward": null
+  },
+  "training_progress": {
+    "total_episodes": 200,
+    "final_avg_reward": 30109.80785310547,
+    "best_reward": 51468.088625979224,
+    "worst_reward": -37819.28135375851,
+    "improvement": {
+      "early_avg": 5084.303153728903,
+      "late_avg": 31769.86536395317,
+      "percentage": 524.8617441438888
+    }
+  }
+}
