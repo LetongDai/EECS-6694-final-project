@@ -1,0 +1,4024 @@
+{
+  "num_episodes": 40,
+  "avg_total_reward": 1642.4225919863275,
+  "avg_rewards_per_agent": [
+    1655.0365117338813,
+    62.79360967802203,
+    90.4828184939577,
+    0.0,
+    -165.89034791953353
+  ],
+  "avg_wind_energy": 329.0331037244297,
+  "avg_solar_energy": 12.48381902147555,
+  "avg_diesel_energy": 18.484743308265106,
+  "avg_battery_energy": 0.0,
+  "avg_actual_demand": 360.00166605417036,
+  "avg_curtailed_load": 1564.2818768547263,
+  "avg_grid_import": 0.0,
+  "avg_grid_export": 8.881784197001253e-17,
+  "avg_clearing_price": 5.0,
+  "config": {},
+  "exp_name": "auction_logged_20251124_154937",
+  "all_episodes": [
+    {
+      "episode": 1,
+      "total_reward": 10738.416285363717,
+      "rewards_per_agent": [
+        9046.656023643618,
+        1775.3749232799728,
+        0.0,
+        7.3935514029274225,
+        -91.0082129628015
+      ],
+      "wind_energy": 1114.656172718986,
+      "solar_energy": 212.333367611364,
+      "diesel_energy": 0.0,
+      "battery_energy": 94.18081939220428,
+      "avg_clearing_price": 7.992439433777084,
+      "avg_actual_demand": 1930.3543077231488,
+      "avg_curtailed_load": 0.12400724180027112,
+      "avg_grid_import": 509.1839480005941,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 2,
+      "total_reward": 11919.868981488886,
+      "rewards_per_agent": [
+        10366.106859577818,
+        1638.2770313258277,
+        0.0,
+        7.907815379537801,
+        -92.4227247942985
+      ],
+      "wind_energy": 1212.4250497218118,
+      "solar_energy": 183.36368455173633,
+      "diesel_energy": 0.0,
+      "battery_energy": 93.8931256532669,
+      "avg_clearing_price": 8.55955133602644,
+      "avg_actual_demand": 1904.8953822676558,
+      "avg_curtailed_load": 0.2258784256826516,
+      "avg_grid_import": 415.21352234084077,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 3,
+      "total_reward": 10250.188266624582,
+      "rewards_per_agent": [
+        8143.023652942436,
+        2190.128282921289,
+        0.0,
+        7.990820251838823,
+        -90.95448949098216
+      ],
+      "wind_energy": 999.8965936948866,
+      "solar_energy": 226.8745182669171,
+      "diesel_energy": 0.0,
+      "battery_energy": 94.00782361626625,
+      "avg_clearing_price": 8.61122595864193,
+      "avg_actual_demand": 1862.301225798552,
+      "avg_curtailed_load": 0.18092133249529851,
+      "avg_grid_import": 541.5222902204823,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 4,
+      "total_reward": 9441.067654762866,
+      "rewards_per_agent": [
+        7903.191135717249,
+        1619.7143251737364,
+        0.0,
+        7.301470340635653,
+        -89.13927646875601
+      ],
+      "wind_energy": 1082.0350359652234,
+      "solar_energy": 200.83116302415445,
+      "diesel_energy": 0.0,
+      "battery_energy": 94.09998394548893,
+      "avg_clearing_price": 7.870939253674199,
+      "avg_actual_demand": 1944.3539756705222,
+      "avg_curtailed_load": 0.19581937888376189,
+      "avg_grid_import": 567.3877927356555,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 5,
+      "total_reward": 12554.8053296716,
+      "rewards_per_agent": [
+        11053.129050147794,
+        1582.9778245304421,
+        0.0,
+        7.341496932247773,
+        -88.64304193888418
+      ],
+      "wind_energy": 1357.2975052022684,
+      "solar_energy": 200.43611009444334,
+      "diesel_energy": 0.0,
+      "battery_energy": 94.40757222473621,
+      "avg_clearing_price": 7.898112860081407,
+      "avg_actual_demand": 1961.1792985995762,
+      "avg_curtailed_load": 0.15825369614260154,
+      "avg_grid_import": 309.0381110781284,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 6,
+      "total_reward": 10069.833745000094,
+      "rewards_per_agent": [
+        8361.686469298627,
+        1796.9684071005258,
+        0.0,
+        7.976327199594405,
+        -96.79745859865244
+      ],
+      "wind_energy": 1045.456888094499,
+      "solar_energy": 192.30341033487503,
+      "diesel_energy": 0.0,
+      "battery_energy": 94.11555267870426,
+      "avg_clearing_price": 8.602427763932306,
+      "avg_actual_demand": 1930.5452765988434,
+      "avg_curtailed_load": 0.1433152599893326,
+      "avg_grid_import": 598.6694254907652,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 7,
+      "total_reward": 10115.962540225835,
+      "rewards_per_agent": [
+        8486.31484404725,
+        1704.9039892900162,
+        0.0,
+        6.897783794733493,
+        -82.15407690616547
+      ],
+      "wind_energy": 1215.8762097057356,
+      "solar_energy": 230.2665264443878,
+      "diesel_energy": 0.0,
+      "battery_energy": 94.11399103701115,
+      "avg_clearing_price": 7.40311089825506,
+      "avg_actual_demand": 1915.6678405645798,
+      "avg_curtailed_load": 0.15742502732035746,
+      "avg_grid_import": 375.4111133774454,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 8,
+      "total_reward": 10782.88546262069,
+      "rewards_per_agent": [
+        9182.195116860468,
+        1677.6241872786486,
+        0.0,
+        7.02265999014747,
+        -83.95650150857453
+      ],
+      "wind_energy": 1204.5966537994977,
+      "solar_energy": 249.26522498449162,
+      "diesel_energy": 0.0,
+      "battery_energy": 94.01958994567394,
+      "avg_clearing_price": 7.612001605254288,
+      "avg_actual_demand": 1897.0839326306186,
+      "avg_curtailed_load": 0.16740642965359953,
+      "avg_grid_import": 349.2024639009553,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 9,
+      "total_reward": 9801.945973469636,
+      "rewards_per_agent": [
+        7984.965265358844,
+        1897.6467734899554,
+        0.0,
+        7.45700889082968,
+        -88.12307426999378
+      ],
+      "wind_energy": 1024.8821455777652,
+      "solar_energy": 258.76735896503783,
+      "diesel_energy": 0.0,
+      "battery_energy": 93.99890378117561,
+      "avg_clearing_price": 8.02459998827544,
+      "avg_actual_demand": 1876.7737044710975,
+      "avg_curtailed_load": 0.0971241979414259,
+      "avg_grid_import": 499.12529614711895,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 10,
+      "total_reward": 11320.828347342493,
+      "rewards_per_agent": [
+        9611.582593753847,
+        1791.0753612695762,
+        0.0,
+        7.2114783840383385,
+        -89.04108606496935
+      ],
+      "wind_energy": 1215.1394318681387,
+      "solar_energy": 216.99205630576404,
+      "diesel_energy": 0.0,
+      "battery_energy": 94.03320103883743,
+      "avg_clearing_price": 7.782153407655035,
+      "avg_actual_demand": 1963.179290905694,
+      "avg_curtailed_load": 0.19537634229463663,
+      "avg_grid_import": 437.01460169295353,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 11,
+      "total_reward": 13793.771986098942,
+      "rewards_per_agent": [
+        11452.668157313155,
+        2412.73094054932,
+        19.070550861089913,
+        6.252212997591098,
+        -96.94987562221448
+      ],
+      "wind_energy": 1325.3251692667945,
+      "solar_energy": 233.64158244428864,
+      "diesel_energy": 1.387512723287556,
+      "battery_energy": 61.20769186847687,
+      "avg_clearing_price": 8.546911425029618,
+      "avg_actual_demand": 1856.7846445774185,
+      "avg_curtailed_load": 57.438245068294606,
+      "avg_grid_import": 235.22268827457123,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 12,
+      "total_reward": 14734.877286972956,
+      "rewards_per_agent": [
+        11460.70406061319,
+        2985.126230879444,
+        397.34749485236443,
+        10.742632846073944,
+        -119.04313221811765
+      ],
+      "wind_energy": 1143.8154764205428,
+      "solar_energy": 241.82186564920903,
+      "diesel_energy": 23.35498075010878,
+      "battery_energy": 100.0,
+      "avg_clearing_price": 10.46505051374625,
+      "avg_actual_demand": 1894.4465086647315,
+      "avg_curtailed_load": 52.30117299628017,
+      "avg_grid_import": 385.4541858448706,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 13,
+      "total_reward": 14863.4774411021,
+      "rewards_per_agent": [
+        11489.242088126774,
+        2936.1117286932617,
+        552.725413243475,
+        9.255815265946952,
+        -123.85760422735748
+      ],
+      "wind_energy": 1126.0734215770085,
+      "solar_energy": 251.72486348888174,
+      "diesel_energy": 53.339015199976046,
+      "battery_energy": 73.07782436571125,
+      "avg_clearing_price": 10.390276124256475,
+      "avg_actual_demand": 1884.8799728879633,
+      "avg_curtailed_load": 63.36264258349996,
+      "avg_grid_import": 380.6648482563859,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 14,
+      "total_reward": 15929.587070086287,
+      "rewards_per_agent": [
+        11585.034808657263,
+        2961.1271141921748,
+        1514.186321099251,
+        8.464340470004217,
+        -139.22551433240545
+      ],
+      "wind_energy": 1102.0105464749126,
+      "solar_energy": 246.70064745806485,
+      "diesel_energy": 107.69319314186916,
+      "battery_energy": 62.29759964368422,
+      "avg_clearing_price": 11.55821888004346,
+      "avg_actual_demand": 1759.3906620639336,
+      "avg_curtailed_load": 171.17915880966143,
+      "avg_grid_import": 240.68867534540288,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 15,
+      "total_reward": 17868.81016764026,
+      "rewards_per_agent": [
+        10487.79624228166,
+        2965.4406752075347,
+        4594.411774138582,
+        16.066458483834516,
+        -194.90498247135062
+      ],
+      "wind_energy": 765.1592748056929,
+      "solar_energy": 194.7189075610416,
+      "diesel_energy": 303.00584208106693,
+      "battery_energy": 99.99999999999999,
+      "avg_clearing_price": 14.626591933797911,
+      "avg_actual_demand": 1648.9551704153819,
+      "avg_curtailed_load": 258.255494980182,
+      "avg_grid_import": 286.07114596758026,
+      "avg_grid_export": 3.552713678800501e-15
+    },
+    {
+      "episode": 16,
+      "total_reward": 26844.674320650367,
+      "rewards_per_agent": [
+        13673.426366031224,
+        2612.7379028385762,
+        10791.88715795262,
+        20.609187546651167,
+        -253.9862937187078
+      ],
+      "wind_energy": 729.1993825818907,
+      "solar_energy": 143.90077451195395,
+      "diesel_energy": 610.2499186296627,
+      "battery_energy": 100.0,
+      "avg_clearing_price": 17.78301166148943,
+      "avg_actual_demand": 1661.3677604774957,
+      "avg_curtailed_load": 281.3951561268592,
+      "avg_grid_import": 78.017684753988,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 17,
+      "total_reward": 37204.64951580535,
+      "rewards_per_agent": [
+        11538.087460239754,
+        4811.5451946453495,
+        21190.181769834813,
+        22.88666882077002,
+        -358.0515777353363
+      ],
+      "wind_energy": 459.23500909231063,
+      "solar_energy": 193.05847399451164,
+      "diesel_energy": 899.2297982590889,
+      "battery_energy": 100.0,
+      "avg_clearing_price": 23.405308928392483,
+      "avg_actual_demand": 1761.2336836683828,
+      "avg_curtailed_load": 188.5732007434536,
+      "avg_grid_import": 109.71040232247177,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 18,
+      "total_reward": 50203.542067979346,
+      "rewards_per_agent": [
+        8571.51599759472,
+        9282.421897725688,
+        32815.587911011426,
+        28.693274437286362,
+        -494.677012789773
+      ],
+      "wind_energy": 279.05342085521875,
+      "solar_energy": 294.5590007910667,
+      "diesel_energy": 1110.2802734483616,
+      "battery_energy": 99.99999999999999,
+      "avg_clearing_price": 29.822797087154285,
+      "avg_actual_demand": 1928.265672550741,
+      "avg_curtailed_load": 28.605462652485855,
+      "avg_grid_import": 144.37297745609402,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 19,
+      "total_reward": 63287.52510931984,
+      "rewards_per_agent": [
+        21057.752843853992,
+        10689.854680351764,
+        32034.144430632456,
+        32.48852110027966,
+        -526.7153666186531
+      ],
+      "wind_energy": 590.7594587114909,
+      "solar_energy": 312.20624395734495,
+      "diesel_energy": 905.1670770302148,
+      "battery_energy": 100.0,
+      "avg_clearing_price": 34.9771964472614,
+      "avg_actual_demand": 1944.3779010113117,
+      "avg_curtailed_load": 0.0,
+      "avg_grid_import": 36.24512131226088,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 20,
+      "total_reward": 75174.53430764939,
+      "rewards_per_agent": [
+        25317.771474882127,
+        14209.536074416803,
+        36213.39669499697,
+        39.233224514776545,
+        -605.4031611612739
+      ],
+      "wind_energy": 618.6495479491298,
+      "solar_energy": 343.59880724529285,
+      "diesel_energy": 874.3262163023392,
+      "battery_energy": 99.99999999999999,
+      "avg_clearing_price": 40.835660159077186,
+      "avg_actual_demand": 1950.0109645921757,
+      "avg_curtailed_load": 0.0,
+      "avg_grid_import": 13.436393095414083,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 21,
+      "total_reward": 74201.00905944884,
+      "rewards_per_agent": [
+        32113.90381874921,
+        13770.66582359213,
+        28856.081604015322,
+        44.48530909319082,
+        -584.1274960010104
+      ],
+      "wind_energy": 752.9685930842238,
+      "solar_energy": 333.32684790933274,
+      "diesel_energy": 663.8924781412541,
+      "battery_energy": 100.0,
+      "avg_clearing_price": 42.50503758772378,
+      "avg_actual_demand": 1896.9208300570717,
+      "avg_curtailed_load": 0.0,
+      "avg_grid_import": 46.7329109222612,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 22,
+      "total_reward": 77385.1016646604,
+      "rewards_per_agent": [
+        31052.54792176434,
+        13695.601985099413,
+        33211.05886943097,
+        42.16773433937955,
+        -616.2748459736989
+      ],
+      "wind_energy": 708.8634542333111,
+      "solar_energy": 322.1703863389153,
+      "diesel_energy": 760.3419392994929,
+      "battery_energy": 100.0,
+      "avg_clearing_price": 42.95462047891869,
+      "avg_actual_demand": 1931.7692029073573,
+      "avg_curtailed_load": 0.0,
+      "avg_grid_import": 40.39342303563818,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 23,
+      "total_reward": 76654.51644722966,
+      "rewards_per_agent": [
+        34429.64739641099,
+        13559.006993539142,
+        29198.420890545014,
+        39.77933771253662,
+        -572.3381709780261
+      ],
+      "wind_energy": 781.512009661416,
+      "solar_energy": 317.457551909807,
+      "diesel_energy": 682.0931852613055,
+      "battery_energy": 100.0,
+      "avg_clearing_price": 42.769365497226325,
+      "avg_actual_demand": 1881.0627468325283,
+      "avg_curtailed_load": 0.0,
+      "avg_grid_import": 1.4210854715202004e-14,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 24,
+      "total_reward": 78819.75715946633,
+      "rewards_per_agent": [
+        22389.88289693649,
+        14187.901456610116,
+        42872.52709887652,
+        38.8550370781151,
+        -669.4093300349214
+      ],
+      "wind_energy": 511.3827904573929,
+      "solar_energy": 334.9762749793197,
+      "diesel_energy": 1010.3479634070964,
+      "battery_energy": 100.0,
+      "avg_clearing_price": 42.27860617092086,
+      "avg_actual_demand": 1995.062737611342,
+      "avg_curtailed_load": 0.0,
+      "avg_grid_import": 38.35570876753276,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 25,
+      "total_reward": 76627.04180777307,
+      "rewards_per_agent": [
+        28051.585356949898,
+        13727.844763650817,
+        35439.20278852197,
+        42.811779507716295,
+        -634.4028808573223
+      ],
+      "wind_energy": 634.3870467275458,
+      "solar_energy": 325.30588243019565,
+      "diesel_energy": 801.2031893891995,
+      "battery_energy": 100.0,
+      "avg_clearing_price": 43.31808290221892,
+      "avg_actual_demand": 1919.869236436426,
+      "avg_curtailed_load": 0.0,
+      "avg_grid_import": 58.973117889485295,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 26,
+      "total_reward": 75590.7863387103,
+      "rewards_per_agent": [
+        36324.03099818914,
+        12631.227627224209,
+        27167.33078850708,
+        42.21922101818588,
+        -574.0222962283214
+      ],
+      "wind_energy": 823.479111059265,
+      "solar_energy": 304.1504043802232,
+      "diesel_energy": 612.8417958137175,
+      "battery_energy": 100.0,
+      "avg_clearing_price": 43.3745410871451,
+      "avg_actual_demand": 1872.498425741931,
+      "avg_curtailed_load": 0.0,
+      "avg_grid_import": 32.02711448872495,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 27,
+      "total_reward": 76279.36957334587,
+      "rewards_per_agent": [
+        26566.48449314901,
+        13756.962293648814,
+        36550.847061820474,
+        42.16018373715579,
+        -637.0844590095763
+      ],
+      "wind_energy": 591.8694328267735,
+      "solar_energy": 319.98977226856806,
+      "diesel_energy": 818.5250866368203,
+      "battery_energy": 100.0,
+      "avg_clearing_price": 43.939878536377385,
+      "avg_actual_demand": 1889.2254100309638,
+      "avg_curtailed_load": 0.0,
+      "avg_grid_import": 58.84111829880159,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 28,
+      "total_reward": 78793.45067691586,
+      "rewards_per_agent": [
+        24468.936671575506,
+        13592.2212473969,
+        41336.9841820459,
+        43.041525615323536,
+        -647.7329497177669
+      ],
+      "wind_energy": 549.3555664638757,
+      "solar_energy": 321.913891352384,
+      "diesel_energy": 949.8900412413691,
+      "battery_energy": 100.0,
+      "avg_clearing_price": 42.99723115579533,
+      "avg_actual_demand": 1921.3242831592129,
+      "avg_curtailed_load": 0.0,
+      "avg_grid_import": 0.16478410158384804,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 29,
+      "total_reward": 78586.1163584345,
+      "rewards_per_agent": [
+        38148.09514715524,
+        12932.620803661055,
+        28061.99949147234,
+        43.29615935837781,
+        -599.8952432125145
+      ],
+      "wind_energy": 865.9726606926974,
+      "solar_energy": 307.2208667668715,
+      "diesel_energy": 618.7101058707019,
+      "battery_energy": 100.0,
+      "avg_clearing_price": 43.592002166986845,
+      "avg_actual_demand": 1938.4559308798252,
+      "avg_curtailed_load": 0.0,
+      "avg_grid_import": 46.55229754955434,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 30,
+      "total_reward": 78921.72874778685,
+      "rewards_per_agent": [
+        35099.111718602566,
+        13644.603110030062,
+        30730.655889718786,
+        42.78136359139955,
+        -595.4233341559795
+      ],
+      "wind_energy": 793.7438134475321,
+      "solar_energy": 323.53591488532544,
+      "diesel_energy": 701.0423191905282,
+      "battery_energy": 100.0,
+      "avg_clearing_price": 43.4745106214431,
+      "avg_actual_demand": 1920.7186370378508,
+      "avg_curtailed_load": 0.0,
+      "avg_grid_import": 2.39658951446485,
+      "avg_grid_export": 7.105427357601002e-15
+    },
+    {
+      "episode": 31,
+      "total_reward": 72656.99760007809,
+      "rewards_per_agent": [
+        27797.359661273236,
+        12809.166191878356,
+        32601.58668020885,
+        40.204538510287236,
+        -591.319471792642
+      ],
+      "wind_energy": 659.475992879282,
+      "solar_energy": 301.9555059419349,
+      "diesel_energy": 773.679757249058,
+      "battery_energy": 100.0,
+      "avg_clearing_price": 41.95105848534384,
+      "avg_actual_demand": 1886.744645571839,
+      "avg_curtailed_load": 0.0,
+      "avg_grid_import": 51.63338950156427,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 32,
+      "total_reward": 77146.77686998146,
+      "rewards_per_agent": [
+        26895.845606918207,
+        14328.630059690517,
+        36500.79660023902,
+        38.23966556622959,
+        -616.7350624324986
+      ],
+      "wind_energy": 608.5044412091434,
+      "solar_energy": 325.0879244932176,
+      "diesel_energy": 835.2383392422632,
+      "battery_energy": 100.0,
+      "avg_clearing_price": 43.70179989802737,
+      "avg_actual_demand": 1883.5292470493291,
+      "avg_curtailed_load": 0.0,
+      "avg_grid_import": 14.698542104705254,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 33,
+      "total_reward": 78877.47506075131,
+      "rewards_per_agent": [
+        37419.65071732358,
+        14151.00565639769,
+        27848.568096846975,
+        43.371832177583464,
+        -585.1212419945123
+      ],
+      "wind_energy": 861.4662074217385,
+      "solar_energy": 329.1914753581509,
+      "diesel_energy": 625.1030315222871,
+      "battery_energy": 99.99999999999999,
+      "avg_clearing_price": 43.50472090561427,
+      "avg_actual_demand": 1925.4453141493227,
+      "avg_curtailed_load": 8.17596105277265,
+      "avg_grid_import": 9.684599847146131,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 34,
+      "total_reward": 58609.94382669054,
+      "rewards_per_agent": [
+        23502.499609030165,
+        13319.684932378263,
+        22238.19801123873,
+        26.528468088007216,
+        -476.9671940446128
+      ],
+      "wind_energy": 540.8202114457272,
+      "solar_energy": 315.43865221416513,
+      "diesel_energy": 532.1787069558468,
+      "battery_energy": 100.0,
+      "avg_clearing_price": 41.18270697815792,
+      "avg_actual_demand": 1506.4671747847865,
+      "avg_curtailed_load": 347.3171792805193,
+      "avg_grid_import": 18.02960416904743,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 35,
+      "total_reward": 41876.31537597142,
+      "rewards_per_agent": [
+        16067.406692594484,
+        9619.646473415474,
+        16557.610610008618,
+        23.56186540421829,
+        -391.91026545137976
+      ],
+      "wind_energy": 367.698402896216,
+      "solar_energy": 295.3834812163053,
+      "diesel_energy": 394.5821976177815,
+      "battery_energy": 100.0,
+      "avg_clearing_price": 37.28506322988792,
+      "avg_actual_demand": 1157.6640817303028,
+      "avg_curtailed_load": 739.4217909214369,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 36,
+      "total_reward": 25956.4034732194,
+      "rewards_per_agent": [
+        14340.847093303322,
+        9102.855620256709,
+        2774.057733847379,
+        12.720564222215597,
+        -274.0775384102204
+      ],
+      "wind_energy": 328.62538837510465,
+      "solar_energy": 271.11101823931676,
+      "diesel_energy": 63.08310590404261,
+      "battery_energy": 100.0,
+      "avg_clearing_price": 34.21541133057134,
+      "avg_actual_demand": 762.819512518464,
+      "avg_curtailed_load": 1163.4160648152383,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 37,
+      "total_reward": 12588.538378969015,
+      "rewards_per_agent": [
+        6750.1750771583465,
+        3263.7156891177483,
+        2792.073147837585,
+        17.4471329607068,
+        -234.87266810537287
+      ],
+      "wind_energy": 157.5498216053597,
+      "solar_energy": 194.06158959097976,
+      "diesel_energy": 66.62149510969145,
+      "battery_energy": 100.0,
+      "avg_clearing_price": 25.099107688725763,
+      "avg_actual_demand": 518.2329063060309,
+      "avg_curtailed_load": 1393.3813897672399,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 38,
+      "total_reward": 6847.835341370263,
+      "rewards_per_agent": [
+        1359.7167686646821,
+        3287.5497961365754,
+        2405.3319830962732,
+        5.589592922868902,
+        -210.35279945013616
+      ],
+      "wind_energy": 31.900081972542594,
+      "solar_energy": 150.59782659345012,
+      "diesel_energy": 58.37471568867416,
+      "battery_energy": 100.0,
+      "avg_clearing_price": 22.074351651359063,
+      "avg_actual_demand": 340.8726242546669,
+      "avg_curtailed_load": 1573.5963510711003,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 39,
+      "total_reward": 270.9377678723722,
+      "rewards_per_agent": [
+        194.53326811912493,
+        253.41621059147357,
+        0.0,
+        8.149672854069207,
+        -185.16138369229546
+      ],
+      "wind_energy": 4.32008145945203,
+      "solar_energy": 50.380956380014624,
+      "diesel_energy": 0.0,
+      "battery_energy": 100.0,
+      "avg_clearing_price": 6.666666666666667,
+      "avg_actual_demand": 154.70103783946666,
+      "avg_curtailed_load": 1747.0016860034912,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 40,
+      "total_reward": 94.78207173716731,
+      "rewards_per_agent": [
+        0.0,
+        278.04906727063775,
+        0.0,
+        3.520190181170641,
+        -186.78718571464105
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 55.27814458660791,
+      "diesel_energy": 0.0,
+      "battery_energy": 71.54858091810249,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 126.82672550471037,
+      "avg_curtailed_load": 1818.2780305407073,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 41,
+      "total_reward": -57.949676168596596,
+      "rewards_per_agent": [
+        0.0,
+        125.09985588746041,
+        0.0,
+        3.669276947453785,
+        -186.71880900351078
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 24.870746697308235,
+      "diesel_energy": 0.0,
+      "battery_energy": 74.57879974499562,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 99.44954644230387,
+      "avg_curtailed_load": 1823.6810034882833,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 42,
+      "total_reward": -16.641026966850745,
+      "rewards_per_agent": [
+        0.0,
+        164.1081086885665,
+        0.0,
+        2.9080241570200456,
+        -183.65715981243727
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 32.6258665384824,
+      "diesel_energy": 0.0,
+      "battery_energy": 59.10618205325296,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 91.73204859173535,
+      "avg_curtailed_load": 1798.8620404631256,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 43,
+      "total_reward": 140.43676383965192,
+      "rewards_per_agent": [
+        0.0,
+        320.83463159499536,
+        0.0,
+        1.972894413224945,
+        -182.37076216856838
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 63.78422099304083,
+      "diesel_energy": 0.0,
+      "battery_energy": 40.09947994359645,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 103.8837009366373,
+      "avg_curtailed_load": 1787.7118264656256,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 44,
+      "total_reward": -121.31729396894339,
+      "rewards_per_agent": [
+        0.0,
+        65.65212778845671,
+        0.0,
+        2.5136071393109027,
+        -189.483028896711
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 13.052112880408885,
+      "diesel_energy": 0.0,
+      "battery_energy": 51.08957600225412,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 64.141688882663,
+      "avg_curtailed_load": 1866.0224727458801,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 45,
+      "total_reward": 3.2605005881474654,
+      "rewards_per_agent": [
+        0.0,
+        187.44859057315446,
+        0.0,
+        2.608584125391804,
+        -186.7966741103988
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 37.26612138631302,
+      "diesel_energy": 0.0,
+      "battery_energy": 53.0200025486139,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 90.28612393492693,
+      "avg_curtailed_load": 1832.1402094831028,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 46,
+      "total_reward": -150.14729773590938,
+      "rewards_per_agent": [
+        0.0,
+        38.233494388069225,
+        0.0,
+        2.7945397445169435,
+        -191.17533186849556
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 7.601092323671814,
+      "diesel_energy": 0.0,
+      "battery_energy": 56.79958830318991,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 64.40068062686171,
+      "avg_curtailed_load": 1881.4532514524426,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 47,
+      "total_reward": -112.42416122747225,
+      "rewards_per_agent": [
+        0.0,
+        74.38433438332069,
+        0.0,
+        2.3552547652655655,
+        -189.16375037605852
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 14.788138048373895,
+      "diesel_energy": 0.0,
+      "battery_energy": 47.87103181434076,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 62.65916986271466,
+      "avg_curtailed_load": 1864.0049533413212,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 48,
+      "total_reward": -104.41680787621048,
+      "rewards_per_agent": [
+        0.0,
+        82.5924750404757,
+        0.0,
+        1.7050719413841666,
+        -188.71435485807035
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 16.419975157152226,
+      "diesel_energy": 0.0,
+      "battery_energy": 34.655933767970865,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 51.07590892512309,
+      "avg_curtailed_load": 1865.7105879074293,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 49,
+      "total_reward": -8.235782128419999,
+      "rewards_per_agent": [
+        0.0,
+        171.18450831524498,
+        0.0,
+        2.4612492193805218,
+        -181.88153966304552
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 34.0327054304662,
+      "diesel_energy": 0.0,
+      "battery_energy": 50.02539063781548,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 84.05809606828169,
+      "avg_curtailed_load": 1785.2945249539307,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 50,
+      "total_reward": 103.21334938923854,
+      "rewards_per_agent": [
+        0.0,
+        198.4501153531781,
+        91.56536396016132,
+        0.12466594992301255,
+        -186.92679587402387
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 39.453303251128844,
+      "diesel_energy": 18.705896621074835,
+      "battery_energy": 2.533860770792938,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 60.69306064299661,
+      "avg_curtailed_load": 1848.7847542315226,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 51,
+      "total_reward": 164.38528714810747,
+      "rewards_per_agent": [
+        0.0,
+        181.1140300941444,
+        167.53985563170465,
+        0.0,
+        -184.26859857774156
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 36.00676542627125,
+      "diesel_energy": 34.22673250903057,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 70.23349793530181,
+      "avg_curtailed_load": 1816.5709281663326,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 52,
+      "total_reward": 30.276436659947052,
+      "rewards_per_agent": [
+        0.0,
+        191.6245116778657,
+        29.5789132017527,
+        0.0,
+        -190.92698821967136
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 38.09632438923772,
+      "diesel_energy": 6.042678897191564,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 44.139003286429286,
+      "avg_curtailed_load": 1896.7244616508087,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 53,
+      "total_reward": 135.54795535123355,
+      "rewards_per_agent": [
+        0.0,
+        205.0692876249426,
+        121.46431990639162,
+        0.0,
+        -190.98565218010066
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 40.7692420725532,
+      "diesel_energy": 24.813957079957426,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 65.58319915251062,
+      "avg_curtailed_load": 1887.2572327428893,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 54,
+      "total_reward": 128.52159354768875,
+      "rewards_per_agent": [
+        0.0,
+        245.83446732214122,
+        73.3202692122995,
+        0.0,
+        -190.63314298675195
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 48.873651555097666,
+      "diesel_energy": 14.978604537752702,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 63.85225609285038,
+      "avg_curtailed_load": 1886.6237147098686,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 55,
+      "total_reward": 126.24604142208568,
+      "rewards_per_agent": [
+        0.0,
+        192.98016593615424,
+        122.88244789738826,
+        0.0,
+        -189.6165724114568
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 38.36583815828116,
+      "diesel_energy": 25.10366657760741,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 63.46950473588856,
+      "avg_curtailed_load": 1874.0224312861947,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 56,
+      "total_reward": 104.93213594840418,
+      "rewards_per_agent": [
+        0.0,
+        74.68137581228328,
+        216.11241443948526,
+        0.0,
+        -185.86165430336436
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 14.847192010394291,
+      "diesel_energy": 44.149625013173704,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 58.996817023567985,
+      "avg_curtailed_load": 1832.8299325244584,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 57,
+      "total_reward": 62.20859910737161,
+      "rewards_per_agent": [
+        0.0,
+        89.64741313003164,
+        159.65505014296372,
+        0.0,
+        -187.09386416562373
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 17.8225473419546,
+      "diesel_energy": 32.61594487088124,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 50.438492212835854,
+      "avg_curtailed_load": 1850.1750323853087,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 58,
+      "total_reward": 200.0921676976921,
+      "rewards_per_agent": [
+        0.0,
+        220.97802537444355,
+        164.3262909218921,
+        0.0,
+        -185.21214859864352
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 43.93201299690726,
+      "diesel_energy": 33.57023307903822,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 77.5022460759455,
+      "avg_curtailed_load": 1824.3533661976903,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 59,
+      "total_reward": 121.10934135076326,
+      "rewards_per_agent": [
+        0.0,
+        118.0575426905533,
+        191.67498200168916,
+        0.0,
+        -188.6231833414792
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 23.470684431521533,
+      "diesel_energy": 39.15729969390995,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 62.62798412543148,
+      "avg_curtailed_load": 1860.7855124599564,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 60,
+      "total_reward": 85.96525800392934,
+      "rewards_per_agent": [
+        0.0,
+        220.39702312412092,
+        48.53044753104483,
+        0.0,
+        -182.9622126512364
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 43.816505591276524,
+      "diesel_energy": 9.914289587547463,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 53.73079517882398,
+      "avg_curtailed_load": 1813.7108553207713,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 61,
+      "total_reward": 246.28978382986708,
+      "rewards_per_agent": [
+        0.0,
+        96.86907513130876,
+        337.07763553275646,
+        0.0,
+        -187.65692683419815
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 19.258265433659794,
+      "diesel_energy": 68.86162115071633,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 88.11988658437612,
+      "avg_curtailed_load": 1837.323891408208,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 62,
+      "total_reward": 129.26036677604958,
+      "rewards_per_agent": [
+        0.0,
+        185.64650668516882,
+        129.65865604645555,
+        0.0,
+        -186.04479595557478
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 36.90785421176319,
+      "diesel_energy": 26.487978763320847,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 63.39583297508403,
+      "avg_curtailed_load": 1837.9770066211472,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 63,
+      "total_reward": 132.72391755515204,
+      "rewards_per_agent": [
+        0.0,
+        135.8213449387074,
+        185.5836840658191,
+        0.0,
+        -188.68111144937447
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 27.002255455011415,
+      "diesel_energy": 37.91290787861474,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 64.91516333362615,
+      "avg_curtailed_load": 1861.1040966906844,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 64,
+      "total_reward": 126.66744822712434,
+      "rewards_per_agent": [
+        0.0,
+        139.77841663217788,
+        178.93412618138439,
+        0.0,
+        -192.04509458643793
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 27.788949628663595,
+      "diesel_energy": 36.55446908710611,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 64.3434187157697,
+      "avg_curtailed_load": 1895.2264739136604,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 65,
+      "total_reward": 47.125135890376214,
+      "rewards_per_agent": [
+        0.0,
+        62.58144156735017,
+        173.54963597987353,
+        0.0,
+        -189.00594165684748
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 12.441638482574588,
+      "diesel_energy": 35.45447108884036,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 47.89610957141494,
+      "avg_curtailed_load": 1869.221771403411,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 66,
+      "total_reward": 139.03885516822868,
+      "rewards_per_agent": [
+        0.0,
+        142.3549120743935,
+        187.5606084906585,
+        0.0,
+        -190.87666539682334
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 28.301175362702484,
+      "diesel_energy": 38.316773951104906,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 66.61794931380737,
+      "avg_curtailed_load": 1882.532973152005,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 67,
+      "total_reward": -0.6420107782228115,
+      "rewards_per_agent": [
+        0.0,
+        35.96062042195058,
+        152.05689751249702,
+        0.0,
+        -188.6595287126704
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 7.149228712117411,
+      "diesel_energy": 31.063717571500923,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 38.21294628361834,
+      "avg_curtailed_load": 1869.2761211629245,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 68,
+      "total_reward": 70.95400435697704,
+      "rewards_per_agent": [
+        0.0,
+        109.19494231366828,
+        153.95982091254132,
+        0.0,
+        -192.20075886923254
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 21.708736046454923,
+      "diesel_energy": 31.452465967832758,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 53.16120201428768,
+      "avg_curtailed_load": 1900.854171696796,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 69,
+      "total_reward": 200.15313236847183,
+      "rewards_per_agent": [
+        0.0,
+        202.66032443753446,
+        182.99429473885363,
+        0.0,
+        -185.50148680791628
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 40.29032294980804,
+      "diesel_energy": 37.38392129496499,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 77.67424424477304,
+      "avg_curtailed_load": 1826.250326694229,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 70,
+      "total_reward": 160.93701942029233,
+      "rewards_per_agent": [
+        0.0,
+        229.73728875562625,
+        122.23295677900971,
+        0.0,
+        -191.03322611434365
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 45.67341724763942,
+      "diesel_energy": 24.970981977325785,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 70.6443992249652,
+      "avg_curtailed_load": 1886.4284158428636,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 71,
+      "total_reward": 187.52115362136703,
+      "rewards_per_agent": [
+        0.0,
+        229.94767216010445,
+        141.9015862909375,
+        0.0,
+        -184.32810482967488
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 45.71524297417583,
+      "diesel_energy": 28.989088108465268,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 74.70433108264109,
+      "avg_curtailed_load": 1817.3576934989728,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 72,
+      "total_reward": 138.05265377305778,
+      "rewards_per_agent": [
+        0.0,
+        148.5385713539936,
+        178.7931682029444,
+        0.0,
+        -189.27908578388025
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 29.530531084292967,
+      "diesel_energy": 36.52567276873226,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 66.05620385302522,
+      "avg_curtailed_load": 1867.1453886833629,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 73,
+      "total_reward": 46.788848996501315,
+      "rewards_per_agent": [
+        0.0,
+        155.42491601845455,
+        85.26672430318824,
+        0.0,
+        -193.9027913251415
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 30.899585689553593,
+      "diesel_energy": 17.419146946514452,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 48.31873263606805,
+      "avg_curtailed_load": 1922.593443355769,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 74,
+      "total_reward": 301.1089457351288,
+      "rewards_per_agent": [
+        0.0,
+        183.27504831494167,
+        304.918285711184,
+        0.0,
+        -187.08438829099683
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 36.43639131509775,
+      "diesel_energy": 62.29178461924087,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 98.72817593433862,
+      "avg_curtailed_load": 1830.5888927715732,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 75,
+      "total_reward": 345.6619020621836,
+      "rewards_per_agent": [
+        0.0,
+        228.08981868557746,
+        305.1648809875206,
+        0.0,
+        -187.59279761091443
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 45.345888406675435,
+      "diesel_energy": 62.34216159091331,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 107.68804999758873,
+      "avg_curtailed_load": 1833.4204232120192,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 76,
+      "total_reward": -8.811866757039212,
+      "rewards_per_agent": [
+        0.0,
+        99.85815692621159,
+        77.92567272963109,
+        0.0,
+        -186.5956964128819
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 19.85251628751722,
+      "diesel_energy": 15.919442845685616,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 35.771959133202834,
+      "avg_curtailed_load": 1853.0341136340971,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 77,
+      "total_reward": 76.77563007362605,
+      "rewards_per_agent": [
+        0.0,
+        129.92469065399692,
+        134.03991833469985,
+        0.0,
+        -187.18897891507075
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 25.82995838051629,
+      "diesel_energy": 27.383027238958096,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 53.21298561947438,
+      "avg_curtailed_load": 1851.7407859360992,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 78,
+      "total_reward": 107.41250312334509,
+      "rewards_per_agent": [
+        0.0,
+        157.2347842702782,
+        135.61964769720467,
+        0.0,
+        -185.44192884413778
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 31.259400451347545,
+      "diesel_energy": 27.705750295649576,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 58.965150746997125,
+      "avg_curtailed_load": 1832.751563180716,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 79,
+      "total_reward": 308.07729939530066,
+      "rewards_per_agent": [
+        0.0,
+        251.02160709477837,
+        241.02842665233928,
+        0.0,
+        -183.97273435181702
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 49.90489206655634,
+      "diesel_energy": 49.23971943868014,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 99.14461150523647,
+      "avg_curtailed_load": 1802.631260782191,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 80,
+      "total_reward": 0.315938972307265,
+      "rewards_per_agent": [
+        0.0,
+        94.11914428772462,
+        99.64725847795049,
+        0.0,
+        -193.45046379336785
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 18.711559500541675,
+      "diesel_energy": 20.356947595086922,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 39.0685070956286,
+      "avg_curtailed_load": 1919.6482742609999,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 81,
+      "total_reward": 136.74322881313174,
+      "rewards_per_agent": [
+        0.0,
+        48.58883720987162,
+        272.5957773267696,
+        0.0,
+        -184.44138572350948
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 9.659808590431737,
+      "diesel_energy": 55.688616409963146,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 65.34842500039488,
+      "avg_curtailed_load": 1814.1545968825053,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 82,
+      "total_reward": 31.727479849982046,
+      "rewards_per_agent": [
+        0.0,
+        120.23300832910274,
+        99.57300176319076,
+        0.0,
+        -188.07853024231144
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 23.903182570398158,
+      "diesel_energy": 20.341777684002196,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 44.244960254400354,
+      "avg_curtailed_load": 1864.6386179385136,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 83,
+      "total_reward": 89.70194934618553,
+      "rewards_per_agent": [
+        0.0,
+        95.56297891630786,
+        184.58206084314568,
+        0.0,
+        -190.443090413268
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 18.9986041583117,
+      "diesel_energy": 37.70828617837501,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 56.70689033668671,
+      "avg_curtailed_load": 1880.827110003915,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 84,
+      "total_reward": 198.98122329168092,
+      "rewards_per_agent": [
+        0.0,
+        124.19975488098403,
+        264.84312197553464,
+        0.0,
+        -190.06165356483774
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 24.691800175145936,
+      "diesel_energy": 54.104825735553554,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 78.79662591069948,
+      "avg_curtailed_load": 1867.3911727368136,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 85,
+      "total_reward": 17.99816349292456,
+      "rewards_per_agent": [
+        0.0,
+        179.05162724327022,
+        25.6547072166478,
+        0.0,
+        -186.70817096699346
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 35.59674497878135,
+      "diesel_energy": 5.241002495740102,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 40.83774747452146,
+      "avg_curtailed_load": 1855.5620221773695,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 86,
+      "total_reward": -30.465557281939795,
+      "rewards_per_agent": [
+        0.0,
+        37.498710544310086,
+        126.11223098382048,
+        0.0,
+        -194.07649881007038
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 7.455012036642165,
+      "diesel_energy": 25.763479261250353,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 33.21849129789252,
+      "avg_curtailed_load": 1926.0194954609176,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 87,
+      "total_reward": 63.06176196445864,
+      "rewards_per_agent": [
+        0.0,
+        143.17223190336586,
+        108.95874941435463,
+        0.0,
+        -189.06921935326184
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 28.46366439430733,
+      "diesel_energy": 22.25919293449533,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 50.72285732880265,
+      "avg_curtailed_load": 1872.4466809667933,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 88,
+      "total_reward": 260.5429549854466,
+      "rewards_per_agent": [
+        0.0,
+        210.24860739662307,
+        235.57366212782804,
+        0.0,
+        -185.2793145390045
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 41.79892791185348,
+      "diesel_energy": 48.12536509250829,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 89.92429300436177,
+      "avg_curtailed_load": 1818.2807308658275,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 89,
+      "total_reward": 115.05926975173429,
+      "rewards_per_agent": [
+        0.0,
+        125.07450946172838,
+        179.60130022720472,
+        0.0,
+        -189.6165399371988
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 24.86570764646688,
+      "diesel_energy": 36.690766134260414,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 61.556473780727295,
+      "avg_curtailed_load": 1871.6035893932412,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 90,
+      "total_reward": 259.501610439237,
+      "rewards_per_agent": [
+        0.0,
+        107.57586602363753,
+        340.50314427016303,
+        0.0,
+        -188.57739985456357
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 21.386852092174458,
+      "diesel_energy": 69.56141864559001,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 90.94827073776446,
+      "avg_curtailed_load": 1845.6465761997974,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 91,
+      "total_reward": 176.47988635333402,
+      "rewards_per_agent": [
+        0.0,
+        246.06637920325426,
+        117.75095469014556,
+        0.0,
+        -187.33744754006577
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 48.91975729686963,
+      "diesel_energy": 24.055353358558847,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 72.9751106554285,
+      "avg_curtailed_load": 1849.1168593971606,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 92,
+      "total_reward": 226.49460342402614,
+      "rewards_per_agent": [
+        0.0,
+        171.12219196783974,
+        242.05211357496057,
+        0.0,
+        -186.67970211877417
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 34.02031649460035,
+      "diesel_energy": 49.44884853421053,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 83.46916502881089,
+      "avg_curtailed_load": 1833.5675177969865,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 93,
+      "total_reward": 185.44892692112455,
+      "rewards_per_agent": [
+        0.0,
+        90.50267569858579,
+        284.5571862773614,
+        0.0,
+        -189.61093505482262
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 17.992579661746678,
+      "diesel_energy": 58.132213744098344,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 76.12479340584503,
+      "avg_curtailed_load": 1862.545098760741,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 94,
+      "total_reward": 137.33117786487796,
+      "rewards_per_agent": [
+        0.0,
+        106.4094493307422,
+        217.97978833917267,
+        0.0,
+        -187.05805980503695
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 21.154960105515347,
+      "diesel_energy": 44.53111099880954,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 65.6860711043249,
+      "avg_curtailed_load": 1843.026302524586,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 95,
+      "total_reward": 91.70802565215467,
+      "rewards_per_agent": [
+        0.0,
+        36.97743101867307,
+        244.51241131969024,
+        0.0,
+        -189.78181668620863
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 7.351377936117908,
+      "diesel_energy": 49.95146298665787,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 57.302840922775786,
+      "avg_curtailed_load": 1871.0045908847273,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 96,
+      "total_reward": 110.85153117343845,
+      "rewards_per_agent": [
+        0.0,
+        139.8308909735838,
+        162.8556985924651,
+        0.0,
+        -191.83505839261045
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 27.79938190329697,
+      "diesel_energy": 33.26980563686723,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 61.06918754016421,
+      "avg_curtailed_load": 1894.7658356318466,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 97,
+      "total_reward": 113.79160554704777,
+      "rewards_per_agent": [
+        0.0,
+        122.96413765325084,
+        181.20899701256303,
+        0.0,
+        -190.38152911876614
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 24.446150626888837,
+      "diesel_energy": 37.0192026583377,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 61.465353285226534,
+      "avg_curtailed_load": 1879.1941522017705,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 98,
+      "total_reward": 156.0125679262696,
+      "rewards_per_agent": [
+        0.0,
+        231.24246479248396,
+        109.04994356464796,
+        0.0,
+        -184.27984043086232
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 45.97265701639841,
+      "diesel_energy": 22.27782299584228,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 68.25048001224067,
+      "avg_curtailed_load": 1820.1663285566028,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 99,
+      "total_reward": 217.44651293018583,
+      "rewards_per_agent": [
+        0.0,
+        170.27443325101945,
+        233.29647985538938,
+        0.0,
+        -186.12440017622302
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 33.85177599423845,
+      "diesel_energy": 47.66015931672919,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 81.51193531096766,
+      "avg_curtailed_load": 1828.9509781053061,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 100,
+      "total_reward": 237.8042059790456,
+      "rewards_per_agent": [
+        0.0,
+        222.75674436300477,
+        201.90215023194358,
+        0.0,
+        -186.85468861590277
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 44.28563506222759,
+      "diesel_energy": 41.246608831857735,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 85.53224389408533,
+      "avg_curtailed_load": 1836.8521729775412,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 101,
+      "total_reward": 246.38111785318927,
+      "rewards_per_agent": [
+        0.0,
+        250.43742717894244,
+        181.8764599110994,
+        0.0,
+        -185.93276923685255
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 49.78875291827882,
+      "diesel_energy": 37.15555871523992,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 86.94431163351874,
+      "avg_curtailed_load": 1828.302724781336,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 102,
+      "total_reward": 347.41403409130567,
+      "rewards_per_agent": [
+        0.0,
+        211.34213044583734,
+        320.4691000925635,
+        0.0,
+        -184.39719644709518
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 42.016328120444804,
+      "diesel_energy": 65.46866191880767,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 107.48499003925244,
+      "avg_curtailed_load": 1800.7335514814363,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 103,
+      "total_reward": 69.30209748186095,
+      "rewards_per_agent": [
+        0.0,
+        127.86782188198634,
+        130.3931526178911,
+        0.0,
+        -188.95887701801647
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 25.421038147512192,
+      "diesel_energy": 26.638029135422087,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 52.05906728293428,
+      "avg_curtailed_load": 1869.9144960755757,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 104,
+      "total_reward": 119.953689906356,
+      "rewards_per_agent": [
+        0.0,
+        133.7357358372387,
+        176.26353306959433,
+        0.0,
+        -190.04557900047703
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 26.58762143881485,
+      "diesel_energy": 36.008893374789444,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 62.5965148136043,
+      "avg_curtailed_load": 1875.8044379576718,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 105,
+      "total_reward": -87.23588397999495,
+      "rewards_per_agent": [
+        0.0,
+        42.906881905500555,
+        59.12472270282006,
+        0.0,
+        -189.26748858831556
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 8.530195209841066,
+      "diesel_energy": 12.078595036326877,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 20.608790246167942,
+      "avg_curtailed_load": 1884.503039562532,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 106,
+      "total_reward": 108.00034981505075,
+      "rewards_per_agent": [
+        0.0,
+        108.4491417480072,
+        184.929678965775,
+        0.0,
+        -185.37847089873145
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 21.560465556263857,
+      "diesel_energy": 37.779301116603676,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 59.339766672867526,
+      "avg_curtailed_load": 1829.5049420399466,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 107,
+      "total_reward": 57.1663740277919,
+      "rewards_per_agent": [
+        0.0,
+        156.44417106886527,
+        90.67929694113647,
+        0.0,
+        -189.95709398220984
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 31.102220888442396,
+      "diesel_energy": 18.52488190830163,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 49.627102796744026,
+      "avg_curtailed_load": 1882.5329436458373,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 108,
+      "total_reward": 296.5572436994796,
+      "rewards_per_agent": [
+        0.0,
+        294.68878784523736,
+        185.8688154175281,
+        0.0,
+        -184.00035956328585
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 58.58624012827782,
+      "diesel_energy": 37.97115738866764,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 96.55739751694546,
+      "avg_curtailed_load": 1806.3714569064555,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 109,
+      "total_reward": 216.34094642690346,
+      "rewards_per_agent": [
+        0.0,
+        179.91655914722935,
+        224.24295173439114,
+        0.0,
+        -187.818564454717
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 35.768699631655934,
+      "diesel_energy": 45.81061322459472,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 81.57931285625065,
+      "avg_curtailed_load": 1846.3381630269587,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 110,
+      "total_reward": 28.55512223554925,
+      "rewards_per_agent": [
+        0.0,
+        130.69518005178887,
+        85.75467609529281,
+        0.0,
+        -187.89473391153243
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 25.983137187234366,
+      "diesel_energy": 17.518830662981166,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 43.501967850215536,
+      "avg_curtailed_load": 1863.6921394870255,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 111,
+      "total_reward": 168.00834861180397,
+      "rewards_per_agent": [
+        0.0,
+        173.8294747075868,
+        185.7237124468018,
+        0.0,
+        -191.54483854258467
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 34.558543679440724,
+      "diesel_energy": 37.94151428943857,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 72.50005796887929,
+      "avg_curtailed_load": 1887.8379923612672,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 112,
+      "total_reward": 87.60808334113642,
+      "rewards_per_agent": [
+        0.0,
+        113.63041888607032,
+        159.58002906527366,
+        0.0,
+        -185.6023646102076
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 22.59054053401,
+      "diesel_energy": 32.60061880802322,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 55.19115934203322,
+      "avg_curtailed_load": 1834.0757015645618,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 113,
+      "total_reward": 163.87130679835226,
+      "rewards_per_agent": [
+        0.0,
+        108.6601492075856,
+        245.25111109363024,
+        0.0,
+        -190.0399535028636
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 21.602415349420603,
+      "diesel_energy": 50.102372031385144,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 71.70478738080575,
+      "avg_curtailed_load": 1869.9477451755884,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 114,
+      "total_reward": 149.0091159114811,
+      "rewards_per_agent": [
+        0.0,
+        183.29582108799823,
+        152.83657760154995,
+        0.0,
+        -187.12328277806705
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 36.44052109105333,
+      "diesel_energy": 31.222998488569957,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 67.66351957962328,
+      "avg_curtailed_load": 1846.5111982636224,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 115,
+      "total_reward": 255.24286835845749,
+      "rewards_per_agent": [
+        0.0,
+        213.90832589478953,
+        229.3076243367824,
+        0.0,
+        -187.97308187311444
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 42.52650614210528,
+      "diesel_energy": 46.84527565613532,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 89.37178179824059,
+      "avg_curtailed_load": 1845.676554367551,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 116,
+      "total_reward": 139.32332234642854,
+      "rewards_per_agent": [
+        0.0,
+        165.20066931143998,
+        160.54929969035604,
+        0.0,
+        -186.42664665536745
+      ],
+      "wind_energy": 0.0,
+      "solar_energy": 32.84307540982902,
+      "diesel_energy": 32.79863119312687,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 65.64170660295589,
+      "avg_curtailed_load": 1839.6563821046534,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 117,
+      "total_reward": 195.27429760210853,
+      "rewards_per_agent": [
+        378.69741236305396,
+        0.0,
+        0.0,
+        0.0,
+        -183.42311476094542
+      ],
+      "wind_energy": 75.28775593698886,
+      "solar_energy": 0.0,
+      "diesel_energy": 0.0,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 75.28775593698886,
+      "avg_curtailed_load": 1815.4092086252072,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 118,
+      "total_reward": 45.494519652447536,
+      "rewards_per_agent": [
+        240.2309266246904,
+        0.0,
+        0.0,
+        0.0,
+        -194.73640697224286
+      ],
+      "wind_energy": 47.75962755958059,
+      "solar_energy": 0.0,
+      "diesel_energy": 0.0,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 47.75962755958059,
+      "avg_curtailed_load": 1935.4241628325335,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 119,
+      "total_reward": 148.65161250129913,
+      "rewards_per_agent": [
+        287.96127740414573,
+        0.0,
+        46.1364723124593,
+        0.0,
+        -185.44613721530592
+      ],
+      "wind_energy": 57.24876290340869,
+      "solar_energy": 0.0,
+      "diesel_energy": 9.425224170063187,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 66.67398707347188,
+      "avg_curtailed_load": 1835.4365693421755,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 120,
+      "total_reward": 370.7494659141844,
+      "rewards_per_agent": [
+        544.8985555093029,
+        0.0,
+        8.884988814332202,
+        0.0,
+        -183.0340784094508
+      ],
+      "wind_energy": 108.32973270562682,
+      "solar_energy": 0.0,
+      "diesel_energy": 1.8151151816817572,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 110.14484788730859,
+      "avg_curtailed_load": 1802.3507933272604,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 121,
+      "total_reward": 36.91154153977317,
+      "rewards_per_agent": [
+        225.3222640388846,
+        0.0,
+        0.0,
+        0.0,
+        -188.41072249911144
+      ],
+      "wind_energy": 44.79567873536473,
+      "solar_energy": 0.0,
+      "diesel_energy": 0.0,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 44.79567873536473,
+      "avg_curtailed_load": 1872.9083053072732,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 122,
+      "total_reward": 210.39075571877729,
+      "rewards_per_agent": [
+        395.06973949098284,
+        0.0,
+        0.0,
+        0.0,
+        -184.67898377220556
+      ],
+      "wind_energy": 78.54269174771031,
+      "solar_energy": 0.0,
+      "diesel_energy": 0.0,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 78.54269174771031,
+      "avg_curtailed_load": 1827.1541647851282,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 123,
+      "total_reward": 265.57552259508884,
+      "rewards_per_agent": [
+        449.8355535205662,
+        0.0,
+        0.0,
+        0.0,
+        -184.2600309254773
+      ],
+      "wind_energy": 89.43052753887996,
+      "solar_energy": 0.0,
+      "diesel_energy": 0.0,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 89.43052753887996,
+      "avg_curtailed_load": 1820.2426773700527,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 124,
+      "total_reward": 13.736472776576107,
+      "rewards_per_agent": [
+        205.14479637430404,
+        0.0,
+        0.0,
+        0.0,
+        -191.40832359772793
+      ],
+      "wind_energy": 40.78425375234672,
+      "solar_energy": 0.0,
+      "diesel_energy": 0.0,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 40.78425375234672,
+      "avg_curtailed_load": 1903.8871725391928,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 125,
+      "total_reward": 282.2184193134219,
+      "rewards_per_agent": [
+        472.67730442098355,
+        0.0,
+        0.0,
+        0.0,
+        -190.45888510756166
+      ],
+      "wind_energy": 93.97163109761104,
+      "solar_energy": 0.0,
+      "diesel_energy": 0.0,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 93.97163109761104,
+      "avg_curtailed_load": 1881.095943301213,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 126,
+      "total_reward": 282.3644233097649,
+      "rewards_per_agent": [
+        436.6195610772186,
+        0.0,
+        29.030885914213698,
+        0.0,
+        -183.28602368166733
+      ],
+      "wind_energy": 86.8030936535226,
+      "solar_energy": 0.0,
+      "diesel_energy": 5.9307223522397745,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 92.73381600576236,
+      "avg_curtailed_load": 1808.1941022271735,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 127,
+      "total_reward": 78.50640731942238,
+      "rewards_per_agent": [
+        263.099037763673,
+        0.0,
+        2.4523560228887913,
+        0.0,
+        -187.0449864671394
+      ],
+      "wind_energy": 52.3059717224002,
+      "solar_energy": 0.0,
+      "diesel_energy": 0.500992037362368,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 52.80696375976257,
+      "avg_curtailed_load": 1857.122875722113,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 128,
+      "total_reward": 59.69733676970421,
+      "rewards_per_agent": [
+        251.14852299954674,
+        0.0,
+        0.0,
+        0.0,
+        -191.45118622984253
+      ],
+      "wind_energy": 49.93012385676873,
+      "solar_energy": 0.0,
+      "diesel_energy": 0.0,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 49.93012385676873,
+      "avg_curtailed_load": 1902.0293313342336,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 129,
+      "total_reward": 7.042244356390768,
+      "rewards_per_agent": [
+        150.7013982883023,
+        45.74325245501165,
+        0.0,
+        0.0,
+        -189.4024063869232
+      ],
+      "wind_energy": 29.960516558310594,
+      "solar_energy": 9.09408597515142,
+      "diesel_energy": 0.0,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 39.05460253346202,
+      "avg_curtailed_load": 1884.2604132358665,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 130,
+      "total_reward": 224.04189869563723,
+      "rewards_per_agent": [
+        385.96305472415486,
+        21.74288380954272,
+        0.0,
+        0.0,
+        -183.66403983806035
+      ],
+      "wind_energy": 76.73221763899697,
+      "solar_energy": 4.322640916410084,
+      "diesel_energy": 0.0,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 81.05485855540707,
+      "avg_curtailed_load": 1816.376683741751,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 131,
+      "total_reward": 245.0258864443123,
+      "rewards_per_agent": [
+        385.0252650273818,
+        44.685976054132524,
+        0.0,
+        0.0,
+        -184.68535463720204
+      ],
+      "wind_energy": 76.54577833546358,
+      "solar_energy": 8.883891859668495,
+      "diesel_energy": 0.0,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 85.42967019513208,
+      "avg_curtailed_load": 1825.4961288232375,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 132,
+      "total_reward": 154.5880262134893,
+      "rewards_per_agent": [
+        304.2435598057301,
+        0.0,
+        38.910223609371286,
+        0.0,
+        -188.56575720161214
+      ],
+      "wind_energy": 60.48579717807755,
+      "solar_energy": 0.0,
+      "diesel_energy": 7.948973158196381,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 68.43477033627394,
+      "avg_curtailed_load": 1866.5616361425036,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 133,
+      "total_reward": 110.68314804303103,
+      "rewards_per_agent": [
+        300.7845323930913,
+        0.0,
+        0.0,
+        0.0,
+        -190.10138435006027
+      ],
+      "wind_energy": 59.79811777198634,
+      "solar_energy": 0.0,
+      "diesel_energy": 0.0,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 59.79811777198634,
+      "avg_curtailed_load": 1886.0643140576062,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 134,
+      "total_reward": 41.37823367413702,
+      "rewards_per_agent": [
+        230.40025196655787,
+        0.0,
+        0.0,
+        0.0,
+        -189.02201829242085
+      ],
+      "wind_energy": 45.805219078838554,
+      "solar_energy": 0.0,
+      "diesel_energy": 0.0,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 45.805219078838554,
+      "avg_curtailed_load": 1878.768878154499,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 135,
+      "total_reward": 26.183525070798567,
+      "rewards_per_agent": [
+        198.95733732202834,
+        0.0,
+        15.050348234889375,
+        0.0,
+        -187.82416048611915
+      ],
+      "wind_energy": 39.55414260875315,
+      "solar_energy": 0.0,
+      "diesel_energy": 3.074637024492211,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 42.62877963324536,
+      "avg_curtailed_load": 1866.815750696757,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 136,
+      "total_reward": 28.23178595661892,
+      "rewards_per_agent": [
+        218.84250744435144,
+        0.0,
+        0.0,
+        0.0,
+        -190.61072148773252
+      ],
+      "wind_energy": 43.507456748380015,
+      "solar_energy": 0.0,
+      "diesel_energy": 0.0,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 43.507456748380015,
+      "avg_curtailed_load": 1895.23035069023,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 137,
+      "total_reward": 157.06509569943972,
+      "rewards_per_agent": [
+        345.40753838617854,
+        0.0,
+        0.0,
+        0.0,
+        -188.34244268673882
+      ],
+      "wind_energy": 68.66949073283868,
+      "solar_energy": 0.0,
+      "diesel_energy": 0.0,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 68.66949073283868,
+      "avg_curtailed_load": 1866.2570541841783,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 138,
+      "total_reward": 170.77037797447684,
+      "rewards_per_agent": [
+        350.79992223815464,
+        11.343782518743458,
+        0.0,
+        0.0,
+        -191.37332678242126
+      ],
+      "wind_energy": 69.74153523621365,
+      "solar_energy": 2.2552251528317013,
+      "diesel_energy": 0.0,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 71.99676038904533,
+      "avg_curtailed_load": 1895.7340777269512,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 139,
+      "total_reward": 51.58325739973458,
+      "rewards_per_agent": [
+        242.70196224892902,
+        0.0,
+        0.0,
+        0.0,
+        -191.11870484919444
+      ],
+      "wind_energy": 48.25088712702367,
+      "solar_energy": 0.0,
+      "diesel_energy": 0.0,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 48.25088712702367,
+      "avg_curtailed_load": 1899.1243267101881,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 140,
+      "total_reward": 22.436481983837012,
+      "rewards_per_agent": [
+        211.67547025541987,
+        0.0,
+        0.0,
+        0.0,
+        -189.23898827158285
+      ],
+      "wind_energy": 42.082598460322046,
+      "solar_energy": 0.0,
+      "diesel_energy": 0.0,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 42.082598460322046,
+      "avg_curtailed_load": 1881.8692331007474,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 141,
+      "total_reward": 389.6699376002537,
+      "rewards_per_agent": [
+        567.3557723493793,
+        0.0,
+        0.0,
+        0.0,
+        -177.6858347491256
+      ],
+      "wind_energy": 112.79438814102969,
+      "solar_energy": 0.0,
+      "diesel_energy": 0.0,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 112.79438814102969,
+      "avg_curtailed_load": 1748.6597504559986,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 142,
+      "total_reward": 164.4375592333745,
+      "rewards_per_agent": [
+        286.0555417778988,
+        1.8431441711442753,
+        62.09472447925644,
+        0.0,
+        -185.55585119492503
+      ],
+      "wind_energy": 56.869889021451044,
+      "solar_energy": 0.36643025271257956,
+      "diesel_energy": 12.685336972268937,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 69.92165624643255,
+      "avg_curtailed_load": 1834.9067636445752,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 143,
+      "total_reward": 12.720873053773602,
+      "rewards_per_agent": [
+        198.19344365259983,
+        0.0,
+        4.894967881136804,
+        0.0,
+        -190.36753847996303
+      ],
+      "wind_energy": 39.40227508003973,
+      "solar_energy": 0.0,
+      "diesel_energy": 0.9999934384344851,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 40.40226851847421,
+      "avg_curtailed_load": 1893.3248193104032,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 144,
+      "total_reward": 250.71911172623336,
+      "rewards_per_agent": [
+        360.2642655197697,
+        0.0,
+        74.278842030201,
+        0.0,
+        -183.82399582373736
+      ],
+      "wind_energy": 71.62311441744926,
+      "solar_energy": 0.0,
+      "diesel_energy": 15.174431466843922,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 86.79754588429319,
+      "avg_curtailed_load": 1812.7469638995904,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 145,
+      "total_reward": -34.54134711203008,
+      "rewards_per_agent": [
+        155.5153584661408,
+        0.0,
+        0.0,
+        0.0,
+        -190.0567055781709
+      ],
+      "wind_energy": 30.91756629545543,
+      "solar_energy": 0.0,
+      "diesel_energy": 0.0,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 30.91756629545543,
+      "avg_curtailed_load": 1892.8376642078451,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 146,
+      "total_reward": 98.85140208695796,
+      "rewards_per_agent": [
+        287.0388306858203,
+        0.0,
+        0.0,
+        0.0,
+        -188.18742859886234
+      ],
+      "wind_energy": 57.06537389380125,
+      "solar_energy": 0.0,
+      "diesel_energy": 0.0,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 57.06537389380125,
+      "avg_curtailed_load": 1867.6079425151734,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 147,
+      "total_reward": 138.83833641121174,
+      "rewards_per_agent": [
+        238.13066551947443,
+        0.0,
+        91.04004954604193,
+        0.0,
+        -190.3323786543046
+      ],
+      "wind_energy": 47.342080620173846,
+      "solar_energy": 0.0,
+      "diesel_energy": 18.598580091121946,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 65.9406607112958,
+      "avg_curtailed_load": 1882.1889763424415,
+      "avg_grid_import": 3.552713678800501e-15,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 148,
+      "total_reward": -0.289936457060719,
+      "rewards_per_agent": [
+        192.6230986038861,
+        0.0,
+        0.0,
+        0.0,
+        -192.9130350609468
+      ],
+      "wind_energy": 38.29485061707477,
+      "solar_energy": 0.0,
+      "diesel_energy": 0.0,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 38.29485061707477,
+      "avg_curtailed_load": 1919.5566379551992,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 149,
+      "total_reward": 233.2755632868016,
+      "rewards_per_agent": [
+        413.27468060937133,
+        0.0,
+        0.0,
+        0.0,
+        -179.99911732256973
+      ],
+      "wind_energy": 82.1619643358591,
+      "solar_energy": 0.0,
+      "diesel_energy": 0.0,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 82.1619643358591,
+      "avg_curtailed_load": 1779.4506821417326,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 150,
+      "total_reward": 96.45097420945095,
+      "rewards_per_agent": [
+        284.15323771335665,
+        0.0,
+        0.0,
+        0.0,
+        -187.7022635039057
+      ],
+      "wind_energy": 56.49169735852021,
+      "solar_energy": 0.0,
+      "diesel_energy": 0.0,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 56.49169735852021,
+      "avg_curtailed_load": 1862.899710699427,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 151,
+      "total_reward": 178.40526634006048,
+      "rewards_per_agent": [
+        369.3066523098851,
+        0.0,
+        0.0,
+        0.0,
+        -190.90138596982464
+      ],
+      "wind_energy": 73.42080562820777,
+      "solar_energy": 0.0,
+      "diesel_energy": 0.0,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 73.42080562820777,
+      "avg_curtailed_load": 1890.6586582911946,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 152,
+      "total_reward": 193.70994863350091,
+      "rewards_per_agent": [
+        374.5940514126002,
+        0.0,
+        0.0,
+        0.0,
+        -180.8841027790993
+      ],
+      "wind_energy": 74.47197841204775,
+      "solar_energy": 0.0,
+      "diesel_energy": 0.0,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 74.47197841204775,
+      "avg_curtailed_load": 1790.223033187981,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 153,
+      "total_reward": 139.27413718468287,
+      "rewards_per_agent": [
+        328.050753400473,
+        0.0,
+        0.0,
+        0.0,
+        -188.77661621579014
+      ],
+      "wind_energy": 65.21883765416959,
+      "solar_energy": 0.0,
+      "diesel_energy": 0.0,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 65.21883765416959,
+      "avg_curtailed_load": 1871.4614527443582,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 154,
+      "total_reward": 289.1374154326299,
+      "rewards_per_agent": [
+        475.63838771155724,
+        0.0,
+        0.0,
+        0.0,
+        -186.50097227892735
+      ],
+      "wind_energy": 94.56031564842094,
+      "solar_energy": 0.0,
+      "diesel_energy": 0.0,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 94.56031564842094,
+      "avg_curtailed_load": 1841.369643877168,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 155,
+      "total_reward": 235.89837842379137,
+      "rewards_per_agent": [
+        423.4137064351583,
+        0.0,
+        0.0,
+        0.0,
+        -187.51532801136693
+      ],
+      "wind_energy": 84.17767523561795,
+      "solar_energy": 0.0,
+      "diesel_energy": 0.0,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 84.17767523561795,
+      "avg_curtailed_load": 1854.108861304765,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 156,
+      "total_reward": 272.8327493880077,
+      "rewards_per_agent": [
+        459.7839742260722,
+        0.0,
+        0.0,
+        0.0,
+        -186.9512248380645
+      ],
+      "wind_energy": 91.40834477655511,
+      "solar_energy": 0.0,
+      "diesel_energy": 0.0,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 91.40834477655511,
+      "avg_curtailed_load": 1846.660162186506,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 157,
+      "total_reward": -22.628679185556308,
+      "rewards_per_agent": [
+        169.76934462713484,
+        0.0,
+        0.0,
+        0.0,
+        -192.39802381269115
+      ],
+      "wind_energy": 33.751360760861786,
+      "solar_energy": 0.0,
+      "diesel_energy": 0.0,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 33.751360760861786,
+      "avg_curtailed_load": 1915.542397936696,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 158,
+      "total_reward": 103.28155495074566,
+      "rewards_per_agent": [
+        281.3133039154165,
+        7.342306384596363,
+        0.0,
+        0.0,
+        -185.37405534926722
+      ],
+      "wind_energy": 55.927098193919775,
+      "solar_energy": 1.4597030585678654,
+      "diesel_energy": 0.0,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 57.38680125248764,
+      "avg_curtailed_load": 1839.3938531795502,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 159,
+      "total_reward": 2.535215806881979,
+      "rewards_per_agent": [
+        181.6649372866543,
+        0.0,
+        10.926514667847645,
+        0.0,
+        -190.05623614761996
+      ],
+      "wind_energy": 36.116289719016756,
+      "solar_energy": 0.0,
+      "diesel_energy": 2.232178685975004,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 38.34846840499176,
+      "avg_curtailed_load": 1890.4171997034578,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 160,
+      "total_reward": 119.44008019252138,
+      "rewards_per_agent": [
+        251.74079014973702,
+        0.0,
+        51.499230721407535,
+        0.0,
+        -183.7999406786232
+      ],
+      "wind_energy": 50.0478708051167,
+      "solar_energy": 0.0,
+      "diesel_energy": 10.520782578428506,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 60.56865338354521,
+      "avg_curtailed_load": 1820.2270477957381,
+      "avg_grid_import": 1.7763568394002505e-15,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 161,
+      "total_reward": 286.36545765135054,
+      "rewards_per_agent": [
+        473.63662345350184,
+        0.0,
+        0.0,
+        0.0,
+        -187.2711658021513
+      ],
+      "wind_energy": 94.16235058717729,
+      "solar_energy": 0.0,
+      "diesel_energy": 0.0,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 94.16235058717729,
+      "avg_curtailed_load": 1849.1710703747185,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 162,
+      "total_reward": 363.1181062970285,
+      "rewards_per_agent": [
+        519.3786057466458,
+        0.0,
+        28.449406842203654,
+        0.0,
+        -184.709906291821
+      ],
+      "wind_energy": 103.2561840450588,
+      "solar_energy": 0.0,
+      "diesel_energy": 5.811931939163157,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 109.06811598422198,
+      "avg_curtailed_load": 1818.3790509373634,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 163,
+      "total_reward": 257.25325404757575,
+      "rewards_per_agent": [
+        442.2373578507778,
+        0.0,
+        0.0,
+        0.0,
+        -184.98410380320203
+      ],
+      "wind_energy": 87.91995185900156,
+      "solar_energy": 0.0,
+      "diesel_energy": 0.0,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 87.91995185900156,
+      "avg_curtailed_load": 1827.8610500672703,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 164,
+      "total_reward": -37.01313190876809,
+      "rewards_per_agent": [
+        152.17885462923164,
+        0.0,
+        3.174789286666376,
+        0.0,
+        -192.3667758246661
+      ],
+      "wind_energy": 30.25424545312756,
+      "solar_energy": 0.0,
+      "diesel_energy": 0.6485779952331718,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 30.902823448360735,
+      "avg_curtailed_load": 1915.7799078857624,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 165,
+      "total_reward": 206.03068219256932,
+      "rewards_per_agent": [
+        289.5853301632135,
+        26.12731227309236,
+        76.3685578162965,
+        0.0,
+        -186.05051806003303
+      ],
+      "wind_energy": 57.57163621535058,
+      "solar_energy": 5.194296674571046,
+      "diesel_energy": 15.601339696894076,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 78.36727258681569,
+      "avg_curtailed_load": 1837.0130275294027,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 166,
+      "total_reward": 434.4372050453846,
+      "rewards_per_agent": [
+        599.1362809656551,
+        0.0,
+        18.705592564626546,
+        0.0,
+        -183.40466848489706
+      ],
+      "wind_energy": 119.11258070887779,
+      "solar_energy": 0.0,
+      "diesel_energy": 3.821367224642808,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 122.9339479335206,
+      "avg_curtailed_load": 1802.35785605943,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 167,
+      "total_reward": 744.2705892654112,
+      "rewards_per_agent": [
+        925.1017858926613,
+        0.0,
+        0.0,
+        0.0,
+        -180.83119662725005
+      ],
+      "wind_energy": 183.91685604227854,
+      "solar_energy": 0.0,
+      "diesel_energy": 0.0,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 183.91685604227854,
+      "avg_curtailed_load": 1762.332752261931,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 168,
+      "total_reward": 497.7702778202083,
+      "rewards_per_agent": [
+        661.3655217140815,
+        16.009479139572573,
+        0.0,
+        0.0,
+        -179.60472303344582
+      ],
+      "wind_energy": 131.48419914792873,
+      "solar_energy": 3.182799033712241,
+      "diesel_energy": 0.0,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 134.66699818164096,
+      "avg_curtailed_load": 1762.3804807890483,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 169,
+      "total_reward": 1105.7327080441703,
+      "rewards_per_agent": [
+        1246.5320825395863,
+        1.9646099820504757,
+        33.923678980141155,
+        0.0,
+        -176.68766345760773
+      ],
+      "wind_energy": 247.81949951085215,
+      "solar_energy": 0.39057852525854386,
+      "diesel_energy": 6.93027149747521,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 255.1403495335859,
+      "avg_curtailed_load": 1701.3589793183119,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 170,
+      "total_reward": 1148.340379051127,
+      "rewards_per_agent": [
+        1223.4193551499557,
+        92.35098956400674,
+        0.0,
+        0.0,
+        -167.42996566283543
+      ],
+      "wind_energy": 243.22452388667108,
+      "solar_energy": 18.36003768668126,
+      "diesel_energy": 0.0,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 261.5845615733523,
+      "avg_curtailed_load": 1608.903516235016,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 171,
+      "total_reward": 1453.217868247943,
+      "rewards_per_agent": [
+        1517.7580207865335,
+        0.0,
+        106.04288140369096,
+        0.0,
+        -170.58303394228145
+      ],
+      "wind_energy": 301.7411572140225,
+      "solar_energy": 0.0,
+      "diesel_energy": 21.663509990539524,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 323.40466720456203,
+      "avg_curtailed_load": 1619.563295124039,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 172,
+      "total_reward": 1646.2870912563626,
+      "rewards_per_agent": [
+        1542.540401687064,
+        188.11270022690107,
+        77.34528461542509,
+        0.0,
+        -161.7112952730276
+      ],
+      "wind_energy": 306.668071905977,
+      "solar_energy": 37.39815113854892,
+      "diesel_energy": 15.800875304479076,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 359.867098349005,
+      "avg_curtailed_load": 1523.195959316905,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 173,
+      "total_reward": 1778.059943315319,
+      "rewards_per_agent": [
+        1537.7480188874865,
+        76.96432639925642,
+        331.87282591172533,
+        0.0,
+        -168.52522788314923
+      ],
+      "wind_energy": 305.71531190606095,
+      "solar_energy": 15.301058926293525,
+      "diesel_energy": 67.79833011475492,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 388.8147009471094,
+      "avg_curtailed_load": 1571.0990210660266,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 174,
+      "total_reward": 2063.2609249638253,
+      "rewards_per_agent": [
+        1884.9863373301532,
+        112.09960380006034,
+        226.27130339093208,
+        0.0,
+        -160.0963195573205
+      ],
+      "wind_energy": 374.748774817128,
+      "solar_energy": 22.28620353877939,
+      "diesel_energy": 46.224985370976924,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 443.2599637268843,
+      "avg_curtailed_load": 1478.5919582987394,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 175,
+      "total_reward": 2034.3953232158776,
+      "rewards_per_agent": [
+        2091.765664456628,
+        55.607857263421714,
+        45.32369989685862,
+        0.0,
+        -158.30189840103122
+      ],
+      "wind_energy": 415.8579849814372,
+      "solar_energy": 11.05524001260869,
+      "diesel_energy": 9.259182818561516,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 436.1724078126073,
+      "avg_curtailed_load": 1471.6610863525198,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 176,
+      "total_reward": 2126.4516096951565,
+      "rewards_per_agent": [
+        1982.442491156038,
+        141.75816506189318,
+        161.9542942680473,
+        0.0,
+        -159.70334079082218
+      ],
+      "wind_energy": 394.12375569702556,
+      "solar_energy": 28.18253778566465,
+      "diesel_energy": 33.08565766456533,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 455.39195114725555,
+      "avg_curtailed_load": 1474.9140057052664,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 177,
+      "total_reward": 2097.3139116125244,
+      "rewards_per_agent": [
+        2245.1013534294907,
+        0.0,
+        4.73843357904376,
+        0.0,
+        -152.52587539601004
+      ],
+      "wind_energy": 446.34221738160863,
+      "solar_energy": 0.0,
+      "diesel_energy": 0.9680150314696139,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 447.3102324130782,
+      "avg_curtailed_load": 1413.1891920989638,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 178,
+      "total_reward": 2331.402101066352,
+      "rewards_per_agent": [
+        2043.628531894279,
+        57.34205483389823,
+        384.2757226406143,
+        0.0,
+        -153.8442083024396
+      ],
+      "wind_energy": 406.28797850780904,
+      "solar_energy": 11.400010901371418,
+      "diesel_energy": 78.50372270492632,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 496.19171211410674,
+      "avg_curtailed_load": 1394.768224319638,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 179,
+      "total_reward": 2189.6772703584825,
+      "rewards_per_agent": [
+        2231.962607565562,
+        11.238693704550935,
+        106.65304035740718,
+        0.0,
+        -160.17707126903713
+      ],
+      "wind_energy": 443.73014066909764,
+      "solar_energy": 2.2343327444435257,
+      "diesel_energy": 21.78815941928645,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 467.75263283282766,
+      "avg_curtailed_load": 1479.3855146273431,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 180,
+      "total_reward": 2535.280267093269,
+      "rewards_per_agent": [
+        2452.41946985191,
+        23.739125195429548,
+        214.0403661022272,
+        0.0,
+        -154.91869405629828
+      ],
+      "wind_energy": 487.55854271409737,
+      "solar_energy": 4.719507991139075,
+      "diesel_energy": 43.72632606787073,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 536.0043767731072,
+      "avg_curtailed_load": 1404.2542648527383,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 181,
+      "total_reward": 2014.1064161683037,
+      "rewards_per_agent": [
+        2061.8992672898485,
+        108.42192492649275,
+        0.0,
+        0.0,
+        -156.21477604803766
+      ],
+      "wind_energy": 409.9203314691548,
+      "solar_energy": 21.555054657354425,
+      "diesel_energy": 0.0,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 431.47538612650925,
+      "avg_curtailed_load": 1454.2789139487495,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 182,
+      "total_reward": 2189.4288939770163,
+      "rewards_per_agent": [
+        2308.814065178729,
+        0.0,
+        32.86894493132747,
+        0.0,
+        -152.2541161330402
+      ],
+      "wind_energy": 459.0087604729084,
+      "solar_energy": 0.0,
+      "diesel_energy": 6.7147997816807905,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 465.7235602545892,
+      "avg_curtailed_load": 1404.4315713213346,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 183,
+      "total_reward": 2069.6076489317074,
+      "rewards_per_agent": [
+        2074.040554946805,
+        118.8012876548234,
+        37.577331513456706,
+        0.0,
+        -160.81152518337763
+      ],
+      "wind_energy": 412.3341063512536,
+      "solar_energy": 23.618546253444016,
+      "diesel_energy": 7.6766765093885,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 443.629329114086,
+      "avg_curtailed_load": 1495.2887504279074,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 184,
+      "total_reward": 2233.8346064681587,
+      "rewards_per_agent": [
+        2204.9484670845454,
+        60.47378681734263,
+        126.99953347834463,
+        0.0,
+        -158.58718091207416
+      ],
+      "wind_energy": 438.3595361997109,
+      "solar_energy": 12.022621633666526,
+      "diesel_energy": 25.94474636942689,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 476.32690420280426,
+      "avg_curtailed_load": 1460.3038964776838,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 185,
+      "total_reward": 2202.5850455744303,
+      "rewards_per_agent": [
+        2028.3437759350438,
+        49.430314358790724,
+        283.70100328742905,
+        0.0,
+        -158.89004800683318
+      ],
+      "wind_energy": 403.2492596292334,
+      "solar_energy": 9.827100270137322,
+      "diesel_energy": 57.957304042375696,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 471.03366394174634,
+      "avg_curtailed_load": 1456.6527380723014,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 3.552713678800501e-15
+    },
+    {
+      "episode": 186,
+      "total_reward": 1949.1118428809652,
+      "rewards_per_agent": [
+        2078.7851597002846,
+        30.446902599836797,
+        0.0,
+        0.0,
+        -160.12021941915629
+      ],
+      "wind_energy": 413.27736773365496,
+      "solar_energy": 6.05306214708485,
+      "diesel_energy": 0.0,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 419.33042988073987,
+      "avg_curtailed_load": 1496.369586721378,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 187,
+      "total_reward": 1910.3933755070068,
+      "rewards_per_agent": [
+        1854.0219351500696,
+        71.82108744414305,
+        151.26635751237455,
+        0.0,
+        -166.7160045995804
+      ],
+      "wind_energy": 368.5928300497156,
+      "solar_energy": 14.278546211559254,
+      "diesel_energy": 30.902218082201138,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 413.773594343476,
+      "avg_curtailed_load": 1555.991092889385,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 188,
+      "total_reward": 2067.7322558906567,
+      "rewards_per_agent": [
+        1875.477016081057,
+        134.32846045715718,
+        215.99369984261978,
+        0.0,
+        -158.06692049017724
+      ],
+      "wind_energy": 372.85825369404705,
+      "solar_energy": 26.705459335418922,
+      "diesel_energy": 44.12537279726655,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 443.6890858267325,
+      "avg_curtailed_load": 1458.7155902457728,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 189,
+      "total_reward": 2152.7069509692205,
+      "rewards_per_agent": [
+        2239.6151808610484,
+        22.225681271626033,
+        53.334279546009064,
+        0.0,
+        -162.4681907094627
+      ],
+      "wind_energy": 445.2515270101487,
+      "solar_energy": 4.418624507281518,
+      "diesel_energy": 10.895664871503385,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 460.5658163889336,
+      "avg_curtailed_load": 1506.8165367795173,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 190,
+      "total_reward": 1960.6740155590849,
+      "rewards_per_agent": [
+        1985.833552529315,
+        34.942391695214035,
+        100.75555982982024,
+        0.0,
+        -160.85748849526428
+      ],
+      "wind_energy": 394.79792296805465,
+      "solar_energy": 6.946797553720483,
+      "diesel_energy": 20.58336258014714,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 422.3280831019223,
+      "avg_curtailed_load": 1497.8470235321251,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 191,
+      "total_reward": 1928.2159013074865,
+      "rewards_per_agent": [
+        1916.913496105711,
+        173.24194462481282,
+        0.0,
+        0.0,
+        -161.9395394230374
+      ],
+      "wind_energy": 381.0961224862249,
+      "solar_energy": 34.44173849399857,
+      "diesel_energy": 0.0,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 415.5378609802234,
+      "avg_curtailed_load": 1515.510928985318,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 192,
+      "total_reward": 2125.8172433962427,
+      "rewards_per_agent": [
+        2020.2318108368756,
+        143.7910439184319,
+        121.98848458569746,
+        0.0,
+        -160.19409594476193
+      ],
+      "wind_energy": 401.63654290991565,
+      "solar_energy": 28.586688651775724,
+      "diesel_energy": 24.92103873047956,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 455.144270292171,
+      "avg_curtailed_load": 1481.9246321919568,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 193,
+      "total_reward": 1971.1792531773995,
+      "rewards_per_agent": [
+        1897.0331857905167,
+        169.2486156395361,
+        65.89731032936656,
+        0.0,
+        -160.99985858201978
+      ],
+      "wind_energy": 377.143774511037,
+      "solar_energy": 33.64783611123978,
+      "diesel_energy": 13.462167585161708,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 424.2537782074385,
+      "avg_curtailed_load": 1500.5695993720474,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 194,
+      "total_reward": 2082.461630923914,
+      "rewards_per_agent": [
+        2090.691229545823,
+        140.48176263014028,
+        18.34118464851812,
+        0.0,
+        -167.05254590056714
+      ],
+      "wind_energy": 415.6443796313763,
+      "solar_energy": 27.928779846946377,
+      "diesel_energy": 3.7469222979608006,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 447.3200817762835,
+      "avg_curtailed_load": 1557.758707987111,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 195,
+      "total_reward": 2030.066605021756,
+      "rewards_per_agent": [
+        2105.047585537994,
+        80.18288619506217,
+        0.0,
+        0.0,
+        -155.16386671130022
+      ],
+      "wind_energy": 418.4985259518875,
+      "solar_energy": 15.940931649117726,
+      "diesel_energy": 0.0,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 434.43945760100524,
+      "avg_curtailed_load": 1443.0288027127513,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 196,
+      "total_reward": 1957.656257785058,
+      "rewards_per_agent": [
+        2036.3716164914106,
+        60.493582936157885,
+        25.69210327818167,
+        0.0,
+        -164.90104492069193
+      ],
+      "wind_energy": 404.84525178755683,
+      "solar_energy": 12.026557243768963,
+      "diesel_energy": 5.2486421405886965,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 422.1204511719145,
+      "avg_curtailed_load": 1542.1681758787936,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 197,
+      "total_reward": 1894.885936968607,
+      "rewards_per_agent": [
+        1831.1274324408755,
+        0.0,
+        222.99380036095687,
+        0.0,
+        -159.2352958332254
+      ],
+      "wind_energy": 364.041239053852,
+      "solar_energy": 0.0,
+      "diesel_energy": 45.55542397568067,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 409.5966630295327,
+      "avg_curtailed_load": 1478.5649365809504,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 198,
+      "total_reward": 1939.25930282537,
+      "rewards_per_agent": [
+        1753.8419276105903,
+        196.9573371527459,
+        152.4659499114003,
+        0.0,
+        -164.00591184936636
+      ],
+      "wind_energy": 348.67632755677744,
+      "solar_energy": 39.15652826098328,
+      "diesel_energy": 31.147282923677274,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 418.98013874143794,
+      "avg_curtailed_load": 1527.5272630773843,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 199,
+      "total_reward": 1826.1858226433242,
+      "rewards_per_agent": [
+        1936.2792007343483,
+        27.13408177547793,
+        26.943651463172216,
+        0.0,
+        -164.17111132967426
+      ],
+      "wind_energy": 384.94616316786244,
+      "solar_energy": 5.39444965715267,
+      "diesel_energy": 5.504321034355918,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 395.84493385937105,
+      "avg_curtailed_load": 1541.3737995733109,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    },
+    {
+      "episode": 200,
+      "total_reward": 1929.3428351462258,
+      "rewards_per_agent": [
+        1839.2193143539082,
+        86.00637757895572,
+        163.35366758372703,
+        0.0,
+        -159.23652437036515
+      ],
+      "wind_energy": 365.64996309222823,
+      "solar_energy": 17.098683415299348,
+      "diesel_energy": 33.37153576787069,
+      "battery_energy": 0.0,
+      "avg_clearing_price": 5.0,
+      "avg_actual_demand": 416.1201822753983,
+      "avg_curtailed_load": 1479.9923141928336,
+      "avg_grid_import": 0.0,
+      "avg_grid_export": 0.0
+    }
+  ]
+}
