@@ -61,8 +61,8 @@ class MicrogridEnv:
     def _create_microgrid(self) -> Microgrid:
         """Create microgrid matching microgrid_auction.py components"""
         components = {
-            'wind': WindTurbine(name='WindTurbine', capacity=100),
-            'pv': PVSystem(name='PVSystem', capacity=50),
+            'wind': WindTurbine(name='WindTurbine', capacity=30),
+            'pv': PVSystem(name='PVSystem', capacity=15),
             'diesel': DieselGenerator(
                 name='DieselGenerator', 
                 capacity=75,
@@ -142,10 +142,10 @@ class MicrogridEnv:
         customer_curtail = actions[4, 0]
         
         # Denormalize bids
-        wind_bid = wind_bid_norm * (self.price_max - self.price_min) + self.price_min
-        solar_bid = solar_bid_norm * (self.price_max - self.price_min) + self.price_min
-        diesel_bid = diesel_bid_norm * (self.price_max - self.price_min) + self.price_min
-        battery_bid = battery_bid_norm * (self.price_max - self.price_min) + self.price_min
+        wind_bid = (wind_bid_norm + 1) / 2 * (self.price_max - self.price_min) + self.price_min
+        solar_bid = (solar_bid_norm + 1) / 2 * (self.price_max - self.price_min) + self.price_min
+        diesel_bid = (diesel_bid_norm + 1) / 2 * (self.price_max - self.price_min) + self.price_min
+        battery_bid = (battery_bid_norm + 1) / 2 * (self.price_max - self.price_min) + self.price_min
         
         # Update component states with environmental data
         mg.components['wind'].update(1.0, {
@@ -278,7 +278,13 @@ class MicrogridEnv:
             'total_supply': sum(allocated_power.get(name, 0) 
                               for name in ['wind', 'solar', 'diesel', 'main_grid']),
             'suppliers': suppliers,
-            'main_grid_trade': main_grid_net
+            'main_grid_trade': main_grid_net,
+            'bids': {
+                'wind': wind_bid,
+                'solar': solar_bid,
+                'diesel': diesel_bid,
+                'battery': battery_bid
+            },
         }
     
     def _calculate_rewards(self, env_idx: int, auction_results: Dict, env_data: Dict,
@@ -289,8 +295,8 @@ class MicrogridEnv:
         
         rewards = np.zeros(self.num_agents)
         
-        RENEWABLE_SUBSIDY = 3
-        CARBON_TAX = 0.5
+        RENEWABLE_SUBSIDY = 2
+        CARBON_TAX = 5
         GREEN_DISCOUNT = 0.5
         
         # Wind
@@ -417,7 +423,7 @@ class MicrogridEnv:
         next_obs_list = []
         rewards_list = []
         dones_list = []
-        
+        infos_list = []
         for env_idx in range(self.num_envs):
             env_data = self._generate_env_data(env_idx)
             self.latest_env_data[env_idx] = env_data
@@ -440,13 +446,25 @@ class MicrogridEnv:
             
             rewards = self._calculate_rewards(env_idx, auction_results, env_data, self.use_policy)
             rewards_list.append(rewards)
-            
+            info = {
+                'bids': auction_results['bids'],
+                'generation': {
+                    'wind': auction_results['allocated_power'].get('wind', 0),
+                    'solar': auction_results['allocated_power'].get('solar', 0),
+                    'diesel': auction_results['allocated_power'].get('diesel', 0),
+                    'battery': auction_results['allocated_power'].get('battery', 0),
+                    'main_grid_import': auction_results.get('grid_import', 0),
+                    'main_grid_export': auction_results.get('grid_export', 0)
+                }
+            }
+            infos_list.append(info)
+
             self.current_steps[env_idx] += 1
             done = self.current_steps[env_idx] >= self.max_steps
             dones = np.full(self.num_agents, done)
             dones_list.append(dones)
         
-        return np.stack(next_obs_list), np.stack(rewards_list), np.stack(dones_list)
+        return np.stack(next_obs_list), np.stack(rewards_list), np.stack(dones_list), infos_list
     
     @property
     def observation_space(self):
