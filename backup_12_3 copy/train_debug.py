@@ -106,7 +106,7 @@ class DetailedLogger:
         self.grid_imports.append(episode_data.get('grid_import', 0))
         self.grid_exports.append(episode_data.get('grid_export', 0))
         self.grid_net_trades.append(episode_data.get('grid_net_trade', 0))
-        self.clearing_prices.append(episode_data.get('avg_clearing_price', 0))
+        self.clearing_prices.append(episode_data.get('clearing_price', 0))
         
         self.recent_rewards.append(episode_data['total_reward'])
         
@@ -124,21 +124,21 @@ class DetailedLogger:
         # 3. 控制台输出 - 策略详情 (报价 & 发电)
         if 'avg_bids' in episode_data and 'total_gen' in episode_data:
             self.log("-" * 60)
-            self.log(f"📊 每日策略详情 (Avg Bid / Total Gen):")
+            self.log(f"每日策略详情 (Avg Bid / Total Gen):")
             bids = episode_data['avg_bids']
             gen = episode_data['total_gen']
             
             # Wind
-            self.log(f"  Wind    : Bid {bids['wind']:5.1f}¢ | Gen {gen['wind']:6.1f} kWh")
+            self.log(f"Wind    : Bid {bids['wind']:5.1f} cents | Gen {gen['wind']:6.1f} kWh")
             # Solar
-            self.log(f"  Solar   : Bid {bids['solar']:5.1f}¢ | Gen {gen['solar']:6.1f} kWh")
+            self.log(f"Solar   : Bid {bids['solar']:5.1f} cents | Gen {gen['solar']:6.1f} kWh")
             # Diesel
-            self.log(f"  Diesel  : Bid {bids['diesel']:5.1f}¢ | Gen {gen['diesel']:6.1f} kWh")
+            self.log(f"Diesel  : Bid {bids['diesel']:5.1f} cents | Gen {gen['diesel']:6.1f} kWh")
             # Battery (显示充放电状态)
             bat_net = gen['battery']
             action_str = "Dischg" if bat_net > 0 else "Charge"
             if abs(bat_net) < 0.1: action_str = "Idle"
-            self.log(f"  Battery : Bid {bids['battery']:5.1f}¢ | Net {bat_net:6.1f} kWh ({action_str})")
+            self.log(f"  Battery : Bid {bids['battery']:5.1f} cents | Net {bat_net:6.1f} kWh ({action_str})")
             
             self.log("-" * 60)
     
@@ -430,19 +430,19 @@ class DebugTrainer:
     
     def train(self):
         self.logger.log("\n" + "="*70)
-        self.logger.log("🚀 开始训练 (Transformer Agents + Strategy Logging)")
+        self.logger.log("开始训练 (Transformer Agents + Strategy Logging)")
         self.logger.log("="*70)
         
         # 🌟 关键安全检查: 确保是在 30/15 的配置下运行
         try:
             w_cap = self.env.microgrids[0].components['wind'].capacity
             pv_cap = self.env.microgrids[0].components['pv'].capacity
-            self.logger.log(f"🔥 DEBUG: Wind Capacity = {w_cap} kW")
-            self.logger.log(f"🔥 DEBUG: PV Capacity = {pv_cap} kW")
+            self.logger.log(f"DEBUG: Wind Capacity = {w_cap} kW")
+            self.logger.log(f"DEBUG: PV Capacity = {pv_cap} kW")
             
             if w_cap > 30 or pv_cap > 20:
-                self.logger.log("⚠️ 警告: 检测到大容量配置！Main Grid 将会出现大量 Export。")
-                self.logger.log("   如果要复现论文缺电场景，请修改 environment.py 为 30/15。")
+                self.logger.log("警告: 检测到大容量配置！Main Grid 将会出现大量 Export。")
+                self.logger.log("如果要复现论文缺电场景，请修改 environment.py 为 30/15。")
         except:
             pass
 
@@ -472,7 +472,7 @@ class DebugTrainer:
                 'grid_import': g_imp,
                 'grid_export': g_exp,
                 'grid_net_trade': g_net,
-                'avg_clearing_price': avg_price,
+                'clearing_price': avg_price,
                 'avg_bids': avg_bids,   # 传入 Strategy
                 'total_gen': total_gen  # 传入 Strategy
             }
@@ -480,21 +480,21 @@ class DebugTrainer:
             
             # Plot
             if episode % self.config.plot_interval == 0:
-                self.logger.log(f"\n📊 生成图表...")
+                self.logger.log(f"\n生成图表...")
                 p1 = self.plotter.plot_training_status(self.logger, episode)
                 p2 = self.plotter.plot_grid_status(self.logger, episode)
-                self.logger.log(f"  ✓ {p1}")
-                self.logger.log(f"  ✓ {p2}")
+                self.logger.log(f"  {p1}")
+                self.logger.log(f"  {p2}")
             
             if episode % self.config.save_interval == 0:
                 self.save_checkpoint(episode)
         
         # End
         self.logger.log("="*70)
-        self.logger.log("🎉 训练完成")
+        self.logger.log("训练完成")
         self.logger.save_stats()
         final_plot = self.plotter.create_final_summary(self.logger)
-        self.logger.log(f"📊 最终总结图: {final_plot}")
+        self.logger.log(f"最终总结图: {final_plot}")
         self.logger.close()
 
     def save_checkpoint(self, episode):
@@ -504,7 +504,7 @@ class DebugTrainer:
             'agents': [a.actor.state_dict() for a in self.agents],
             'config': vars(self.config)
         }, path)
-        self.logger.log(f"💾 Checkpoint saved: {path}")
+        self.logger.log(f"Checkpoint saved: {path}")
 
 
 def main():
