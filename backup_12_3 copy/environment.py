@@ -228,6 +228,11 @@ class MicrogridEnv:
         
         self.latest_env_data = [None] * num_envs
         self.use_policy = use_policy
+        self.reward_function = self._default_reward_function  # 新增
+
+    def set_reward_function(self, reward_fn):
+        """允许外部设置自定义reward函数"""
+        self.reward_function = reward_fn
 
     def _create_microgrid(self) -> dict:
         """Create microgrid matching microgrid_auction.py components"""
@@ -555,7 +560,7 @@ class MicrogridEnv:
             }
         }
     
-    def _calculate_rewards(self, env_idx: int, auction_results: Dict, env_data: Dict,
+    def _default_reward_function(self, env_idx: int, auction_results: Dict, env_data: Dict,
                           use_policy_incentive: bool = True) -> np.ndarray:
         """Calculate rewards matching paper Equation 5"""
         clearing_price = auction_results['clearing_price']
@@ -729,7 +734,7 @@ class MicrogridEnv:
             next_obs = self._get_observation(env_idx, env_data, auction_results)
             next_obs_list.append(next_obs)
             
-            rewards = self._calculate_rewards(env_idx, auction_results, env_data, self.use_policy)
+            rewards = self.reward_function(env_idx, auction_results, env_data, self.use_policy)
             rewards_list.append(rewards)
             info = {
                 'bids': auction_results['bids'],

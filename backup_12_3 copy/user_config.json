@@ -1,0 +1,40 @@
+{
+  "llm": {
+    "enabled": true,
+    "api_key": "your_api_key",
+    "model": "gemini-1.5-flash",
+    "max_tokens": 2000,
+    "provider": "gemini",
+    "policy_description": "Encourage renewable energy usage (wind/solar) with positive rewards.\nPenalize diesel generator use based on fuel consumption.\nReward battery for balancing supply-demand.\nIncentivize customer demand response."
+  },
+  "experiment": {
+    "exp_name": "debug_maddpg",
+    "save_dir": "debug_checkpoints",
+    "log_dir": "debug_logs",
+    "plot_dir": "debug_plots"
+  },
+  "environment": {
+    "num_envs": 2,
+    "max_steps": 24
+  },
+  "training": {
+    "total_episodes": 200,
+    "batch_size": 128,
+    "warmup_episodes": 20,
+    "actor_lr": 5e-5,
+    "critic_lr": 5e-4,
+    "gamma": 0.95,
+    "tau": 0.01,
+    "buffer_capacity": 50000
+  },
+  "exploration": {
+    "noise_scale": 0.3,
+    "noise_decay": 0.996,
+    "noise_min": 0.02
+  },
+  "logging": {
+    "log_interval": 1,
+    "plot_interval": 20,
+    "save_interval": 100
+  }
+}

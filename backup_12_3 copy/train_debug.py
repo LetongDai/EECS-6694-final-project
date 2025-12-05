@@ -22,46 +22,117 @@ from collections import deque
 from environment import MicrogridEnv
 from agent import Agent 
 from trainer import Trainer
+from llm_reward_generator import LLMRewardGenerator
 
 
 class DebugConfig:
-    exp_name = f"debug_maddpg_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
-    
-    # --- 环境配置 ---
-    num_envs = 2
-    max_steps = 24
-    
-    # --- 训练参数 (适配 Transformer) ---
-    total_episodes = 200    # 增加到 1000 以便观察长期收敛
-    batch_size = 128         # Transformer 需要更大的 Batch 稳定梯度
-    warmup_episodes = 20     # 给更多时间收集初始数据
-    
-    actor_lr = 5e-5          # 降低 LR 防止震荡
-    critic_lr = 5e-4
-    
-    gamma = 0.95             # 关注长期收益
-    tau = 0.01
-    
-    buffer_capacity = 50000
-    
-    # --- 噪声参数 ---
-    noise_scale = 0.3
-    noise_decay = 0.996      # 衰减更慢，保持探索
-    noise_min = 0.02
-    
-    # --- 记录参数 ---
-    log_interval = 1
-    plot_interval = 20       # 每 20 轮画一次图
-    save_interval = 100
-    
-    save_dir = "debug_checkpoints"
-    log_dir = "debug_logs"
-    plot_dir = "debug_plots"
-    
-    def __init__(self):
+    def __init__(self, config_path=None):
+        """
+        初始化配置，如果提供config_path则从JSON加载，否则使用默认值
+
+        Args:
+            config_path: JSON配置文件路径，如果为None则使用默认配置
+        """
+        # 如果提供了配置文件，从JSON加载
+        if config_path:
+            with open(config_path, 'r') as f:
+                config_dict = json.load(f)
+            self._load_from_dict(config_dict)
+        else:
+            # 使用默认配置
+            self._load_defaults()
+
+        # 创建目录
         Path(self.save_dir).mkdir(exist_ok=True)
         Path(self.log_dir).mkdir(exist_ok=True)
         Path(self.plot_dir).mkdir(exist_ok=True)
+
+    def _load_from_dict(self, config_dict):
+        """从配置字典加载参数"""
+        # LLM配置
+        llm = config_dict.get('llm', {})
+        self.llm_enabled = llm.get('enabled', True)
+        self.llm_api_key = llm.get('api_key', 'your_anthropic_api_key')
+        self.llm_model = llm.get('model', 'claude-sonnet-4-20250514')
+        self.llm_max_tokens = llm.get('max_tokens', 2000)
+        self.llm_provider = llm.get('provider', 'gemini')
+        self.llm_policy_description = llm.get('policy_description', '')
+
+        # 实验配置
+        exp = config_dict.get('experiment', {})
+        exp_name_base = exp.get('exp_name', 'debug_maddpg')
+        self.exp_name = f"{exp_name_base}_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+        self.save_dir = exp.get('save_dir', 'debug_checkpoints')
+        self.log_dir = exp.get('log_dir', 'debug_logs')
+        self.plot_dir = exp.get('plot_dir', 'debug_plots')
+
+        # 环境配置
+        env = config_dict.get('environment', {})
+        self.num_envs = env.get('num_envs', 2)
+        self.max_steps = env.get('max_steps', 24)
+
+        # 训练配置
+        train = config_dict.get('training', {})
+        self.total_episodes = train.get('total_episodes', 200)
+        self.batch_size = train.get('batch_size', 128)
+        self.warmup_episodes = train.get('warmup_episodes', 20)
+        self.actor_lr = train.get('actor_lr', 5e-5)
+        self.critic_lr = train.get('critic_lr', 5e-4)
+        self.gamma = train.get('gamma', 0.95)
+        self.tau = train.get('tau', 0.01)
+        self.buffer_capacity = train.get('buffer_capacity', 50000)
+
+        # 探索配置
+        explore = config_dict.get('exploration', {})
+        self.noise_scale = explore.get('noise_scale', 0.3)
+        self.noise_decay = explore.get('noise_decay', 0.996)
+        self.noise_min = explore.get('noise_min', 0.02)
+
+        # 日志配置
+        log = config_dict.get('logging', {})
+        self.log_interval = log.get('log_interval', 1)
+        self.plot_interval = log.get('plot_interval', 20)
+        self.save_interval = log.get('save_interval', 100)
+
+    def _load_defaults(self):
+        """加载默认配置"""
+        # LLM配置
+        self.llm_enabled = False
+        self.llm_api_key = 'your_api_key'
+        self.llm_model = 'gemini-1.5-flash'
+        self.llm_max_tokens = 2000
+        self.llm_provider = 'gemini'
+        self.llm_policy_description = ''
+
+        # 实验配置
+        self.exp_name = f"debug_maddpg_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+        self.save_dir = "debug_checkpoints"
+        self.log_dir = "debug_logs"
+        self.plot_dir = "debug_plots"
+
+        # 环境配置
+        self.num_envs = 2
+        self.max_steps = 24
+
+        # 训练配置
+        self.total_episodes = 200
+        self.batch_size = 128
+        self.warmup_episodes = 20
+        self.actor_lr = 5e-5
+        self.critic_lr = 5e-4
+        self.gamma = 0.95
+        self.tau = 0.01
+        self.buffer_capacity = 50000
+
+        # 探索配置
+        self.noise_scale = 0.3
+        self.noise_decay = 0.996
+        self.noise_min = 0.02
+
+        # 日志配置
+        self.log_interval = 1
+        self.plot_interval = 20
+        self.save_interval = 100
 
 
 class DetailedLogger:
@@ -507,17 +578,63 @@ class DebugTrainer:
         self.logger.log(f"Checkpoint saved: {path}")
 
 
+def setup_llm_reward(env, policy_description, api_key, model, max_tokens, provider="gemini"):
+    """设置LLM生成的reward函数"""
+    llm_gen = LLMRewardGenerator(api_key=api_key, model=model, max_tokens=max_tokens, provider=provider)
+
+    policy_text = policy_description
+
+    try:
+        print("Generating reward function from policy description...")
+        reward_code = llm_gen.generate_reward_code(policy_text)
+        print("\nGenerated reward code:")
+        print(reward_code)
+        print("\nValidating and compiling...")
+
+        reward_fn = llm_gen.validate_and_compile(reward_code)
+        env.reward_function = reward_fn
+        print("Custom reward function loaded successfully\n")
+        return True
+    except Exception as e:
+        print(f"Failed to generate reward: {e}")
+        print("Using default reward function\n")
+        return False
+
+
 def main():
-    config = DebugConfig()
+    # 从命令行参数读取配置文件路径
+    import sys
+    config_path = sys.argv[1] if len(sys.argv) > 1 else None
+
+    if config_path:
+        print(f"Loading configuration from {config_path}")
+    else:
+        print("No config file specified, using default configuration")
+
+    # 初始化配置（自动从JSON加载或使用默认值）
+    config = DebugConfig(config_path)
+
+    # 初始化环境
     env = MicrogridEnv(num_envs=config.num_envs, max_steps=config.max_steps)
-    
+
+    # LLM Reward生成
+    if config.llm_enabled:
+        setup_llm_reward(
+            env,
+            api_key=config.llm_api_key,
+            model=config.llm_model,
+            max_tokens=config.llm_max_tokens,
+            policy_description=config.llm_policy_description,
+            provider=config.llm_provider
+        )
+
     print(f"Environment initialized with {env.num_agents} agents.")
-    
-    # Init Agents (Transformer)
+
+    # Init Agents
     agents = []
     for i, name in enumerate(env.agent_names):
         agent = Agent(
-            obs_size=5, 
+            obs_size=5,
             act_size=env.act_sizes[name],
             num_agents=env.num_agents,
             max_act_size=2,
@@ -527,9 +644,10 @@ def main():
             tau=config.tau
         )
         agents.append(agent)
-    
+
     trainer = DebugTrainer(env, agents, config)
     trainer.train()
+
 
 if __name__ == "__main__":
     main()
