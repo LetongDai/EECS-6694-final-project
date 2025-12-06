@@ -1,10 +1,10 @@
-### Microgrid Controller with Transformer and LLM-generated Reward
+# Microgrid Controller with Transformer and LLM-generated Reward
 
 
 Usage: python train_debug.py
 
 
-# Introduction
+## Introduction
 The project implements a MADDPG for microgrid controller.
 The agents learn optimal power generation policy from a real auction mechanism
 
@@ -14,7 +14,7 @@ Innovations:
 - integrate LLM-generated reward to allow automatic reward function generation that is suit for different demands
 
 
-# Custom settings:
+## Custom settings:
 1. The user_config.json file contains:
     - LLM-generated reward settings
     - training settings
