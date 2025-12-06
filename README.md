@@ -1,8 +1,8 @@
 # Microgrid Controller with Transformer and LLM-generated Reward
 
-
+```
 Usage: python train_debug.py
-
+```
 
 ## Introduction
 The project implements a MADDPG for microgrid controller.
