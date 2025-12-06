@@ -1,63 +1,65 @@
 import ast
+import json
 import numpy as np
 import inspect
 from llm_config import *
-
-# 支持多个provider
-try:
-    import anthropic
-except ImportError:
-    anthropic = None
-
-try:
-    import google.generativeai as genai
-except ImportError:
-    genai = None
+import google.generativeai as genai
 
 
 class LLMRewardGenerator:
-    def __init__(self, api_key, model, max_tokens, provider="gemini"):
-        self.provider = provider.lower()
+    def __init__(self, api_key, model, max_tokens, config_path):
         self.model = model
         self.max_tokens = max_tokens
 
-        if self.provider == "anthropic":
-            if anthropic is None:
-                raise ImportError("anthropic package not installed. Run: pip install anthropic")
-            self.client = anthropic.Anthropic(api_key=api_key)
-            if not self.model:
-                self.model = "claude-sonnet-4-20250514"
+        # 解析配置获取agent信息
+        with open(config_path, 'r') as f:
+            config = json.load(f)
 
-        elif self.provider == "gemini":
-            if genai is None:
-                raise ImportError("google-generativeai package not installed. Run: pip install google-generativeai")
-            genai.configure(api_key=api_key)
-            if not self.model:
-                self.model = "gemini-1.5-flash"
-            self.client = genai.GenerativeModel(self.model)
+        # 提取agent名称和类型
+        self.agent_names = []
+        self.agent_types = []
 
-        else:
-            raise ValueError(f"Unsupported provider: {provider}")
+        for supplier in config['components']['suppliers']:
+            self.agent_names.append(supplier['name'])
+            self.agent_types.append(supplier['type'])
+
+        self.agent_names.append('battery')
+        self.agent_types.append('battery')
+
+        self.agent_names.append('customer')
+        self.agent_types.append('customer')
+
+        self.n_agents = len(self.agent_names)
+
+        genai.configure(api_key=api_key)
+        self.client = genai.GenerativeModel(self.model)
 
     def generate_reward_code(self, policy_description):
         """根据自然语言生成reward函数代码"""
-        prompt = PROMPT_TEMPLATE.format(policy_description=policy_description)
+        # 构建agent列表字符串
+        agent_list = '\n'.join([
+            f"  [{i}] {name} (type: {type_})"
+            for i, (name, type_) in enumerate(zip(self.agent_names, self.agent_types))
+        ])
 
-        if self.provider == "anthropic":
-            message = self.client.messages.create(
-                model=self.model,
-                max_tokens=self.max_tokens,
-                messages=[{"role": "user", "content": prompt}]
-            )
-            return message.content[0].text
+        agent_names_str = '[' + ', '.join(self.agent_names) + ']'
 
-        elif self.provider == "gemini":
-            response = self.client.generate_content(prompt)
-            return response.text
+        # 构建allocated_power字典的键列表（不包括customer，因为customer不在allocated_power中）
+        agent_names_dict_keys = ', '.join([f"'{name}'" for name in self.agent_names[:-1]] + ["'main_grid'"])
+
+        prompt = PROMPT_TEMPLATE.format(
+            policy_description=policy_description,
+            agent_list=agent_list,
+            n_agents=self.n_agents,
+            agent_names=agent_names_str,
+            agent_names_dict_keys=agent_names_dict_keys
+        )
+
+        response = self.client.generate_content(prompt)
+        return response.text
 
     def validate_and_compile(self, code):
         """验证并编译生成的代码"""
-        # 清理可能的markdown代码块标记
         code = code.replace("```python", "").replace("```", "").strip()
 
         # 安全检查
@@ -81,7 +83,6 @@ class LLMRewardGenerator:
                 if isinstance(node, ast.FunctionDef) and node.name == REQUIRED_FUNCTION_NAME:
                     function_found = True
 
-                    # 检查参数数量
                     args = node.args
                     num_required = len(args.args) - len(args.defaults)
 
@@ -95,7 +96,6 @@ class LLMRewardGenerator:
                             f"Function must have {NUM_TOTAL_PARAMS} total parameters, got {len(args.args)}"
                         )
 
-                    # 检查参数名称
                     actual_params = [arg.arg for arg in args.args]
                     if actual_params != REQUIRED_PARAMS:
                         raise ValueError(
@@ -110,42 +110,45 @@ class LLMRewardGenerator:
         except SyntaxError as e:
             raise ValueError(f"Syntax error in generated code: {e}")
 
-        # 编译执行
+        # 构建测试数据
+        test_auction_results = {
+            'clearing_price': 0.25,
+            'allocated_power': {name: 10.0 for name in self.agent_names[:-1]} | {'main_grid': 20.0},
+            'actual_demand': 50.0,
+            'curtailed_load': 5.0,
+            'matched_trades': [
+                {'buyer': 'customer', 'seller': self.agent_names[0], 'quantity': 10.0, 'price': 0.20}
+            ]
+        }
+
+        test_env_data = {
+            'wind_speed': 8.0,
+            'solar_irradiance': 800.0,
+            'base_load': 55.0,
+            'time_hour': 12
+        }
+
+        # 测试调用
         namespace = {'np': np, 'numpy': np, 'Dict': dict}
         exec(code, namespace)
 
         if REQUIRED_FUNCTION_NAME not in namespace:
             raise ValueError(f"{REQUIRED_FUNCTION_NAME} not found in namespace after execution")
-
         reward_fn = namespace[REQUIRED_FUNCTION_NAME]
 
-        # 运行时签名验证
-        sig = inspect.signature(reward_fn)
-        params = list(sig.parameters.values())
-
-        if len(params) != NUM_TOTAL_PARAMS:
-            raise ValueError(f"{REQUIRED_FUNCTION_NAME} must have {NUM_TOTAL_PARAMS} parameters, got {len(params)}")
-
-        # 检查默认值
-        if params[NUM_REQUIRED_PARAMS].default == inspect.Parameter.empty:
-            raise ValueError(
-                f"Parameter '{REQUIRED_PARAMS[NUM_REQUIRED_PARAMS]}' must have default value"
-            )
-
-        # 测试调用验证返回值
         try:
-            result = reward_fn(TEST_ENV_IDX, TEST_AUCTION_RESULTS, TEST_ENV_DATA, TEST_USE_POLICY)
+            result = reward_fn(0, test_auction_results, test_env_data, True)
         except Exception as e:
             raise ValueError(f"Function failed on test input: {e}")
 
-        # 验证返回值类型和形状
+        # 验证返回值
+        expected_shape = (self.n_agents,)
         if not isinstance(result, np.ndarray):
             raise ValueError(f"Return type must be np.ndarray, got {type(result)}")
 
-        if result.shape != EXPECTED_RETURN_SHAPE:
-            raise ValueError(f"Return shape must be {EXPECTED_RETURN_SHAPE}, got {result.shape}")
+        if result.shape != expected_shape:
+            raise ValueError(f"Return shape must be {expected_shape}, got {result.shape}")
 
-        # 验证返回值是有限数值
         if not np.all(np.isfinite(result)):
             raise ValueError(f"Return values must be finite numbers, got {result}")
 

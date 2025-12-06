@@ -1,6 +1,5 @@
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 import math
 
 class PositionalEncoding(nn.Module):
@@ -104,7 +103,3 @@ class TransformerCritic(nn.Module):
         x = x[:, -1, :]
         
         return self.output_head(x)
-
-# 映射类名，保持 agent.py 兼容
-Actor = TransformerActor
-Critic = TransformerCritic

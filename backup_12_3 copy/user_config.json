@@ -1,11 +1,10 @@
 {
   "llm": {
     "enabled": true,
-    "api_key": "your_api_key",
-    "model": "gemini-1.5-flash",
+    "api_key": "your api key",
+    "model": "gemini-2.5-flash",
     "max_tokens": 2000,
-    "provider": "gemini",
-    "policy_description": "Encourage renewable energy usage (wind/solar) with positive rewards.\nPenalize diesel generator use based on fuel consumption.\nReward battery for balancing supply-demand.\nIncentivize customer demand response."
+    "policy_description": "Encourage renewable energy usage (wind/solar) with positive rewards. Penalize diesel generator use based on fuel consumption. Reward battery for balancing supply-demand. Incentivize customer demand response."
   },
   "experiment": {
     "exp_name": "debug_maddpg",

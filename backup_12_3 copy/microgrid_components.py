@@ -33,9 +33,12 @@ class MicrogridComponent:
 
 class WindTurbine(MicrogridComponent):
     """Represents a wind turbine with bidding capability."""
-    def __init__(self, name, capacity):
+    def __init__(self, name, config):
         super().__init__(name)
-        self.capacity = capacity  # Maximum power output in kW
+        self.capacity = config['capacity']
+        self.cut_in_speed = config['cut_in_speed']
+        self.rated_speed = config['rated_speed']
+        self.cut_out_speed = config['cut_out_speed']
         self.current_bid = 0.0  # Current bid price in cents/kWh
         self.available_power = 0.0  # Available power based on wind conditions
 
@@ -50,18 +53,14 @@ class WindTurbine(MicrogridComponent):
         """
         if data and 'wind_speed' in data:
             wind_speed = data['wind_speed']
-            # Simple wind power model
-            cut_in_speed = 3  # m/s
-            rated_speed = 12  # m/s
-            cut_out_speed = 25  # m/s
 
-            if wind_speed < cut_in_speed or wind_speed > cut_out_speed:
+            if wind_speed < self.cut_in_speed or wind_speed > self.cut_out_speed:
                 self.available_power = 0
-            elif wind_speed >= rated_speed:
+            elif wind_speed >= self.rated_speed:
                 self.available_power = self.capacity
             else:
                 # Linear interpolation between cut-in and rated speed
-                self.available_power = self.capacity * (wind_speed - cut_in_speed) / (rated_speed - cut_in_speed)
+                self.available_power = self.capacity * (wind_speed - self.cut_in_speed) / (self.rated_speed - self.cut_in_speed)
         else:
             self.available_power = 0
 
@@ -78,9 +77,10 @@ class WindTurbine(MicrogridComponent):
 
 class PVSystem(MicrogridComponent):
     """Represents a PV (solar) system with bidding capability."""
-    def __init__(self, name, capacity):
+    def __init__(self, name, config):
         super().__init__(name)
-        self.capacity = capacity  # Maximum power output in kW
+        self.capacity = config['capacity']
+        self.stc_irradiance = config['stc_irradiance']
         self.current_bid = 0.0  # Current bid price in cents/kWh
         self.available_power = 0.0  # Available power based on solar irradiance
 
@@ -95,9 +95,7 @@ class PVSystem(MicrogridComponent):
         """
         if data and 'solar_irradiance' in data:
             solar_irradiance = data['solar_irradiance']  # W/m^2
-            # Simple PV power model
-            stc_irradiance = 1000
-            self.available_power = self.capacity * (solar_irradiance / stc_irradiance)
+            self.available_power = self.capacity * (solar_irradiance / self.stc_irradiance)
             # Ensure output does not exceed capacity and is not negative
             self.available_power = max(0, min(self.capacity, self.available_power))
         else:
@@ -116,12 +114,12 @@ class PVSystem(MicrogridComponent):
 
 class DieselGenerator(MicrogridComponent):
     """Represents a diesel generator with power control and bidding."""
-    def __init__(self, name, capacity, fuel_consumption_rate=0.2, generation_cost_per_kwh=0.08):
+    def __init__(self, name, config):
         super().__init__(name)
-        self.capacity = capacity  # Maximum power output in kW
-        self.fuel_consumption_rate = fuel_consumption_rate  # Fuel consumed per kWh generated
-        self.generation_cost_per_kwh = generation_cost_per_kwh  # Cost to generate 1 kWh
-        self.fuel_level = 1000  # Initial fuel level
+        self.capacity = config['capacity']
+        self.fuel_consumption_rate = config['fuel_consumption_rate']
+        self.generation_cost_per_kwh = config['generation_cost_per_kwh']
+        self.fuel_level = config['initial_fuel_level']
         self.is_running = False
         self.current_bid = 0.0  # Current bid price in cents/kWh
         self.target_power = 0.0  # Target power output (from agent's decision)
@@ -179,15 +177,14 @@ class DieselGenerator(MicrogridComponent):
 
 class Battery(MicrogridComponent):
     """Represents an energy storage system (battery) with bidding for charge/discharge."""
-    def __init__(self, name, capacity_kwh, max_charge_rate_kw, max_discharge_rate_kw, 
-                 initial_soc=0.5, charge_cost_per_kwh=0.05, discharge_cost_per_kwh=0.15):
+    def __init__(self, name, config):
         super().__init__(name)
-        self.capacity_kwh = capacity_kwh  # Total energy capacity in kWh
-        self.max_charge_rate_kw = max_charge_rate_kw  # Maximum charging power in kW
-        self.max_discharge_rate_kw = max_discharge_rate_kw  # Maximum discharging power in kW
-        self.soc = initial_soc  # State of Charge (0.0 to 1.0)
-        self.charge_cost_per_kwh = charge_cost_per_kwh  # Cost to charge 1 kWh
-        self.discharge_cost_per_kwh = discharge_cost_per_kwh  # Cost of discharging 1 kWh
+        self.capacity_kwh = config['capacity_kwh']
+        self.max_charge_rate_kw = config['max_charge_rate_kw']
+        self.max_discharge_rate_kw = config['max_discharge_rate_kw']
+        self.soc = config['initial_soc']
+        self.charge_cost_per_kwh = config['charge_cost_per_kwh']
+        self.discharge_cost_per_kwh = config['discharge_cost_per_kwh']
         self.power_output = 0  # Power output (discharge is positive, charge is negative)
         self.current_bid = 0.0  # Current bid price in cents/kWh
         self.target_action = 0.0  # Target charge/discharge (-1 to 1, from agent)
@@ -253,28 +250,13 @@ class Battery(MicrogridComponent):
         return f"{self.name}: {self.power_output:.2f} kW, SOC: {self.soc:.2f}"
 
 
-class MainGrid(MicrogridComponent):
-    """Represents the connection to the external power grid."""
-    def __init__(self, name, import_limit=float('inf'), export_limit=float('inf'),
-                 import_price_per_kwh=0.25, export_price_per_kwh=0.1):
-        super().__init__(name)
-        self.import_limit = import_limit  # Maximum power that can be imported (kW)
-        self.export_limit = export_limit  # Maximum power that can be exported (kW)
-        self.import_price_per_kwh = import_price_per_kwh  # Cost to import 1 kWh
-        self.export_price_per_kwh = export_price_per_kwh  # Revenue from exporting 1 kWh
-        self.power_output = 0  # Power flow (positive for import, negative for export)
-
-    def __str__(self):
-        flow_direction = "importing" if self.power_output > 0 else ("exporting" if self.power_output < 0 else "not exchanging")
-        return f"{self.name}: {abs(self.power_output):.2f} kW ({flow_direction})"
-
-
 class CustomerLoad(MicrogridComponent):
     """Represents the aggregate energy consumption of customers with demand response."""
-    def __init__(self, name):
+    def __init__(self, name, config):
         super().__init__(name)
         self.base_demand = 0  # Base load demand in kW
-        self.curtailment_ratio = 0.0  # Curtailment ratio (0 to 1)
+        self.max_curtailment = config['max_curtailment']
+        self.curtailment_ratio = 0  # Curtailment ratio (0 to 1)
         self.actual_consumption = 0  # Actual consumption after curtailment
 
     def update(self, timestep, data=None):
@@ -290,7 +272,7 @@ class CustomerLoad(MicrogridComponent):
             self.base_demand = data['base_load']
         
         if data and 'curtailment_ratio' in data:
-            self.curtailment_ratio = max(0.0, min(1.0, data['curtailment_ratio']))
+            self.curtailment_ratio = max(0.0, min(self.max_curtailment, data['curtailment_ratio']))
         
         # Calculate actual consumption after curtailment
         self.actual_consumption = self.base_demand * (1 - self.curtailment_ratio)
@@ -306,6 +288,3 @@ class CustomerLoad(MicrogridComponent):
             (base_demand, curtailment_ratio, actual_consumption)
         """
         return self.base_demand, self.curtailment_ratio, self.actual_consumption
-
-    def __str__(self):
-        return f"{self.name}: {self.actual_consumption:.2f} kW (base: {self.base_demand:.2f} kW, curtailed: {self.curtailment_ratio*100:.1f}%)"

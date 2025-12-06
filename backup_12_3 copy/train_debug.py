@@ -165,7 +165,7 @@ class DetailedLogger:
         self.log_file.flush()
         if print_console:
             print(log_msg)
-    
+
     def log_episode(self, episode, episode_data):
         # 1. 归档数据
         self.episode_rewards.append(episode_data['total_reward'])
@@ -173,44 +173,43 @@ class DetailedLogger:
         self.episode_steps.append(episode_data['steps'])
         self.buffer_sizes.append(episode_data['buffer_size'])
         self.noise_levels.append(episode_data['noise_level'])
-        
+
         self.grid_imports.append(episode_data.get('grid_import', 0))
         self.grid_exports.append(episode_data.get('grid_export', 0))
         self.grid_net_trades.append(episode_data.get('grid_net_trade', 0))
         self.clearing_prices.append(episode_data.get('clearing_price', 0))
-        
+
         self.recent_rewards.append(episode_data['total_reward'])
-        
+
         # 2. 控制台输出 - 基础信息
-        self.log(f"\n{'='*60}")
+        self.log(f"\n{'=' * 60}")
         self.log(f"Episode {episode}/{self.config.total_episodes} | Steps: {episode_data['steps']}")
         self.log(f"总奖励: {episode_data['total_reward']:8.2f} (Avg10: {np.mean(self.recent_rewards):8.2f})")
-        
+
         self.log(f"Agent奖励:")
         for i, name in enumerate(self.agent_names):
-            self.log(f"  {name:10s}: {episode_data['rewards_per_agent'][i]:8.3f}")
-            
-        self.log(f"Grid交易: Import={episode_data.get('grid_import',0):.1f} | Export={episode_data.get('grid_export',0):.1f}")
-        
-        # 3. 控制台输出 - 策略详情 (报价 & 发电)
+            self.log(f"  {name:15s}: {episode_data['rewards_per_agent'][i]:8.3f}")
+
+        self.log(
+            f"Grid交易: Import={episode_data.get('grid_import', 0):.1f} | Export={episode_data.get('grid_export', 0):.1f}")
+
+        # 3. 控制台输出 - 策略详情 (报价 & 发电) - 动态
         if 'avg_bids' in episode_data and 'total_gen' in episode_data:
             self.log("-" * 60)
             self.log(f"每日策略详情 (Avg Bid / Total Gen):")
             bids = episode_data['avg_bids']
             gen = episode_data['total_gen']
-            
-            # Wind
-            self.log(f"Wind    : Bid {bids['wind']:5.1f} cents | Gen {gen['wind']:6.1f} kWh")
-            # Solar
-            self.log(f"Solar   : Bid {bids['solar']:5.1f} cents | Gen {gen['solar']:6.1f} kWh")
-            # Diesel
-            self.log(f"Diesel  : Bid {bids['diesel']:5.1f} cents | Gen {gen['diesel']:6.1f} kWh")
-            # Battery (显示充放电状态)
-            bat_net = gen['battery']
-            action_str = "Dischg" if bat_net > 0 else "Charge"
-            if abs(bat_net) < 0.1: action_str = "Idle"
-            self.log(f"  Battery : Bid {bids['battery']:5.1f} cents | Net {bat_net:6.1f} kWh ({action_str})")
-            
+
+            # 动态输出所有agents
+            for name in self.agent_names:
+                if name == 'battery':
+                    bat_net = gen.get(name, 0)
+                    action_str = "Dischg" if bat_net > 0 else "Charge" if bat_net < 0 else "Idle"
+                    self.log(
+                        f"  {name:12s}: Bid {bids.get(name, 0):5.1f} cents | Net {bat_net:6.1f} kWh ({action_str})")
+                elif name != 'customer' and name in bids:
+                    self.log(f"{name:14s}: Bid {bids[name]:5.1f} cents | Gen {gen.get(name, 0):6.1f} kWh")
+
             self.log("-" * 60)
     
     def save_stats(self):
@@ -236,7 +235,10 @@ class Plotter:
     def __init__(self, config, agent_names):
         self.config = config
         self.agent_names = agent_names
-        self.colors = ['#5D9CC9', '#70C168', '#A88679', '#999999', '#54CEDE']
+        self.num_agents = len(agent_names)
+        base_colors = ['#5D9CC9', '#70C168', '#A88679', '#999999', '#54CEDE',
+                       '#E87A5D', '#F4D35E', '#9B59B6', '#3498DB', '#E74C3C']
+        self.colors = [base_colors[i % len(base_colors)] for i in range(self.num_agents)]
 
     def _smooth(self, data, window=10):
         if len(data) < window: return data
@@ -257,15 +259,16 @@ class Plotter:
             ax.plot(episodes[-len(smoothed):], smoothed, 'b-', linewidth=2)
         ax.set_title('Total Reward')
         ax.grid(True, alpha=0.3)
-        
+
         # Agent Rewards
         ax = axes[0, 1]
         rewards_arr = np.array(logger.episode_rewards_per_agent)
         for i, name in enumerate(self.agent_names):
             if len(rewards_arr) > 0:
-                ax.plot(episodes, rewards_arr[:, i], alpha=0.6, color=self.colors[i], label=name)
+                ax.plot(episodes, rewards_arr[:, i], alpha=0.6,
+                        color=self.colors[i], label=name)
         ax.set_title('Agent Rewards')
-        ax.legend(fontsize='small')
+        ax.legend(fontsize='small', ncol=2 if self.num_agents > 5 else 1)
         ax.grid(True, alpha=0.3)
         
         # Clearing Price
@@ -397,100 +400,87 @@ class DebugTrainer:
         self.config = config
         
         # 初始化 Trainer
-        self.trainer = Trainer(
-            envs=env, agents=agents, obs_size=None, act_size=None,
-            buffer_capacity=config.buffer_capacity,
-            lr=config.actor_lr, critic_lr=config.critic_lr,
-            gamma=config.gamma, tau=config.tau
-        )
+        self.trainer = Trainer(envs=env, agents=agents,buffer_capacity=config.buffer_capacity)
+
+        self.agent_names = env.agent_names
+        self.num_agents = env.num_agents
         
         self.logger = DetailedLogger(config, env.agent_names)
         self.plotter = Plotter(config, env.agent_names)
         self.current_noise = config.noise_scale
-    
-    def rollout_episode(self, add_noise=True):
+
+    def rollout_episode(self, add_noise=False):
         obs = self.env.reset()
-        episode_reward = np.zeros(self.env.num_agents)
-        actions_collected = [[] for _ in range(self.env.num_agents)]
-        
-        # Grid stats containers
-        grid_import_total = 0
-        grid_export_total = 0
-        clearing_prices = []
-        
-        # 🌟 每日策略统计容器
+        episode_reward = np.zeros(self.num_agents)
+        actions_collected = []
+
+        # 动态初始化统计
         daily_stats = {
-            'bids_sum': {'wind': 0, 'solar': 0, 'diesel': 0, 'battery': 0},
-            'gen_sum': {'wind': 0, 'solar': 0, 'diesel': 0, 'battery': 0}
+            'bids_sum': {name: 0.0 for name in self.agent_names if name != 'customer'},
+            'gen_sum': {name: 0.0 for name in self.agent_names if name != 'customer'}
         }
-        
+
+        grid_import_total = 0.0
+        grid_export_total = 0.0
+        clearing_prices = []
+
         for step in range(self.config.max_steps):
             acts_list = []
             for i, agent in enumerate(self.agents):
                 obs_tensor = torch.FloatTensor(obs[:, i])
                 act = agent.predict(obs_tensor)
-                
+
                 if add_noise:
-                    noise = np.random.randn(*act.shape) * self.current_noise
+                    noise = np.random.normal(0, self.current_noise, act.shape)
                     act = np.clip(act + noise, -1, 1)
-                
+
                 acts_list.append(act)
-                actions_collected[i].append(act[0])
-            
+
             # Combine actions
             max_act_size = max(act.shape[1] for act in acts_list)
-            acts = np.zeros((self.config.num_envs, self.env.num_agents, max_act_size))
+            acts = np.zeros((self.config.num_envs, self.num_agents, max_act_size))
             for i, act in enumerate(acts_list):
                 acts[:, i, :act.shape[1]] = act
-            
-            # 🌟 Step Environment (Expect 4 returns now)
-            # next_obs, rewards, dones = self.env.step(acts) # Old
-            next_obs, rewards, dones, infos = self.env.step(acts) # New
-            
-            # Buffer Add
+
+            actions_collected.append([act.copy() for act in acts_list])
+
+            next_obs, rewards, dones, infos = self.env.step(acts)
+
             self.trainer.replay_buffer.add((obs, acts, rewards, next_obs, dones))
-            
-            # 🌟 Extract Data from Info
-            info = infos[0] # Take first env
-            
-            # Accumulate Strategy Data
-            for agent in ['wind', 'solar', 'diesel', 'battery']:
-                daily_stats['bids_sum'][agent] += info['bids'][agent]
-                daily_stats['gen_sum'][agent] += info['generation'][agent]
-            
-            # Accumulate Grid Data
-            grid_import_total += info['generation']['main_grid_import']
-            grid_export_total += info['generation']['main_grid_export']
-            
-            # Note: We need clearing price from environment usually, 
-            # assuming it's available or we can approximate. 
-            # For now, let's assume we can get it from info if added, 
-            # otherwise skip precise price logging per step here or modify env to pass it.
-            # Simplified: Pass 0 or modify env to return price in info['clearing_price']
-            # Assuming env info has it:
+
+            info = infos[0]
+
+            for name in self.agent_names:
+                if name != 'customer':  # 排除customer
+                    if name in info['bids']:
+                        daily_stats['bids_sum'][name] += info['bids'][name]
+                    if name in info['allocated_power']:
+                        daily_stats['gen_sum'][name] += info['allocated_power'][name]
+
+            grid_import_total += info.get('grid_import', 0)
+            grid_export_total += info.get('grid_export', 0)
+
             if 'clearing_price' in info:
                 clearing_prices.append(info['clearing_price'])
-            
+
             episode_reward += rewards[0]
             obs = next_obs
-            
+
             if dones[0].all():
                 break
-        
-        # Decay Noise
-        self.current_noise = max(self.config.noise_min, 
+
+        self.current_noise = max(self.config.noise_min,
                                  self.current_noise * self.config.noise_decay)
-        
-        # Process Stats
-        actions_stats = [np.array(acts) for acts in actions_collected]
+
+        actions_stats = actions_collected
         net_trade = grid_import_total - grid_export_total
         avg_price = np.mean(clearing_prices) if clearing_prices else 0
-        
-        # Calculate Average Bids
+
+        # 计算平均bids
         avg_bids = {k: v / (step + 1) for k, v in daily_stats['bids_sum'].items()}
         total_gen = daily_stats['gen_sum']
-        
-        return (episode_reward, step + 1, actions_stats, 
+
+        return (episode_reward, step + 1, actions_stats,
                 grid_import_total, grid_export_total, net_trade,
                 avg_price, avg_bids, total_gen)
     
@@ -578,9 +568,9 @@ class DebugTrainer:
         self.logger.log(f"Checkpoint saved: {path}")
 
 
-def setup_llm_reward(env, policy_description, api_key, model, max_tokens, provider="gemini"):
+def setup_llm_reward(env, policy_description, api_key, model, max_tokens, microgrid_config):
     """设置LLM生成的reward函数"""
-    llm_gen = LLMRewardGenerator(api_key=api_key, model=model, max_tokens=max_tokens, provider=provider)
+    llm_gen = LLMRewardGenerator(api_key=api_key, model=model, max_tokens=max_tokens, config_path=microgrid_config)
 
     policy_text = policy_description
 
@@ -601,21 +591,17 @@ def setup_llm_reward(env, policy_description, api_key, model, max_tokens, provid
         return False
 
 
-def main():
-    # 从命令行参数读取配置文件路径
-    import sys
-    config_path = sys.argv[1] if len(sys.argv) > 1 else None
-
-    if config_path:
-        print(f"Loading configuration from {config_path}")
+def main(microgrid_config, user_config=None):
+    if user_config:
+        print(f"Loading configuration from {user_config}")
     else:
         print("No config file specified, using default configuration")
 
     # 初始化配置（自动从JSON加载或使用默认值）
-    config = DebugConfig(config_path)
+    config = DebugConfig(user_config)
 
     # 初始化环境
-    env = MicrogridEnv(num_envs=config.num_envs, max_steps=config.max_steps)
+    env = MicrogridEnv(microgrid_config, num_envs=config.num_envs, max_steps=config.max_steps)
 
     # LLM Reward生成
     if config.llm_enabled:
@@ -625,19 +611,21 @@ def main():
             model=config.llm_model,
             max_tokens=config.llm_max_tokens,
             policy_description=config.llm_policy_description,
-            provider=config.llm_provider
+            microgrid_config=microgrid_config
         )
 
     print(f"Environment initialized with {env.num_agents} agents.")
 
     # Init Agents
     agents = []
+    max_act_size = max(env.act_sizes.values())
+
     for i, name in enumerate(env.agent_names):
         agent = Agent(
-            obs_size=5,
-            act_size=env.act_sizes[name],
+            obs_size=5,  # 统一obs维度 (padding后)
+            act_size=env.act_sizes[env.agent_types[i]],  # 使用type获取act_size
             num_agents=env.num_agents,
-            max_act_size=2,
+            max_act_size=max_act_size,
             lr=config.actor_lr,
             critic_lr=config.critic_lr,
             gamma=config.gamma,
@@ -650,4 +638,9 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    # 从命令行参数读取配置文件路径
+    import sys
+    user_config = sys.argv[1] if len(sys.argv) > 1 else None
+    user_config = "user_config.json"
+    microgrid_config = "microgrid_config.json"
+    main(microgrid_config, user_config)

@@ -7,8 +7,7 @@ from agent import Agent
 
 
 class Trainer:
-  def __init__(self, envs, agents, obs_size, act_size, buffer_capacity=1e5,
-                 lr=1e-3, critic_lr=None, gamma=0.95, tau=0.05):
+  def __init__(self, envs, agents, buffer_capacity=1e5):
     self.envs = envs
     self.agents = agents
     self.replay_buffer = ReplayBuffer(buffer_capacity)
@@ -53,10 +52,7 @@ class Trainer:
     # Sample from replay buffer
     # Shapes after sampling: [batch_size, num_envs, num_agents, feature_size]
     obs, acts, rewards, next_obs, dones = self.replay_buffer.sample(batch_size)
-    
-    # Reshape: [batch_size, num_envs, num_agents, ...] -> [batch_size*num_envs, num_agents, ...]
-    batch_size_actual = obs.shape[0]
-    num_envs = obs.shape[1]
+
     num_agents = len(self.agents)
     
     # Flatten batch and env dimensions
@@ -80,7 +76,3 @@ class Trainer:
     sample = (obs, acts, rewards, next_obs, dones, next_acts)
     for i, agent in enumerate(self.agents):
       agent.train_on(sample, i)
-
-  def eval_agents(self):
-    # TODO
-    raise NotImplementedError("not implemented")

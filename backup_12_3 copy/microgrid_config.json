@@ -1,0 +1,90 @@
+{
+  "components": {
+    "suppliers":[{
+      "type": "wind",
+      "name": "WindTurbine_1",
+      "capacity": 30,
+      "cut_in_speed": 3,
+      "rated_speed": 12,
+      "cut_out_speed": 25
+      },
+      {
+        "type": "solar",
+        "name": "PVSystem_1",
+        "capacity": 15,
+        "stc_irradiance": 1000
+      },
+      {
+        "type": "solar",
+        "name": "PVSystem_2",
+        "capacity": 15,
+        "stc_irradiance": 1000
+      },
+      {
+        "type": "solar",
+        "name": "PVSystem_3",
+        "capacity": 15,
+        "stc_irradiance": 1000
+      },
+     {
+       "type": "diesel",
+        "name": "DieselGen_1",
+        "capacity": 75,
+        "fuel_consumption_rate": 0.2,
+        "generation_cost_per_kwh": 0.08,
+        "initial_fuel_level": 1000
+      }
+    ],
+    "battery": {
+      "capacity_kwh": 200,
+      "max_charge_rate_kw": 50,
+      "max_discharge_rate_kw": 50,
+      "initial_soc": 0.5,
+      "charge_cost_per_kwh": 0.05,
+      "discharge_cost_per_kwh": 0.15
+    },
+    "customer": {
+      "max_curtailment": 0.2
+    },
+    "main_grid": {
+      "import_limit": "inf",
+      "export_limit": "inf",
+      "import_price_per_kwh": 0.25,
+      "export_price_per_kwh": 0.1
+    }
+  },
+  "market": {
+    "price_min": 5.0,
+    "price_max": 45.0,
+    "max_customer_curtail": 0.2
+  },
+  "environment": {
+    "solar_generation": {
+      "start_hour": 6,
+      "end_hour": 18,
+      "noise_min": 0.7,
+      "noise_max": 1.0
+    },
+    "grid_pricing": {
+      "off_peak": {
+        "hours": [[0, 8], [23, 24]],
+        "import_price_range": [15, 18]
+      },
+      "mid_peak": {
+        "hours": [[8, 12], [18, 23]],
+        "import_price_range": [23, 26]
+      },
+      "peak": {
+        "hours": [[12, 18]],
+        "import_price_range": [40, 42]
+      },
+      "export_price_range": [5, 10]
+    }
+  },
+  "reward_params": {
+    "renewable_subsidy": 2,
+    "carbon_tax": 5,
+    "green_discount": 0.5,
+    "discomfort_cost_coefficient": 10.0
+  }
+}

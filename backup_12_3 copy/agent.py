@@ -1,20 +1,17 @@
 import torch
-import torch.nn as nn
 import torch.nn.functional as F
-# 确保这里引用的是刚刚修改过的 models
-from models import Actor, Critic 
+from models import TransformerActor, TransformerCritic
 
 class Agent:
-    def __init__(self, obs_size, act_size, num_agents, max_act_size=2,
+    def __init__(self, obs_size, act_size, num_agents, max_act_size=24,
              lr=1e-4, critic_lr=1e-3, gamma=0.95, tau=0.01):
-        # 注意：这里调整了默认 lr，Transformer 通常需要比 MLP 更小的 lr
         
         # networks
         # Critic 的输入维度是所有 Agent 的 obs + act 总和
-        self.actor = Actor(obs_size, act_size)
-        self.critic = Critic(obs_size * num_agents, max_act_size * num_agents)
-        self.target_actor = Actor(obs_size, act_size)
-        self.target_critic = Critic(obs_size * num_agents, max_act_size * num_agents)
+        self.actor = TransformerActor(obs_size, act_size)
+        self.critic = TransformerCritic(obs_size * num_agents, max_act_size * num_agents)
+        self.target_actor = TransformerActor(obs_size, act_size)
+        self.target_critic = TransformerCritic(obs_size * num_agents, max_act_size * num_agents)
 
         # optimizers
         self.actor_optimizer = torch.optim.Adam(self.actor.parameters(), lr=lr)
@@ -25,20 +22,16 @@ class Agent:
         self.gamma = gamma
         self.tau = tau
         self.act_size = act_size
-        
-        # 硬更新初始化 Target 网络
-        self.hard_update(self.target_actor, self.actor)
-        self.hard_update(self.target_critic, self.critic)
-        
-    def hard_update(self, target, source):
-        for target_param, param in zip(target.parameters(), source.parameters()):
-            target_param.data.copy_(param.data)
 
-    def polyak_avg(self):
+        self.polyak_avg(tau=1) # copy parameters
+
+    def polyak_avg(self, tau=None):
+        if tau is None:
+            tau = self.tau
         for target_param, param in zip(self.target_actor.parameters(), self.actor.parameters()):
-            target_param.data.copy_(self.tau * param.data + (1 - self.tau) * target_param.data)
+            target_param.data.copy_(tau * param.data + (1 - tau) * target_param.data)
         for target_param, param in zip(self.target_critic.parameters(), self.critic.parameters()):
-            target_param.data.copy_(self.tau * param.data + (1 - self.tau) * target_param.data)
+            target_param.data.copy_(tau * param.data + (1 - tau) * target_param.data)
 
     def train_on(self, sample, idx):
         obs, acts, rewards, next_obs, dones, next_acts = sample
