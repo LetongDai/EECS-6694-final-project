@@ -1,7 +1,8 @@
 # Microgrid Controller with Transformer and LLM-generated Reward
 
+Usage: 
 ```
-Usage: python train_debug.py
+python train_debug.py
 ```
 
 ## Introduction
