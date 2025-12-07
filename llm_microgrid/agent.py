@@ -60,34 +60,28 @@ class Agent:
         
         self.critic_optimizer.zero_grad()
         critic_loss.backward()
-        # 梯度裁剪：Transformer 训练时梯度容易爆炸，加上这行更安全
-        torch.nn.utils.clip_grad_norm_(self.critic.parameters(), 0.5)
+        torch.nn.utils.clip_grad_norm_(self.critic.parameters(), 1)
         self.critic_optimizer.step()
 
         # ----------------------------
         # Actor Update
         # ----------------------------
-        # 重新计算当前 Agent 的动作
         new_act_i = self.actor(obs[:, idx])
-        
-        # 组合新动作集
+
         new_acts = acts.clone()
         new_acts[:, idx, :self.act_size] = new_act_i
         new_acts_flat = new_acts.reshape(batch_size, -1)
-        
-        # Actor Loss: 最大化 Critic 的评分 (即最小化 -Q)
+
         actor_loss = -self.critic(obs_flat, new_acts_flat).mean()
         
         self.actor_optimizer.zero_grad()
         actor_loss.backward()
-        # 梯度裁剪
-        torch.nn.utils.clip_grad_norm_(self.actor.parameters(), 0.5)
+        torch.nn.utils.clip_grad_norm_(self.actor.parameters(), 1)
         self.actor_optimizer.step()
 
         self.polyak_avg()
 
     def predict(self, obs):
-        # 增加维度检查
         if obs.dim() == 1:
             obs = obs.unsqueeze(0) # [1, obs_size]
         

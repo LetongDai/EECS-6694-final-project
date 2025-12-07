@@ -11,7 +11,7 @@ This version extends the original microgrid_auction.py to support:
 """
 
 import numpy as np
-from typing import Dict, List, Tuple, Optional
+from typing import Tuple
 
 
 class MicrogridComponent:
@@ -39,8 +39,6 @@ class WindTurbine(MicrogridComponent):
         self.cut_in_speed = config['cut_in_speed']
         self.rated_speed = config['rated_speed']
         self.cut_out_speed = config['cut_out_speed']
-        self.current_bid = 0.0  # Current bid price in cents/kWh
-        self.available_power = 0.0  # Available power based on wind conditions
 
     def update(self, timestep, data=None):
         """
@@ -55,24 +53,14 @@ class WindTurbine(MicrogridComponent):
             wind_speed = data['wind_speed']
 
             if wind_speed < self.cut_in_speed or wind_speed > self.cut_out_speed:
-                self.available_power = 0
+                self.power_output = 0
             elif wind_speed >= self.rated_speed:
-                self.available_power = self.capacity
+                self.power_output = self.capacity
             else:
                 # Linear interpolation between cut-in and rated speed
-                self.available_power = self.capacity * (wind_speed - self.cut_in_speed) / (self.rated_speed - self.cut_in_speed)
+                self.power_output = self.capacity * (wind_speed - self.cut_in_speed) / (self.rated_speed - self.cut_in_speed)
         else:
-            self.available_power = 0
-
-        # Update bid if provided
-        if data and 'bid' in data:
-            self.current_bid = data['bid']
-
-        # Update actual power output based on what was accepted in auction
-        if data and 'accepted_power' in data:
-            self.power_output = min(data['accepted_power'], self.available_power)
-        else:
-            self.power_output = self.available_power  # Default: offer all available
+            self.power_output = 0
 
 
 class PVSystem(MicrogridComponent):
@@ -81,8 +69,6 @@ class PVSystem(MicrogridComponent):
         super().__init__(name)
         self.capacity = config['capacity']
         self.stc_irradiance = config['stc_irradiance']
-        self.current_bid = 0.0  # Current bid price in cents/kWh
-        self.available_power = 0.0  # Available power based on solar irradiance
 
     def update(self, timestep, data=None):
         """
@@ -95,21 +81,11 @@ class PVSystem(MicrogridComponent):
         """
         if data and 'solar_irradiance' in data:
             solar_irradiance = data['solar_irradiance']  # W/m^2
-            self.available_power = self.capacity * (solar_irradiance / self.stc_irradiance)
+            self.power_output = self.capacity * (solar_irradiance / self.stc_irradiance)
             # Ensure output does not exceed capacity and is not negative
-            self.available_power = max(0, min(self.capacity, self.available_power))
+            self.power_output = max(0, min(self.capacity, self.power_output))
         else:
-            self.available_power = 0
-
-        # Update bid if provided
-        if data and 'bid' in data:
-            self.current_bid = data['bid']
-
-        # Update actual power output based on what was accepted in auction
-        if data and 'accepted_power' in data:
-            self.power_output = min(data['accepted_power'], self.available_power)
-        else:
-            self.power_output = self.available_power
+            self.power_output = 0
 
 
 class DieselGenerator(MicrogridComponent):
@@ -121,7 +97,6 @@ class DieselGenerator(MicrogridComponent):
         self.generation_cost_per_kwh = config['generation_cost_per_kwh']
         self.fuel_level = config['initial_fuel_level']
         self.is_running = False
-        self.current_bid = 0.0  # Current bid price in cents/kWh
         self.target_power = 0.0  # Target power output (from agent's decision)
 
     def update(self, timestep, data=None):
@@ -137,23 +112,11 @@ class DieselGenerator(MicrogridComponent):
         if data and 'target_power' in data:
             self.target_power = data['target_power']
 
-        # Update bid if provided
-        if data and 'bid' in data:
-            self.current_bid = data['bid']
-
-        # Determine actual power output
-        if data and 'accepted_power' in data:
-            # Auction determined how much we can generate
-            required_power = data['accepted_power']
-        else:
-            # Use target power
-            required_power = self.target_power
-
-        # Ensure diesel only runs if fuel is available and required_power is positive
-        if required_power > 0 and self.fuel_level > 0:
+        # Ensure diesel only runs if fuel is available and target_power is positive
+        if self.target_power > 0 and self.fuel_level > 0:
             self.is_running = True
             # Generate power up to capacity or required power, whichever is less
-            power_to_generate = min(self.capacity, required_power)
+            power_to_generate = min(self.capacity, self.target_power)
 
             # Check if enough fuel to generate power_to_generate for the timestep
             max_power_from_fuel_kwh = (self.fuel_level / self.fuel_consumption_rate) if self.fuel_consumption_rate > 0 else float('inf')
@@ -186,7 +149,6 @@ class Battery(MicrogridComponent):
         self.charge_cost_per_kwh = config['charge_cost_per_kwh']
         self.discharge_cost_per_kwh = config['discharge_cost_per_kwh']
         self.power_output = 0  # Power output (discharge is positive, charge is negative)
-        self.current_bid = 0.0  # Current bid price in cents/kWh
         self.target_action = 0.0  # Target charge/discharge (-1 to 1, from agent)
 
     def update(self, timestep, data=None):
@@ -203,19 +165,10 @@ class Battery(MicrogridComponent):
         if data and 'target_action' in data:
             self.target_action = data['target_action']
 
-        # Update bid if provided
-        if data and 'bid' in data:
-            self.current_bid = data['bid']
-
-        # Determine actual power based on auction or target
-        if data and 'accepted_power' in data:
-            requested_power = data['accepted_power']  # Can be positive (discharge) or negative (charge)
-        else:
-            # Use target action to determine requested power
-            if self.target_action > 0:  # Discharge
-                requested_power = self.target_action * self.max_discharge_rate_kw
-            else:  # Charge
-                requested_power = self.target_action * self.max_charge_rate_kw  # Will be negative
+        if self.target_action > 0:  # Discharge
+            requested_power = self.target_action * self.max_discharge_rate_kw
+        else:  # Charge
+            requested_power = self.target_action * self.max_charge_rate_kw  # Will be negative
 
         if requested_power > 0:  # Discharge
             # Limit requested discharge by max rate and available energy
@@ -288,3 +241,45 @@ class CustomerLoad(MicrogridComponent):
             (base_demand, curtailment_ratio, actual_consumption)
         """
         return self.base_demand, self.curtailment_ratio, self.actual_consumption
+
+
+def get_solar_irradiance(hour: int, name: str, config: dict) -> float:
+    cfg = config['environment']['solar_generation']
+    if hour < cfg['start_hour'] or hour > cfg['end_hour']:
+        return 0
+    stc_irradiance = 0
+    for supplier in config['components']['suppliers']:
+        if supplier['name'] == name:
+            stc_irradiance = supplier['stc_irradiance']
+    return stc_irradiance * np.sin(
+        np.pi * (hour - cfg['start_hour']) / (cfg['end_hour'] - cfg['start_hour'])) * np.random.uniform(
+        cfg['noise_min'], cfg['noise_max'])
+
+
+def get_grid_price(hour: int, config: dict) -> Tuple[float, float]:
+    pricing = config['environment']['grid_pricing']
+    import_price = 0
+
+    # 判断时段
+    found = False
+    for hours_range in pricing['off_peak']['hours']:
+        if hours_range[0] <= hour < hours_range[1]:
+            import_price = np.random.uniform(*pricing['off_peak']['import_price_range'])
+            found = True
+            break
+
+    if not found:
+        for hours_range in pricing['mid_peak']['hours']:
+            if hours_range[0] <= hour < hours_range[1]:
+                import_price = np.random.uniform(*pricing['mid_peak']['import_price_range'])
+                found = True
+                break
+
+    if not found:
+        for hours_range in pricing['peak']['hours']:
+            if hours_range[0] <= hour < hours_range[1]:
+                import_price = np.random.uniform(*pricing['peak']['import_price_range'])
+                break
+
+    export_price = np.random.uniform(*pricing['export_price_range'])
+    return export_price, import_price

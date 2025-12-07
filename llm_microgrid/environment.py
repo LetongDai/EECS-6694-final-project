@@ -4,13 +4,13 @@ Enhanced Environment wrapper for Microgrid MADDPG
 """
 
 import numpy as np
-from typing import Tuple, Dict, Any
+from typing import Dict
 import json
 from microgrid_components import (
     WindTurbine, PVSystem, DieselGenerator,
-    Battery, CustomerLoad
+    Battery, CustomerLoad,
+    get_solar_irradiance, get_grid_price
 )
-from numpy import ndarray, dtype
 
 
 class MicrogridEnv:
@@ -61,46 +61,6 @@ class MicrogridEnv:
         """允许外部设置自定义reward函数"""
         self.reward_function = reward_fn
 
-    def _get_solar_irradiance(self, hour: int, name: str) -> float:
-        cfg = self.config['environment']['solar_generation']
-        if hour < cfg['start_hour'] or hour > cfg['end_hour']:
-            return 0
-        stc_irradiance = 0
-        for supplier in self.config['components']['suppliers']:
-            if supplier['name'] == name:
-                stc_irradiance = supplier['stc_irradiance']
-        return stc_irradiance * np.sin(
-            np.pi * (hour - cfg['start_hour']) / (cfg['end_hour'] - cfg['start_hour'])) * np.random.uniform(
-            cfg['noise_min'], cfg['noise_max'])
-
-    def _get_grid_price(self, hour: int) -> Tuple[float, float]:
-        pricing = self.config['environment']['grid_pricing']
-        import_price = 0
-
-        # 判断时段
-        found = False
-        for hours_range in pricing['off_peak']['hours']:
-            if hours_range[0] <= hour < hours_range[1]:
-                import_price = np.random.uniform(*pricing['off_peak']['import_price_range'])
-                found = True
-                break
-
-        if not found:
-            for hours_range in pricing['mid_peak']['hours']:
-                if hours_range[0] <= hour < hours_range[1]:
-                    import_price = np.random.uniform(*pricing['mid_peak']['import_price_range'])
-                    found = True
-                    break
-
-        if not found:
-            for hours_range in pricing['peak']['hours']:
-                if hours_range[0] <= hour < hours_range[1]:
-                    import_price = np.random.uniform(*pricing['peak']['import_price_range'])
-                    break
-
-        export_price = np.random.uniform(*pricing['export_price_range'])
-        return export_price, import_price
-
     def _create_microgrid(self) -> dict:
         """Create microgrid matching microgrid_auction.py components"""
         components = {}
@@ -136,7 +96,7 @@ class MicrogridEnv:
             if stype == 'wind':
                 env_data[f'{name}_wind_speed'] = np.random.uniform(3, 15)
             elif stype == 'solar':
-                env_data[f'{name}_solar_irradiance'] = self._get_solar_irradiance(time_hour, name)
+                env_data[f'{name}_solar_irradiance'] = get_solar_irradiance(time_hour, name, self.config)
 
         # Customer load
         base_load = 80
@@ -144,114 +104,6 @@ class MicrogridEnv:
         env_data['base_load'] = max(30, base_load + load_variation + np.random.uniform(-10, 10))
 
         return env_data
-
-    def _get_customer_bid(self, hour: int, demand: float) -> float:
-        """
-        Calculate customer's willingness to pay for electricity
-
-        Args:
-            hour: Current hour (0-23)
-            demand: Customer demand in kW
-
-        Returns:
-            customer_bid: Willingness to pay in cents/kWh
-        """
-        _, grid_import_price = self._get_grid_price(hour)
-
-        customer_bid = self.price_max
-
-        # Optional: Add demand elasticity
-        # High demand → willing to pay more
-        # Can be enhanced with utility function
-
-        return customer_bid
-
-    def _match_orders(self, sell_orders: list, buy_orders: list) -> tuple:
-        """
-        Execute double auction matching: buyers and sellers trade where bid >= ask
-
-        Args:
-            sell_orders: List of sell orders (sorted by ask ascending)
-            buy_orders: List of buy orders (sorted by bid descending)
-
-        Returns:
-            matched_trades: List of executed trades
-            clearing_price: Uniform clearing price (last matched price)
-        """
-        matched_trades = []
-        clearing_price = self.price_min
-
-        # 【新增】跟踪内部交易用于计算加权平均清算价格
-        internal_trade_value = 0.0  # 累计：交易价格 × 交易量
-        internal_trade_quantity = 0.0  # 累计：交易量
-
-        sell_idx = 0
-        buy_idx = 0
-
-        while sell_idx < len(sell_orders) and buy_idx < len(buy_orders):
-            seller = sell_orders[sell_idx]
-            buyer = buy_orders[buy_idx]
-
-            # Check if trade is economically feasible
-            if buyer['bid'] < seller['ask']:
-                # No more profitable trades possible
-                break
-
-            # Trade quantity is minimum of remaining quantities
-            trade_qty = min(seller['remaining'], buyer['remaining'])
-
-            # Determine trade price based on participants
-            # Main Grid trades use fixed prices, others use seller's ask
-            if buyer['agent'] == 'main_grid_buyer':
-                # Main Grid buying (MG exporting): use grid export price
-                trade_price = buyer['bid']  # Already is grid_export_price
-                # Don't update clearing_price for grid trades
-            else:
-                # Internal MG trade: use seller's ask
-                trade_price = seller['ask']
-                internal_trade_value += trade_price * trade_qty
-                internal_trade_quantity += trade_qty
-
-            # Record the trade
-            matched_trades.append({
-                'seller': seller['agent'],
-                'buyer': buyer['agent'],
-                'quantity': trade_qty,
-                'price': trade_price
-            })
-
-            # Update remaining quantities
-            seller['remaining'] -= trade_qty
-            buyer['remaining'] -= trade_qty
-
-            # Move to next order if current one is fully matched
-            if seller['remaining'] <= 1e-6:  # Use small epsilon for float comparison
-                sell_idx += 1
-            if buyer['remaining'] <= 1e-6:
-                buy_idx += 1
-
-        # 新增：计算加权平均清算价格
-        if internal_trade_quantity > 0:
-            # 情况1：有内部交易 - 使用加权平均价格
-            clearing_price = internal_trade_value / internal_trade_quantity
-        else:
-            # 情况2：无内部交易 - 使用回退逻辑确定合理的市场价格
-            # 优先级：Customer出价 > 最低非Grid卖家报价 > 最低价格下限
-            if len(buy_orders) > 0 and buy_orders[0]['agent'] == 'customer':
-                # 使用Customer的支付意愿作为市场价格参考
-                clearing_price = buy_orders[0]['bid']
-            elif len(sell_orders) > 0:
-                # 找到第一个非Main Grid的卖家
-                for sell_order in sell_orders:
-                    if sell_order['agent'] != 'main_grid':
-                        clearing_price = sell_order['ask']
-                        break
-            # 如果以上都不满足，clearing_price保持初始值self.price_min
-
-        # 确保清算价格在合理范围内
-        clearing_price = np.clip(clearing_price, self.price_min, self.price_max)
-
-        return matched_trades, clearing_price
 
     def _run_auction(self, env_idx: int, actions: np.ndarray, env_data: Dict) -> Dict:
         """
@@ -315,7 +167,7 @@ class MicrogridEnv:
         curtailed_load = env_data['base_load'] - actual_demand
 
         # Get grid prices
-        grid_export_price, grid_import_price = self._get_grid_price(hour)
+        grid_export_price, grid_import_price = get_grid_price(hour, self.config)
 
         # Build sell orders dynamically
         sell_orders = []
@@ -483,9 +335,7 @@ class MicrogridEnv:
 
         bids['battery'] = (battery_action[1] + 1) / 2 * (self.price_max - self.price_min) + self.price_min
 
-        # ============================================================
-        # Step 8: Return auction results
-        # ============================================================
+        # Return auction results
         return {
             'clearing_price': clearing_price,
             'allocated_power': allocated_power,
@@ -553,7 +403,6 @@ class MicrogridEnv:
         idx += 1
 
         # Customer reward
-        actual_demand = auction_results['actual_demand']
         curtailed = auction_results['curtailed_load']
 
         # Calculate actual electricity cost from trades
@@ -587,7 +436,7 @@ class MicrogridEnv:
         time_hour = env_data['time_hour']
         time_normalized = time_hour / 24.0
 
-        _, grid_price = self._get_grid_price(time_hour)
+        _, grid_price = get_grid_price(time_hour, self.config)
         price_normalized = (grid_price - self.price_min) / (self.price_max - self.price_min)
 
         # Get allocated power if available

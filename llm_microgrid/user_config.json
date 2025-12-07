@@ -1,6 +1,6 @@
 {
   "llm": {
-    "enabled": true,
+    "enabled": false,
     "api_key": "your api key",
     "model": "gemini-2.5-flash",
     "max_tokens": 2000,
@@ -8,16 +8,16 @@
   },
   "experiment": {
     "exp_name": "debug_maddpg",
-    "save_dir": "debug_checkpoints",
-    "log_dir": "debug_logs",
-    "plot_dir": "debug_plots"
+    "save_dir": "checkpoints",
+    "log_dir": "logs",
+    "plot_dir": "plots"
   },
   "environment": {
     "num_envs": 2,
     "max_steps": 24
   },
   "training": {
-    "total_episodes": 200,
+    "total_episodes": 20,
     "batch_size": 128,
     "warmup_episodes": 20,
     "actor_lr": 5e-5,

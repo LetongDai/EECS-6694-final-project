@@ -2,7 +2,7 @@
 
 Usage: 
 ```
-python train_debug.py
+python main.py [user_config path] [microgrid_config path]
 ```
 
 ## Introduction
