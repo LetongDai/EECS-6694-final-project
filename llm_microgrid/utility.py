@@ -89,7 +89,7 @@ class Plotter:
         self.colors = [base_colors[i % len(base_colors)] for i in range(self.num_agents)]
 
     def plot_training_status(self, logger, episode):
-        fig, axes = plt.subplots(1, 3, figsize=(10, 10))
+        fig, axes = plt.subplots(1, 3, figsize=(30, 10))
         fig.suptitle(f'Training Progress - Episode {episode}', fontsize=16)
 
         episodes = list(range(1, len(logger.episode_rewards) + 1))
@@ -126,7 +126,7 @@ class Plotter:
         return path
 
     def plot_grid_status(self, logger, episode):
-        fig, axes = plt.subplots(1, 2, figsize=(10, 10))
+        fig, axes = plt.subplots(1, 2, figsize=(20, 10))
         fig.suptitle(f'Grid Analysis - Episode {episode}', fontsize=16)
 
         episodes = list(range(1, len(logger.grid_imports) + 1))

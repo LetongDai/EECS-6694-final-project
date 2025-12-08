@@ -91,6 +91,7 @@ class DetailedTrainer:
         for ep in range(self.config.warmup_episodes):
             self.trainer.rollout()
             if ep % 5 == 0: self.logger.log(f"Warmup {ep}/{self.config.warmup_episodes}")
+        self.logger.log(f"Warmup {self.config.warmup_episodes}/{self.config.warmup_episodes}")
 
         # Main Loop
         for episode in range(1, self.config.total_episodes + 1):
