@@ -1,8 +1,3 @@
-"""
-Enhanced Environment wrapper for Microgrid MADDPG
-完整实现5个agents参与拍卖的多智能体RL环境
-"""
-
 import numpy as np
 from typing import Dict
 import json
@@ -14,19 +9,6 @@ from microgrid_components import (
 
 
 class MicrogridEnv:
-    """
-    Multi-Agent Microgrid Environment with Full Auction Mechanism
-    
-    5 learning agents participate:
-    1. Wind - sells with bid
-    2. Solar - sells with bid  
-    3. Diesel - sells with power control + bid
-    4. Battery - buys/sells with charge control + bid
-    5. Customer - demand response (curtailment)
-    
-    Main Grid balances as rule-based participant
-    """
-    
     def __init__(self, config_path, num_envs=1, max_steps=24, use_policy=True):
         self.num_envs = num_envs
         self.max_steps = max_steps
@@ -48,7 +30,6 @@ class MicrogridEnv:
         self.microgrids = [self._create_microgrid() for _ in range(num_envs)]
         self.current_steps = np.zeros(num_envs, dtype=np.int32)
 
-        # 使用配置替换硬编码值
         self.price_min = self.config['market']['price_min']
         self.price_max = self.config['market']['price_max']
         self.max_customer_curtail = self.config['market']['max_customer_curtail']
@@ -58,14 +39,13 @@ class MicrogridEnv:
         self.reward_function = self._default_reward_function  # 新增
 
     def set_reward_function(self, reward_fn):
-        """允许外部设置自定义reward函数"""
+        """Allow to use LLM generated reward function"""
         self.reward_function = reward_fn
 
     def _create_microgrid(self) -> dict:
-        """Create microgrid matching microgrid_auction.py components"""
         components = {}
 
-        # 动态创建suppliers
+        # Creating suppliers
         for supplier_cfg in self.supplier_configs:
             name = supplier_cfg['name']
             stype = supplier_cfg['type']
@@ -77,7 +57,7 @@ class MicrogridEnv:
             elif stype == 'diesel':
                 components[name] = DieselGenerator(name=name, config=supplier_cfg)
 
-        # 创建battery和customer
+        # Creating battery and customer
         components['battery'] = Battery(name='Battery', config=self.config['components']['battery'])
         components['customer'] = CustomerLoad(name='CustomerLoad', config=self.config['components']['customer'])
         
@@ -85,8 +65,6 @@ class MicrogridEnv:
 
     def _generate_env_data(self, env_idx: int) -> Dict:
         time_hour = self.current_steps[env_idx] % 24
-
-        # 动态生成每个supplier的环境数据
         env_data = {'time_hour': time_hour}
 
         for supplier_cfg in self.supplier_configs:
@@ -106,18 +84,6 @@ class MicrogridEnv:
         return env_data
 
     def _run_auction(self, env_idx: int, actions: np.ndarray, env_data: Dict) -> Dict:
-        """
-        Run DOUBLE AUCTION with uniform price clearing
-
-        Double Auction Process:
-        1. Parse agent actions and update component states
-        2. Build sell orders (asks) from suppliers
-        3. Build buy orders (bids) from demanders
-        4. Match orders: trade where buyer_bid >= seller_ask
-        5. Aggregate allocations per agent
-        6. Calculate grid import/export and market metrics
-        """
-
         mg = self.microgrids[env_idx]
         hour = env_data['time_hour']
 
@@ -349,7 +315,6 @@ class MicrogridEnv:
     
     def _default_reward_function(self, env_idx: int, auction_results: Dict, env_data: Dict,
                           use_policy_incentive: bool = True) -> np.ndarray:
-        """Calculate rewards with dynamic suppliers"""
         params = self.config['reward_params']
         RENEWABLE_SUBSIDY = params['renewable_subsidy']
         CARBON_TAX = params['carbon_tax']
@@ -383,7 +348,6 @@ class MicrogridEnv:
                     total_renewable_power += power
 
             elif stype == 'diesel':
-                # Diesel generator
                 if power > 0:
                     base_profit = power * (clearing_price - 8.0) / 100.0
                     rewards[idx] = base_profit
@@ -403,15 +367,12 @@ class MicrogridEnv:
         idx += 1
 
         # Customer reward
-        curtailed = auction_results['curtailed_load']
-
-        # Calculate actual electricity cost from trades
         electricity_cost = 0.0
         for trade in matched_trades:
             if trade['buyer'] == 'customer':
                 electricity_cost += trade['quantity'] * trade['price'] / 100.0
 
-        discomfort_cost = K * curtailed / 100.0
+        discomfort_cost = K * auction_results['curtailed_load'] / 100.0
         base_expense = electricity_cost + discomfort_cost
 
         # Green energy discount
@@ -431,7 +392,6 @@ class MicrogridEnv:
         return rewards
 
     def _get_observation(self, env_idx, env_data, auction_results=None):
-        """Get observations with dynamic suppliers"""
         mg = self.microgrids[env_idx]
         time_hour = env_data['time_hour']
         time_normalized = time_hour / 24.0

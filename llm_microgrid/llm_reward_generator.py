@@ -1,7 +1,6 @@
 import ast
 import json
 import numpy as np
-import inspect
 from llm_config import *
 import google.generativeai as genai
 
@@ -11,11 +10,9 @@ class LLMRewardGenerator:
         self.model = model
         self.max_tokens = max_tokens
 
-        # 解析配置获取agent信息
         with open(config_path, 'r') as f:
             config = json.load(f)
 
-        # 提取agent名称和类型
         self.agent_names = []
         self.agent_types = []
 
@@ -35,16 +32,14 @@ class LLMRewardGenerator:
         self.client = genai.GenerativeModel(self.model)
 
     def generate_reward_code(self, policy_description):
-        """根据自然语言生成reward函数代码"""
-        # 构建agent列表字符串
+        # Construct agent list
         agent_list = '\n'.join([
             f"  [{i}] {name} (type: {type_})"
             for i, (name, type_) in enumerate(zip(self.agent_names, self.agent_types))
         ])
-
         agent_names_str = '[' + ', '.join(self.agent_names) + ']'
 
-        # 构建allocated_power字典的键列表（不包括customer，因为customer不在allocated_power中）
+        # Construct dict of allocated_power（doesn't include customer）
         agent_names_dict_keys = ', '.join([f"'{name}'" for name in self.agent_names[:-1]] + ["'main_grid'"])
 
         prompt = PROMPT_TEMPLATE.format(
@@ -59,14 +54,13 @@ class LLMRewardGenerator:
         return response.text
 
     def validate_and_compile(self, code):
-        """验证并编译生成的代码"""
         code = code.replace("```python", "").replace("```", "").strip()
 
-        # 安全检查
+        # Security check
         try:
             tree = ast.parse(code)
 
-            # 检查禁止的导入
+            # Check suspicious import statements
             for node in ast.walk(tree):
                 if isinstance(node, ast.Import) or isinstance(node, ast.ImportFrom):
                     if isinstance(node, ast.Import):
@@ -77,7 +71,7 @@ class LLMRewardGenerator:
                     if any(f in str(module_names) for f in FORBIDDEN_IMPORTS):
                         raise ValueError(f"Forbidden import detected: {module_names}")
 
-            # 检查函数签名
+            # Check function signature
             function_found = False
             for node in ast.walk(tree):
                 if isinstance(node, ast.FunctionDef) and node.name == REQUIRED_FUNCTION_NAME:
@@ -110,7 +104,7 @@ class LLMRewardGenerator:
         except SyntaxError as e:
             raise ValueError(f"Syntax error in generated code: {e}")
 
-        # 构建测试数据
+        # Build test data
         test_auction_results = {
             'clearing_price': 0.25,
             'allocated_power': {name: 10.0 for name in self.agent_names[:-1]} | {'main_grid': 20.0},
@@ -128,7 +122,7 @@ class LLMRewardGenerator:
             'time_hour': 12
         }
 
-        # 测试调用
+        # Run test
         namespace = {'np': np, 'numpy': np, 'Dict': dict}
         exec(code, namespace)
 
@@ -141,7 +135,7 @@ class LLMRewardGenerator:
         except Exception as e:
             raise ValueError(f"Function failed on test input: {e}")
 
-        # 验证返回值
+        # Check return
         expected_shape = (self.n_agents,)
         if not isinstance(result, np.ndarray):
             raise ValueError(f"Return type must be np.ndarray, got {type(result)}")

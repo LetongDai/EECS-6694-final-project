@@ -1,13 +1,3 @@
-#!/usr/bin/env python3
-"""
-Debug Training Script with Comprehensive Visualization & Strategy Logging
-整合功能:
-1. Transformer 参数适配
-2. Main Grid 进出口分析
-3. 每日报价与发电策略日志
-4. 多维度绘图系统
-"""
-
 import torch
 import json
 from pathlib import Path
@@ -26,14 +16,13 @@ class DebugConfig:
             config_dict = json.load(f)
         self._load_from_dict(config_dict)
 
-        # 创建目录
         Path(self.save_dir).mkdir(exist_ok=True)
         Path(self.log_dir).mkdir(exist_ok=True)
         Path(self.plot_dir).mkdir(exist_ok=True)
 
     def _load_from_dict(self, config_dict):
-        """从配置字典加载参数"""
-        # LLM配置
+        """load user configuration"""
+        # LLM
         llm = config_dict.get('llm', {})
         self.llm_enabled = llm.get('enabled', True)
         self.llm_api_key = llm.get('api_key', 'your_anthropic_api_key')
@@ -42,7 +31,7 @@ class DebugConfig:
         self.llm_provider = llm.get('provider', 'gemini')
         self.llm_policy_description = llm.get('policy_description', '')
 
-        # 实验配置
+        # Experiment
         exp = config_dict.get('experiment', {})
         exp_name_base = exp.get('exp_name', 'debug_maddpg')
         self.exp_name = f"{exp_name_base}_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
@@ -50,12 +39,12 @@ class DebugConfig:
         self.log_dir = exp.get('log_dir', 'debug_logs')
         self.plot_dir = exp.get('plot_dir', 'debug_plots')
 
-        # 环境配置
+        # Environment
         env = config_dict.get('environment', {})
         self.num_envs = env.get('num_envs', 2)
         self.max_steps = env.get('max_steps', 24)
 
-        # 训练配置
+        # Training
         train = config_dict.get('training', {})
         self.total_episodes = train.get('total_episodes', 200)
         self.batch_size = train.get('batch_size', 128)
@@ -66,13 +55,13 @@ class DebugConfig:
         self.tau = train.get('tau', 0.01)
         self.buffer_capacity = train.get('buffer_capacity', 50000)
 
-        # 探索配置
+        # Exploration
         explore = config_dict.get('exploration', {})
         self.noise_scale = explore.get('noise_scale', 0.3)
         self.noise_decay = explore.get('noise_decay', 0.996)
         self.noise_min = explore.get('noise_min', 0.02)
 
-        # 日志配置
+        # Logging
         log = config_dict.get('logging', {})
         self.log_interval = log.get('log_interval', 1)
         self.plot_interval = log.get('plot_interval', 20)
@@ -84,8 +73,7 @@ class DetailedTrainer:
         self.env = env
         self.agents = agents
         self.config = config
-        
-        # 初始化 Trainer
+
         self.trainer = Trainer(env, agents, config, buffer_capacity=config.buffer_capacity)
 
         self.agent_names = env.agent_names
@@ -96,7 +84,7 @@ class DetailedTrainer:
     
     def train(self):
         self.logger.log("\n" + "="*70)
-        self.logger.log("开始训练 (Transformer Agents + Strategy Logging)")
+        self.logger.log("Training begin")
         self.logger.log("="*70)
 
         # Warmup
@@ -122,14 +110,14 @@ class DetailedTrainer:
                 'grid_import': g_imp,
                 'grid_export': g_exp,
                 'clearing_price': avg_price,
-                'avg_bids': avg_bids,   # 传入 Strategy
-                'total_gen': total_gen  # 传入 Strategy
+                'avg_bids': avg_bids,
+                'total_gen': total_gen
             }
             self.logger.log_episode(episode, ep_data)
             
             # Plot
             if episode % self.config.plot_interval == 0:
-                self.logger.log(f"\n生成图表...")
+                self.logger.log(f"\nGenerating plots")
                 p1 = self.plotter.plot_training_status(self.logger, episode)
                 p2 = self.plotter.plot_grid_status(self.logger, episode)
                 self.logger.log(f"  {p1}")
@@ -140,10 +128,10 @@ class DetailedTrainer:
         
         # End
         self.logger.log("="*70)
-        self.logger.log("训练完成")
+        self.logger.log("Training complete")
         self.logger.save_stats()
         final_plot = self.plotter.create_final_summary(self.logger)
-        self.logger.log(f"最终总结图: {final_plot}")
+        self.logger.log(f"Final summary: {final_plot}")
         self.logger.close()
 
     def save_checkpoint(self, episode):
@@ -157,18 +145,17 @@ class DetailedTrainer:
 
 
 def setup_llm_reward(env, policy_description, api_key, model, max_tokens, microgrid_config):
-    """设置LLM生成的reward函数"""
     llm_gen = LLMRewardGenerator(api_key=api_key, model=model, max_tokens=max_tokens, config_path=microgrid_config)
 
     policy_text = policy_description
 
     try:
-        print("Generating reward function from policy description...")
+        print("Generating reward function from policy description")
         reward_code = llm_gen.generate_reward_code(policy_text)
         print("\nGenerated reward code:")
         print(reward_code)
-        print("\nValidating and compiling...")
 
+        print("\nValidating and compiling")
         reward_fn = llm_gen.validate_and_compile(reward_code)
         env.reward_function = reward_fn
         print("Custom reward function loaded successfully\n")
@@ -179,19 +166,12 @@ def setup_llm_reward(env, policy_description, api_key, model, max_tokens, microg
         return False
 
 
-def main(microgrid_config, user_config=None):
-    if user_config:
-        print(f"Loading configuration from {user_config}")
-    else:
-        print("No config file specified, using default configuration")
-
-    # 初始化配置（自动从JSON加载或使用默认值）
+def main(microgrid_config, user_config):
+    print(f"Loading configuration from {user_config}")
     config = DebugConfig(user_config)
 
-    # 初始化环境
     env = MicrogridEnv(microgrid_config, num_envs=config.num_envs, max_steps=config.max_steps)
 
-    # LLM Reward生成
     if config.llm_enabled:
         setup_llm_reward(
             env,
@@ -210,8 +190,8 @@ def main(microgrid_config, user_config=None):
 
     for i, name in enumerate(env.agent_names):
         agent = Agent(
-            obs_size=5,  # 统一obs维度 (padding后)
-            act_size=env.act_sizes[env.agent_types[i]],  # 使用type获取act_size
+            obs_size=5,  # padding to the same dimension
+            act_size=env.act_sizes[env.agent_types[i]],
             num_agents=env.num_agents,
             max_act_size=max_act_size,
             lr=config.actor_lr,
@@ -226,7 +206,6 @@ def main(microgrid_config, user_config=None):
 
 
 if __name__ == "__main__":
-    # 从命令行参数读取配置文件路径
     import sys
     user_config = sys.argv[1] if len(sys.argv) > 1 else "user_config.json"
     microgrid_config = sys.argv[2] if len(sys.argv) > 2 else "microgrid_config.json"

@@ -7,7 +7,7 @@ class Agent:
              lr=1e-4, critic_lr=1e-3, gamma=0.95, tau=0.01):
         
         # networks
-        # Critic 的输入维度是所有 Agent 的 obs + act 总和
+        # Critic input is all actions and all observations
         self.actor = TransformerActor(obs_size, act_size)
         self.critic = TransformerCritic(obs_size * num_agents, max_act_size * num_agents)
         self.target_actor = TransformerActor(obs_size, act_size)
@@ -47,12 +47,9 @@ class Agent:
         rewards_i = rewards[:, idx].unsqueeze(1)  # [batch, 1]
         dones_i = dones[:, idx].unsqueeze(1)      # [batch, 1]
 
-        # ----------------------------
-        # Critic Update
-        # ----------------------------
+        # Critic update
         with torch.no_grad():
             target_q = self.target_critic(next_obs_flat, next_acts_flat)
-            # 确保维度匹配，防止广播错误
             y = rewards_i + self.gamma * (1 - dones_i) * target_q
 
         current_q = self.critic(obs_flat, acts_flat)
@@ -63,9 +60,7 @@ class Agent:
         torch.nn.utils.clip_grad_norm_(self.critic.parameters(), 1)
         self.critic_optimizer.step()
 
-        # ----------------------------
-        # Actor Update
-        # ----------------------------
+        # Actor update
         new_act_i = self.actor(obs[:, idx])
 
         new_acts = acts.clone()
@@ -83,6 +78,6 @@ class Agent:
 
     def predict(self, obs):
         if obs.dim() == 1:
-            obs = obs.unsqueeze(0) # [1, obs_size]
+            obs = obs.unsqueeze(0)
         
         return self.target_actor(obs).detach().cpu().numpy()

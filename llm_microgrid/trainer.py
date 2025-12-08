@@ -20,7 +20,7 @@ class Trainer:
         episode_reward = np.zeros(num_agents)
         actions_collected = []
 
-        # 动态初始化统计
+        # statistics, doesn't used in training
         daily_stats = {
             'bids_sum': {name: 0.0 for name in agent_names if name != 'customer'},
             'gen_sum': {name: 0.0 for name in agent_names if name != 'customer'}
@@ -52,7 +52,7 @@ class Trainer:
             info = infos[0]
 
             for name in agent_names:
-                if name != 'customer':  # 排除customer
+                if name != 'customer':
                     if name in info['bids']:
                         daily_stats['bids_sum'][name] += info['bids'][name]
                     if name in info['allocated_power']:
@@ -75,8 +75,6 @@ class Trainer:
 
         actions_stats = actions_collected
         avg_price = np.mean(clearing_prices) if clearing_prices else 0
-
-        # 计算平均bids
         avg_bids = {k: v / (step + 1) for k, v in daily_stats['bids_sum'].items()}
         total_gen = daily_stats['gen_sum']
 
@@ -85,12 +83,10 @@ class Trainer:
                 avg_price, avg_bids, total_gen)
     
     def train_agents(self, batch_size):
-        # Check if buffer has enough samples
         if len(self.replay_buffer) < batch_size:
             return
 
-        # Sample from replay buffer
-        # Shapes after sampling: [batch_size, num_envs, num_agents, feature_size]
+        # Shapes: [batch_size, num_envs, num_agents, feature_size]
         obs, acts, rewards, next_obs, dones = self.replay_buffer.sample(batch_size)
 
         num_agents = len(self.agents)
@@ -102,7 +98,6 @@ class Trainer:
         rewards = rewards.reshape(-1, num_agents)
         dones = dones.reshape(-1, num_agents)
 
-        # Generate next actions for each agent
         # Generate next actions for each agent (with padding)
         batch_size_flat = next_obs.shape[0]
         num_agents = len(self.agents)
@@ -113,6 +108,7 @@ class Trainer:
             next_act = agent.target_actor(next_obs[:, i]).detach()
             next_acts[:, i, :agent.act_size] = next_act
 
+        # Training
         sample = (obs, acts, rewards, next_obs, dones, next_acts)
         for i, agent in enumerate(self.agents):
             agent.train_on(sample, i)

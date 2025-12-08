@@ -1,15 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Enhanced Microgrid with Full 5-Agent Auction Mechanism
-
-This version extends the original microgrid_auction.py to support:
-- Wind and Solar agents submitting bids
-- Diesel agent controlling power output and bidding
-- Battery agent bidding for charging/discharging
-- Customer agent with demand response (curtailment)
-- Uniform price auction market clearing
-"""
-
 import numpy as np
 from typing import Tuple
 
@@ -32,7 +20,6 @@ class MicrogridComponent:
 
 
 class WindTurbine(MicrogridComponent):
-    """Represents a wind turbine with bidding capability."""
     def __init__(self, name, config):
         super().__init__(name)
         self.capacity = config['capacity']
@@ -43,11 +30,6 @@ class WindTurbine(MicrogridComponent):
     def update(self, timestep, data=None):
         """
         Update the wind turbine's power output based on wind speed data.
-
-        Args:
-            timestep: The current simulation timestep.
-            data: A dictionary containing relevant data, e.g., 
-                  {'wind_speed': float, 'bid': float, 'accepted_power': float}.
         """
         if data and 'wind_speed' in data:
             wind_speed = data['wind_speed']
@@ -64,7 +46,6 @@ class WindTurbine(MicrogridComponent):
 
 
 class PVSystem(MicrogridComponent):
-    """Represents a PV (solar) system with bidding capability."""
     def __init__(self, name, config):
         super().__init__(name)
         self.capacity = config['capacity']
@@ -73,11 +54,6 @@ class PVSystem(MicrogridComponent):
     def update(self, timestep, data=None):
         """
         Update the PV system's power output based on solar irradiance data.
-
-        Args:
-            timestep: The current simulation timestep.
-            data: A dictionary containing relevant data, e.g., 
-                  {'solar_irradiance': float, 'bid': float, 'accepted_power': float}.
         """
         if data and 'solar_irradiance' in data:
             solar_irradiance = data['solar_irradiance']  # W/m^2
@@ -89,7 +65,6 @@ class PVSystem(MicrogridComponent):
 
 
 class DieselGenerator(MicrogridComponent):
-    """Represents a diesel generator with power control and bidding."""
     def __init__(self, name, config):
         super().__init__(name)
         self.capacity = config['capacity']
@@ -102,11 +77,6 @@ class DieselGenerator(MicrogridComponent):
     def update(self, timestep, data=None):
         """
         Update the diesel generator's power output and fuel level.
-
-        Args:
-            timestep: The current simulation timestep (in hours).
-            data: A dictionary containing relevant data, e.g., 
-                  {'target_power': float, 'bid': float, 'accepted_power': float}.
         """
         # Update target power if provided (from agent)
         if data and 'target_power' in data:
@@ -139,7 +109,6 @@ class DieselGenerator(MicrogridComponent):
 
 
 class Battery(MicrogridComponent):
-    """Represents an energy storage system (battery) with bidding for charge/discharge."""
     def __init__(self, name, config):
         super().__init__(name)
         self.capacity_kwh = config['capacity_kwh']
@@ -154,12 +123,6 @@ class Battery(MicrogridComponent):
     def update(self, timestep, data=None):
         """
         Update the battery's state of charge and power output.
-
-        Args:
-            timestep: The current simulation timestep (in hours).
-            data: A dictionary containing relevant data, e.g., 
-                  {'target_action': float, 'bid': float, 'accepted_power': float}.
-                  target_action: -1 to 1 (negative = charge, positive = discharge)
         """
         # Update target action if provided (from agent)
         if data and 'target_action' in data:
@@ -204,7 +167,6 @@ class Battery(MicrogridComponent):
 
 
 class CustomerLoad(MicrogridComponent):
-    """Represents the aggregate energy consumption of customers with demand response."""
     def __init__(self, name, config):
         super().__init__(name)
         self.base_demand = 0  # Base load demand in kW
@@ -215,11 +177,6 @@ class CustomerLoad(MicrogridComponent):
     def update(self, timestep, data=None):
         """
         Update the customer load based on load data and curtailment.
-
-        Args:
-            timestep: The current simulation timestep.
-            data: A dictionary containing relevant data, e.g., 
-                  {'base_load': float, 'curtailment_ratio': float}.
         """
         if data and 'base_load' in data:
             self.base_demand = data['base_load']
@@ -234,12 +191,6 @@ class CustomerLoad(MicrogridComponent):
         self.power_output = -self.actual_consumption
 
     def get_demand(self) -> Tuple[float, float, float]:
-        """
-        Get demand information.
-        
-        Returns:
-            (base_demand, curtailment_ratio, actual_consumption)
-        """
         return self.base_demand, self.curtailment_ratio, self.actual_consumption
 
 
@@ -260,7 +211,7 @@ def get_grid_price(hour: int, config: dict) -> Tuple[float, float]:
     pricing = config['environment']['grid_pricing']
     import_price = 0
 
-    # 判断时段
+    # Different import price for different hours
     found = False
     for hours_range in pricing['off_peak']['hours']:
         if hours_range[0] <= hour < hours_range[1]:

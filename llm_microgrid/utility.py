@@ -7,17 +7,14 @@ from datetime import datetime
 
 
 class DetailedLogger:
-    """增强版日志：支持 Grid 分析和 策略详情"""
 
     def __init__(self, config, agent_names):
         self.config = config
         self.agent_names = agent_names
 
-        # RL 基础数据
         self.episode_rewards = []
         self.episode_rewards_per_agent = []
 
-        # Grid 数据
         self.grid_imports = []
         self.grid_exports = []
         self.clearing_prices = []
@@ -33,34 +30,28 @@ class DetailedLogger:
             print(log_msg)
 
     def log_episode(self, episode, episode_data):
-        # 1. 归档数据
         self.episode_rewards.append(episode_data['total_reward'])
         self.episode_rewards_per_agent.append(episode_data['rewards_per_agent'])
-
         self.grid_imports.append(episode_data['grid_import'])
         self.grid_exports.append(episode_data['grid_export'])
         self.clearing_prices.append(episode_data['clearing_price'])
 
-        # 2. 控制台输出 - 基础信息
         self.log(f"\n{'=' * 60}")
         self.log(f"Episode {episode}/{self.config.total_episodes}")
-        self.log(f"总奖励: {episode_data['total_reward']:8.2f}")
+        self.log(f"Total Reward: {episode_data['total_reward']:8.2f}")
 
-        self.log(f"Agent奖励:")
+        self.log(f"Agent Rewards:")
         for i, name in enumerate(self.agent_names):
             self.log(f"  {name:15s}: {episode_data['rewards_per_agent'][i]:8.3f}")
-
         self.log(
-            f"Grid交易: Import={episode_data['grid_import']:.1f} | Export={episode_data['grid_export']:.1f}")
+            f"Grid Status: Import={episode_data['grid_import']:.1f} | Export={episode_data['grid_export']:.1f}")
 
-        # 3. 控制台输出 - 策略详情 (报价 & 发电) - 动态
         if 'avg_bids' in episode_data and 'total_gen' in episode_data:
             self.log("-" * 60)
-            self.log(f"每日策略详情 (Avg Bid / Total Gen):")
+            self.log(f"Daily Status (Avg Bid / Total Gen):")
             bids = episode_data['avg_bids']
             gen = episode_data['total_gen']
 
-            # 动态输出所有agents
             for name in self.agent_names:
                 if name == 'battery':
                     bat_net = gen[name]
@@ -88,7 +79,6 @@ class DetailedLogger:
 
 
 class Plotter:
-    """全能绘图器 (Training Curves + Agent Details + Grid Analysis)"""
 
     def __init__(self, config, agent_names):
         self.config = config
@@ -99,7 +89,6 @@ class Plotter:
         self.colors = [base_colors[i % len(base_colors)] for i in range(self.num_agents)]
 
     def plot_training_status(self, logger, episode):
-        """Standard RL Curves"""
         fig, axes = plt.subplots(1, 3, figsize=(10, 10))
         fig.suptitle(f'Training Progress - Episode {episode}', fontsize=16)
 
@@ -137,7 +126,6 @@ class Plotter:
         return path
 
     def plot_grid_status(self, logger, episode):
-        """Main Grid Import/Export Analysis"""
         fig, axes = plt.subplots(1, 2, figsize=(10, 10))
         fig.suptitle(f'Grid Analysis - Episode {episode}', fontsize=16)
 
@@ -166,12 +154,11 @@ class Plotter:
         return path
 
     def create_final_summary(self, logger):
-        """生成最终总结大图 (3x3)"""
         fig = plt.figure(figsize=(20, 12))
         gs = fig.add_gridspec(3, 3, hspace=0.3, wspace=0.3)
         episodes = list(range(1, len(logger.episode_rewards) + 1))
 
-        # 1. Total Reward Trend
+        # Total Reward Trend
         ax = fig.add_subplot(gs[0, :])
         ax.plot(episodes, logger.episode_rewards, 'b-', alpha=0.2)
         if len(episodes) > 20:
@@ -179,7 +166,7 @@ class Plotter:
         ax.set_title('Total Reward Progression')
         ax.grid(True, alpha=0.3)
 
-        # 2. Agent Rewards
+        # Agent Rewards
         ax = fig.add_subplot(gs[1, 0])
         rewards_arr = np.array(logger.episode_rewards_per_agent)
         for i, name in enumerate(self.agent_names):
@@ -188,7 +175,7 @@ class Plotter:
         ax.set_title('Agent Rewards')
         ax.legend(fontsize='small')
 
-        # 3. Grid Interaction
+        # Grid Interaction
         ax = fig.add_subplot(gs[1, 1])
         ax.plot(episodes, logger.grid_imports, 'r', alpha=0.5, label='Imp')
         ax.plot(episodes, logger.grid_exports, 'g', alpha=0.5, label='Exp')
