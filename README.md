@@ -27,5 +27,7 @@ Innovations:
 
 ## Notes:
 The default setting enables the LLM generated reward.
+
 To use this feature you need to provide a valid Google Gemini API key.
+
 Otherwise you can disable the setting in user_config.json.
